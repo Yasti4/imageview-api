@@ -1,0 +1,14 @@
+{
+    "dev": {
+        "host": "localhost",
+        "user": "root",
+        "password": "root",
+        "database": "www_imageview",
+        "driver": "mysql",
+        "multipleStatements": true
+    },
+    "migration": {
+        "dir": "./src/migrations",
+        "table": "migration"
+    }
+}
