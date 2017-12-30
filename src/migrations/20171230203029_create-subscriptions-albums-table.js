@@ -1,7 +1,7 @@
 exports.up = function(knex, Promise) {
     return Promise.all([
         knex.schema.createTableIfNotExists('subscriptions_albums', function(table) {
-            table.bigInteger('id').unsigned().primary();
+            table.bigIncrements('id').unsigned().primary();
             table.integer('album_id').unsigned().notNullable()
                 .references('id')
                 .inTable('albums');

@@ -1,7 +1,7 @@
 exports.up = function(knex, Promise) {
     return Promise.all([
         knex.schema.createTableIfNotExists('albums', function(table) {
-            table.integer('id').primary().unsigned();
+            table.increments('id').primary().unsigned();
             table.string('title').notNullable();
             table.string('description').nullable();
             table.string('visibility').notNullable()

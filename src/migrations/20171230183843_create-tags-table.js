@@ -1,7 +1,7 @@
 exports.up = function(knex, Promise) {
     return Promise.all([
         knex.schema.createTableIfNotExists('tags', function(table) {
-            table.integer('id').primary().unsigned();
+            table.increments('id').primary().unsigned();
             table.string('name').unique().notNullable();
         }).then(console.log(`Table 'tags' has be created`))
     ])

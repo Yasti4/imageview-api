@@ -1,7 +1,7 @@
 const limit = 30;
 exports.seed = function(knex, Promise) {
     // Deletes ALL existing entries
-    return knex('roles').del()
+    return knex('tags').del()
         .then(() => {
             const faker = require('faker/locale/es');
             // Inserts seed entries
@@ -9,10 +9,10 @@ exports.seed = function(knex, Promise) {
             for (let index = 0; index < limit; index++) {
                 data.push({ name: faker.name.findName() });
             }
-            return knex('roles').insert(data)
-                .then(console.log(`Tabla 'roles' Datos OK \n`))
+            return knex('tags').insert(data)
+                .then(console.log(`Tabla 'tags' Datos OK \n`))
                 .catch((error) => {
-                    console.log(`Tabla 'roles' Datos Fail\n${error}`)
+                    console.log(`Tabla 'tags' Datos Fail\n${error}`)
                 });
         });
 };

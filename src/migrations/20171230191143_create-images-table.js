@@ -1,7 +1,7 @@
 exports.up = function(knex, Promise) {
     return Promise.all([
         knex.schema.createTableIfNotExists('images', function(table) {
-            table.integer('id').primary().unsigned();
+            table.increments('id').primary().unsigned();
             table.string('small').nullable();
             table.string('medium').nullable();
             table.string('large').notNullable();
