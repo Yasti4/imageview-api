@@ -5,15 +5,16 @@
     "main": "app.js",
     "scripts": {
         "start": "nodemon src/app.js --exec babel-node --presets es2015",
-        "migrate:create": "db-migrate --env dev --config=src/config/database.json --migrations-dir=src/migrations create",
-        "migrate:run-up": "db-migrate --config=src/config/database.json --migrations-dir=src/migrations up",
-        "migrate:run-down": "db-migrate --config=src/config/database.json --migrations-dir=src/migrations down"
+        "knex-db-migrate": "./node_modules/knex/bin/cli.js --env=dev",
+        "knex-migrate:create": "npm run knex-db-migrate --knexfile=./knexfile.js migrate:make",
+        "knex-migrate:run": "npm run knex-db-migrate --knexfile=./knexfile.js migrate:latest"
     },
     "author": "Adria Muñoz, Denis Navarro",
     "license": "MIT",
     "dependencies": {
         "bcrypt": "^1.0.3",
         "body-parser": "^1.18.2",
+        "bookshelf": "^0.12.0",
         "bookshelf-eloquent": "^0.1.15",
         "db-migrate": "^0.10.2",
         "db-migrate-mysql": "^1.1.10",
@@ -22,6 +23,7 @@
         "graphql": "^0.12.3",
         "graphql-fields": "^1.0.2",
         "jwt-simple": "^0.5.1",
+        "knex": "^0.14.2",
         "moment": "^2.20.1",
         "mysql": "^2.15.0"
     },

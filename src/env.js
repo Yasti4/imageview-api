@@ -1,14 +1,14 @@
 import fs from 'fs';
+import knexfile from '../knexfile';
 
-const database = JSON.parse(fs.readFileSync(`${__dirname}/config/database.json`));
 const app = JSON.parse(fs.readFileSync(`${__dirname}/config/app.json`));
 
 export default {
     db: {
-        host: database.dev.host,
-        user: database.dev.user,
-        password: database.dev.password,
-        database: database.dev.database
+        host: knexfile.dev.connection.host,
+        user: knexfile.dev.connection.user,
+        password: knexfile.dev.connection.password,
+        database: knexfile.dev.connection.database
     },
     app: {
         url: app.url,
