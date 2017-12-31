@@ -2,13 +2,14 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import graphqlHTTP from 'express-graphql';
 import mysql from 'mysql';
-import knex from 'knex';
-import knexfile from '../knexfile';
-import bookshelf from 'bookshelf';
-import bookshelf_eloquent from 'bookshelf-eloquent';
+import { bookshelf } from "./config/database";
+// import knex from 'knex';
+// import knexfile from '../knexfile';
+// import bookshelf from 'bookshelf';
+// import bookshelf_eloquent from 'bookshelf-eloquent';
 
-bookshelf.bookshelf_eloquent;
-knex.knexfile;
+// bookshelf.bookshelf_eloquent;
+// knex.knexfile;
 
 
 // var knex = require('knex')(knexfile);
