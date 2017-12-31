@@ -4,7 +4,7 @@
   "description": "An API for an image sharing platform.",
   "main": "app.js",
   "scripts": {
-    "start": "concurrently --kill-others './node_modules/typescript/bin/tsc -w' 'nodemon ./dist/app.js'",
+    "start": "concurrently --kill-others './node_modules/typescript/bin/tsc -w' 'nodemon ./dist/src/app.js'",
     "build": "./node_modules/typescript/bin/tsc",
     "knex": "./node_modules/.bin/knex --env=development --knexfile=knexfile.js",
     "db:migrate": "npm run knex migrate:latest",
