@@ -1,24 +1,10 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import graphqlHTTP from 'express-graphql';
-import mysql from 'mysql';
-import { bookshelf } from "./config/database";
-// import knex from 'knex';
-// import knexfile from '../knexfile';
-// import bookshelf from 'bookshelf';
-// import bookshelf_eloquent from 'bookshelf-eloquent';
-
-// bookshelf.bookshelf_eloquent;
-// knex.knexfile;
-
-
-// var knex = require('knex')(knexfile);
-// var bookshelf = module.exports = require('bookshelf')(knex)
-// bookshelf.plugin('bookshelf-eloquent')
-
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import * as graphqlHTTP from 'express-graphql';
+import * as mysql from 'mysql';
 
 import env from './env';
-import graphqlOptions from './graphql';
+import * as graphqlOptions from './graphql';
 
 const app = express();
 const db = mysql.createConnection(env.db);

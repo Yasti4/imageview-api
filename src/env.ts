@@ -1,7 +1,6 @@
-import fs from 'fs';
-import knexfile from '../knexfile';
-
-const app = JSON.parse(fs.readFileSync(`${__dirname}/config/app.json`));
+import * as fs from 'fs';
+import * as knexfile from '../knexfile';
+import app from './config/app';
 
 export default {
     db: {
