@@ -1,7 +1,7 @@
-import * as dotenv from 'dotenv';
-const env = dotenv.config({ path: './../../.env' }).parsed;
+const dotenv = require('dotenv');
+const env = dotenv.config().parsed;
 
-export default {
+module.exports = {
 	development: {
 		client: env.DB_CONNECTION,
 		connection: {

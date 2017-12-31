@@ -1,4 +1,6 @@
-import { buildSchema } from 'graphql';
+import {
+	buildSchema
+} from 'graphql';
 import UserType from './types/user.type';
 import UserQueries from './queries/user.query';
 import UserResolvers from './resolvers/user.resolver';
@@ -10,7 +12,7 @@ const Mutations = [].join('\n');
 const Resolvers = Object.assign({}, UserResolvers);
 
 export default {
-    schema: buildSchema(`
+	schema: buildSchema(`
         ${Types}
         ${Inputs}
         type Query {
@@ -18,9 +20,9 @@ export default {
         }
     `),
 
-    // type Mutation {
-    //     ${Mutations}
-    // }
-    rootValue: Resolvers,
-    graphiql: true
+	// type Mutation {
+	//     ${Mutations}
+	// }
+	rootValue: Resolvers,
+	graphiql: true
 };
