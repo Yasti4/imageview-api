@@ -6,8 +6,6 @@ An API for an image sharing platform.
 
 > npm install
 
-> npm run build
-
 > npm run migrate
 
 > npm run db:seed
@@ -26,7 +24,7 @@ An API for an image sharing platform.
 
 ##### Query Builder
 
-- https://github.com/bookshelf/bookshelf
+- http://knexjs.org/
 
 ##### ORM
 
