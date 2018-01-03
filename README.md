@@ -8,7 +8,7 @@ An API for an image sharing platform.
 
 > npm run build
 
-> npm run db:migrate
+> npm run migrate
 
 > npm run db:seed
 
