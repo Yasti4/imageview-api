@@ -1,39 +1,39 @@
 {
-  "name": "imageview-api",
-  "version": "1.0.0",
-  "description": "An API for an image sharing platform.",
-  "scripts": {
-    "start": "concurrently --kill-others './node_modules/typescript/bin/tsc -w' 'nodemon ./dist/app.js'",
-    "build": "./node_modules/typescript/bin/tsc",
-    "migrate": "node ./dist/scripts/migrations.js --migrate",
-    "migrate:rollback": "node ./dist/scripts/migrations.js --rollback",
-    "make:migration": "node ./dist/scripts/migrations.js --make",
-    "db:seed": "build node ./dist/scripts/seeds.js --run",
-    "make:seeder": "node ./dist/scripts/seeds.js --make"
-  },
-  "author": "Adrià Muñoz, Denís Navarro",
-  "license": "MIT",
-  "dependencies": {
-    "bcrypt": "^1.0.3",
-    "body-parser": "^1.18.2",
-    "bookshelf": "^0.12.0",
-    "bookshelf-eloquent": "^0.1.15",
-    "dotenv": "^4.0.0",
-    "express": "^4.16.2",
-    "express-graphql": "^0.6.11",
-    "graphql": "^0.12.3",
-    "graphql-fields": "^1.0.2",
-    "jwt-simple": "^0.5.1",
-    "knex": "^0.14.2",
-    "moment": "^2.20.1",
-    "mysql": "^2.15.0"
-  },
-  "devDependencies": {
-    "@types/node": "^8.5.2",
-    "concurrently": "^3.5.1",
-    "eslint": "^4.14.0",
-    "faker": "^4.1.0",
-    "nodemon": "^1.14.3",
-    "typescript": "^2.6.2"
-  }
+    "name": "imageview-api",
+    "version": "1.0.0",
+    "description": "An API for an image sharing platform.",
+    "scripts": {
+        "start": "concurrently --kill-others './node_modules/typescript/bin/tsc -w' 'nodemon ./dist/app.js'",
+        "build": "./node_modules/typescript/bin/tsc",
+        "migrate": "npm run build && node ./dist/scripts/migrations.js --migrate",
+        "migrate:rollback": "npm run build && node ./dist/scripts/migrations.js --rollback",
+        "make:migration": "npm run build && node ./dist/scripts/migrations.js --make",
+        "db:seed": "npm run build && node ./dist/scripts/seeds.js --run",
+        "make:seeder": "npm run build && node ./dist/scripts/seeds.js --make"
+    },
+    "author": "Adrià Muñoz, Denís Navarro",
+    "license": "MIT",
+    "dependencies": {
+        "bcrypt": "^1.0.3",
+        "body-parser": "^1.18.2",
+        "bookshelf": "^0.12.0",
+        "bookshelf-eloquent": "^0.1.15",
+        "dotenv": "^4.0.0",
+        "express": "^4.16.2",
+        "express-graphql": "^0.6.11",
+        "graphql": "^0.12.3",
+        "graphql-fields": "^1.0.2",
+        "jwt-simple": "^0.5.1",
+        "knex": "^0.14.2",
+        "moment": "^2.20.1",
+        "mysql": "^2.15.0"
+    },
+    "devDependencies": {
+        "@types/node": "^8.5.2",
+        "concurrently": "^3.5.1",
+        "eslint": "^4.14.0",
+        "faker": "^4.1.0",
+        "nodemon": "^1.14.3",
+        "typescript": "^2.6.2"
+    }
 }
