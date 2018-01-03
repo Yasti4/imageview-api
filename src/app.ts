@@ -5,12 +5,12 @@ import * as mysql from 'mysql';
 import * as dotenv from 'dotenv'
 import * as graphqlOptions from './graphql';
 
-const env = dotenv.config().parsed;
+dotenv.load();
 mysql.createConnection({
-	host: env.DB_HOST,
-	database: env.DB_DATABASE,
-	user: env.DB_USERNAME,
-	password: env.DB_PASSWORD
+	host: process.env.DB_HOST,
+	database: process.env.DB_DATABASE,
+	user: process.env.DB_USERNAME,
+	password: process.env.DB_PASSWORD
 }).connect((err) => {
 	if (err) throw Error('MySQL not connected.');
 	const app = express();
@@ -22,8 +22,8 @@ mysql.createConnection({
 		next();
 	});
 	app.use('/graphql', graphqlHTTP(graphqlOptions));
-	app.listen(env.APP_PORT, (err) => {
+	app.listen(process.env.APP_PORT, (err) => {
 		if (err) throw new Error('HTTP not enabled.');
-		console.log(`Server running at ${env.APP_URL}:${env.APP_PORT}`);
+		console.log(`Server running at ${process.env.APP_URL}:${process.env.APP_PORT}`);
 	});
 });

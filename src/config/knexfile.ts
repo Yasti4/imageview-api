@@ -1,21 +1,19 @@
 import * as dotenv from 'dotenv';
-const env = dotenv.config({ path: './../../.env' }).parsed;
+dotenv.load();
 
-export default {
-	development: {
-		client: env.DB_CONNECTION,
-		connection: {
-			host: env.DB_HOST,
-			user: env.DB_USERNAME,
-			password: env.DB_PASSWORD,
-			database: env.DB_DATABASE
-		},
-		migrations: {
-			directory: 'dist/migrations',
-			tableName: 'migrations'
-		},
-		seeds: {
-			directory: 'dist/seeds'
-		}
+export const development = {
+	client: process.env.DB_CONNECTION,
+	connection: {
+		host: process.env.DB_HOST,
+		user: process.env.DB_USERNAME,
+		password: process.env.DB_PASSWORD,
+		database: process.env.DB_DATABASE
+	},
+	migrations: {
+		directory: 'src/migrations',
+		tableName: 'migrations'
+	},
+	seeds: {
+		directory: 'src/seeds'
 	}
 };
