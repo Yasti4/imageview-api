@@ -1,5 +1,5 @@
 export const getRandomData = async (modelDatas: any): Promise<any> => {
-	const numRandom: number = getRandomInt(0, modelDatas.length);
+	const numRandom: number = getRandomInt(0, modelDatas.length -1);
 	return modelDatas.models[numRandom];
 }
 
