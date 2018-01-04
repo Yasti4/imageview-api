@@ -4,10 +4,14 @@ exports.up = function(knex, Promise) {
             table.bigIncrements('id').unsigned().primary();
             table.integer('post_id').unsigned().notNullable()
                 .references('id')
-                .inTable('posts');
+                .inTable('posts')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
             table.integer('tag_id').unsigned().notNullable()
                 .references('id')
-                .inTable('tags');
+                .inTable('tags')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
         }).then(console.log(`Table 'post_tags' has be created`))
     ])
 };

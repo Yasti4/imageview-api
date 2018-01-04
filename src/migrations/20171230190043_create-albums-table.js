@@ -6,7 +6,9 @@ exports.up = function(knex, Promise) {
             table.string('description').nullable();
             table.string('visibility').notNullable()
                 .references('name')
-                .inTable('visibilities');
+                .inTable('visibilities')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
             table.timestamp('created_at').nullable();
             table.timestamp('updated_at').nullable();
             table.timestamp('deleted_at').nullable();

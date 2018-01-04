@@ -6,16 +6,24 @@ exports.up = function(knex, Promise) {
             table.string('descriptions').nullable();
             table.integer('user_id').unsigned().notNullable()
                 .references('id')
-                .inTable('users');
+                .inTable('users')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
             table.integer('album_id').unsigned().notNullable()
                 .references('id')
-                .inTable('albums');
+                .inTable('albums')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
             table.integer('image').unsigned().notNullable()
                 .references('id')
-                .inTable('images');
+                .inTable('images')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
             table.string('visibility').notNullable()
                 .references('name')
-                .inTable('visibilities');
+                .inTable('visibilities')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
             table.boolean('enable_comments').notNullable()
                 .defaultTo(true);
             table.timestamp('created_at').nullable();

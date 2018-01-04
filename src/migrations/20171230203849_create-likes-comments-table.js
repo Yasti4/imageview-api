@@ -4,10 +4,14 @@ exports.up = function(knex, Promise) {
             table.bigIncrements('id').unsigned().primary();
             table.integer('comment_id').unsigned().notNullable()
                 .references('id')
-                .inTable('comments');
+                .inTable('comments')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
             table.integer('user_id').unsigned().notNullable()
                 .references('id')
-                .inTable('users');
+                .inTable('users')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
         }).then(console.log(`Table 'likes_comments' has be created`))
     ])
 };

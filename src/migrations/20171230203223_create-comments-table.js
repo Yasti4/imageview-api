@@ -5,10 +5,14 @@ exports.up = function(knex, Promise) {
             table.string('comment').notNullable();
             table.integer('post_id').unsigned().notNullable()
                 .references('id')
-                .inTable('posts');
+                .inTable('posts')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
             table.integer('user_id').unsigned().notNullable()
                 .references('id')
-                .inTable('users');
+                .inTable('users')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
             table.timestamp('created_at').nullable();
             table.timestamp('updated_at').nullable();
             table.timestamp('deleted_at').nullable();

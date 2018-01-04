@@ -4,10 +4,14 @@ exports.up = function(knex, Promise) {
             table.bigIncrements('id').unsigned().primary();
             table.integer('albums_id').unsigned().notNullable()
                 .references('id')
-                .inTable('albums');
+                .inTable('albums')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
             table.integer('user_id').unsigned().notNullable()
                 .references('id')
-                .inTable('users');
+                .inTable('users')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
         }).then(console.log(`Table 'likes_albums' has be created`))
     ])
 };

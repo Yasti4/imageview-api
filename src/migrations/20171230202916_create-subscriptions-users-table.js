@@ -4,10 +4,14 @@ exports.up = function(knex, Promise) {
             table.bigIncrements('id').unsigned().primary();
             table.integer('user_followed').unsigned().notNullable()
                 .references('id')
-                .inTable('users');
+                .inTable('users')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
             table.integer('user_follower').unsigned().notNullable()
                 .references('id')
-                .inTable('users');
+                .inTable('users')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
         }).then(console.log(`Table 'subscriptions_users' has be created`))
     ])
 };

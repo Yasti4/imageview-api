@@ -9,10 +9,14 @@ exports.up = function(knex, Promise) {
             table.string('lastname').nullable();
             table.integer('image').unsigned().notNullable()
                 .references('id')
-                .inTable('images');
+                .inTable('images')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
             table.string('role').notNullable()
                 .references('name')
-                .inTable('roles');
+                .inTable('roles')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
             table.timestamp('created_at').nullable();
             table.timestamp('updated_at').nullable();
             table.timestamp('deleted_at').nullable();
