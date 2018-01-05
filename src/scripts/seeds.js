@@ -2,6 +2,7 @@ const knex = require('knex')(require('./../config/knexfile').development);
 const args = process.argv;
 
 if (args.find(arg => arg === '--run')) {
+    console.log('Iniciando los seeders...');
     knex.client.config.seeds.directory = 'dist/seeds';
     knex.seed.run().then(() => {
         console.log('Finalizado los seeders');
