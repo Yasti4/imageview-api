@@ -4,7 +4,7 @@ import Image from '../models/image';
 import User from '../models/user';
 import Album from '../models/album';
 
-const limit = 1;
+const limit = 20;
 export const seed = function(knex, Promise) {
     // Deletes ALL existing entries
     return knex('posts').del()
@@ -15,8 +15,18 @@ export const seed = function(knex, Promise) {
             const visibilityDatas = await Visibility.get();
             const ImageDatas = await Image.get();
             const UserDatas = await User.get();
-
             const AlbumDatas = await Album.get();
+            const errorLimitInsert =
+                (visibilityDatas.length < limit && ImageDatas.length < limit && UserDatas.length < limit && AlbumDatas.length < limit) ||
+                (visibilityDatas.length < limit && UserDatas.length < limit && AlbumDatas.length < limit && ImageDatas.length > limit) ||
+                (ImageDatas.length < limit && UserDatas.length < limit && AlbumDatas.length < limit && visibilityDatas.length > limit) ||
+                (ImageDatas.length < limit && visibilityDatas.length < limit && AlbumDatas.length < limit && UserDatas.length > limit) ||
+                (ImageDatas.length < limit && visibilityDatas.length < limit && UserDatas.length < limit && AlbumDatas.length > limit);
+
+            if (errorLimitInsert) {
+                throw new Error(`Tabla 'post_tags' Datos` + `\x1b[31mInsuficientes FK\x1b[0m\n`);
+            }
+
             for (let index = 0; index < limit; index++) {
                 const data = {
                     title: faker.name.title(),

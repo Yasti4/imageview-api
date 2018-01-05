@@ -1,4 +1,4 @@
-const limit = 1;
+const limit = 20;
 export const seed = function(knex, Promise) {
     // Deletes ALL existing entries
     return knex('images').del()

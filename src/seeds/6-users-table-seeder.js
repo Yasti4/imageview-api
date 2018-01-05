@@ -12,6 +12,12 @@ export const seed = function(knex, Promise) {
             const datas = [];
             const RoleDatas = await Role.get();
             const ImageDatas = await Image.get();
+            const errorLimitInsert = (RoleDatas.length < limit && ImageDatas.length < limit) ||
+                (RoleDatas.length < limit && ImageDatas.length > limit) ||
+                (RoleDatas.length > limit && ImageDatas.length < limit);
+            if (errorLimitInsert) {
+                throw new Error(`Tabla 'post_tags' Datos` + `\x1b[31mInsuficientes FK\x1b[0m\n`);
+            }
             for (let index = 0; index < limit; index++) {
                 const data = {
                     username: faker.internet.userName(),

@@ -12,6 +12,7 @@ exports.up = function(knex, Promise) {
                 .inTable('users')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
+            table.unique(['user_followed', 'user_follower']);
         }).then(console.log(`Table 'subscriptions_users' has be created`))
     ])
 };

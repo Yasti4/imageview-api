@@ -12,6 +12,7 @@ exports.up = function(knex, Promise) {
                 .inTable('users')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
+            table.unique(['albums_id', 'user_id']);
         }).then(console.log(`Table 'likes_albums' has be created`))
     ])
 };

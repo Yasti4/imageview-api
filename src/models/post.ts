@@ -1,4 +1,5 @@
 import Bookshelf from './../config/bookshelf';
+import Tag from './tag';
 
 export default class Post extends Bookshelf.Model<any> {
 	get tableName() { return 'posts'; }
@@ -8,5 +9,9 @@ export default class Post extends Bookshelf.Model<any> {
 			property1: 'name',
 		}
 	}
+
+	tags = () => {
+    return this.belongsToMany(Tag);
+  }
 
 }

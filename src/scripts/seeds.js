@@ -1,3 +1,5 @@
+import Post from '../models/post';
+
 const knex = require('knex')(require('./../config/knexfile').development);
 const args = process.argv;
 

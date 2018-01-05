@@ -12,6 +12,7 @@ exports.up = function(knex, Promise) {
                 .inTable('tags')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
+            table.unique(['post_id', 'tag_id']);
         }).then(console.log(`Table 'post_tags' has be created`))
     ])
 };

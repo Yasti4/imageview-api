@@ -13,6 +13,7 @@ exports.up = function(knex, Promise) {
                 .inTable('users')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
+            table.unique(['post_id', 'user_id']);
             table.timestamp('created_at').nullable();
             table.timestamp('updated_at').nullable();
             table.timestamp('deleted_at').nullable();
