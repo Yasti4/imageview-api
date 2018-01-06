@@ -1,4 +1,4 @@
-const limit = 20;
+const limit = 2;
 export const seed = function(knex, Promise) {
     // Deletes ALL existing entries
     return knex('images').del()
@@ -14,7 +14,6 @@ export const seed = function(knex, Promise) {
                     huge: faker.image.imageUrl(),
                 };
                 datas.push(data);
-
             }
             return knex('images').insert(datas)
                 .then(console.log(`Tabla 'images' Datos`, '\x1b[32mOK\x1b[0m'))

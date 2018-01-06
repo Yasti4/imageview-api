@@ -1,4 +1,4 @@
-const limit = 30;
+const limit = 4;
 export const seed = function (knex, Promise) {
 	// Deletes ALL existing entries
 	return knex('visibilities').del()

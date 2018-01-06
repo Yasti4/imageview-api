@@ -1,8 +1,8 @@
-import { getRandomData } from '../helpers/index';
+import { getRandomData, controlLimitSeeder } from '../helpers/index';
 import Role from '../models/role';
 import Image from '../models/image';
 
-const limit = 1;
+let limit = 2;
 export const seed = function(knex, Promise) {
     // Deletes ALL existing entries
     return knex('users').del()
@@ -12,11 +12,15 @@ export const seed = function(knex, Promise) {
             const datas = [];
             const RoleDatas = await Role.get();
             const ImageDatas = await Image.get();
-            const errorLimitInsert = (RoleDatas.length < limit && ImageDatas.length < limit) ||
-                (RoleDatas.length < limit && ImageDatas.length > limit) ||
-                (RoleDatas.length > limit && ImageDatas.length < limit);
-            if (errorLimitInsert) {
-                throw new Error(`Tabla 'post_tags' Datos` + `\x1b[31mInsuficientes FK\x1b[0m\n`);
+
+            const errorLimitInsert = controlLimitSeeder([RoleDatas, ImageDatas], limit);
+            if (errorLimitInsert.TheDataIsNotCorrect) {
+                if (errorLimitInsert.IsMissingDataLength) {
+                    throw new Error(`Tabla 'users' Data` + `\x1b[31mInsuficientes FK\x1b[0m\n`);
+                } else if (errorLimitInsert.IsNotMinimumData) {
+                    console.log(`Tabla 'users' change Limit`, `\x1b[33m${errorLimitInsert.limitMax}\x1b[0m`);
+                    limit = errorLimitInsert.limitMax;
+                }
             }
             for (let index = 0; index < limit; index++) {
                 const data = {

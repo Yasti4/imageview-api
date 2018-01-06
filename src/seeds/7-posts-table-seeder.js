@@ -1,10 +1,10 @@
-import { getRandomData } from '../helpers/index';
+import { getRandomData, controlLimitSeeder } from '../helpers/index';
 import Visibility from '../models/visibility';
 import Image from '../models/image';
 import User from '../models/user';
 import Album from '../models/album';
 
-const limit = 20;
+let limit = 50;
 export const seed = function(knex, Promise) {
     // Deletes ALL existing entries
     return knex('posts').del()
@@ -16,15 +16,15 @@ export const seed = function(knex, Promise) {
             const ImageDatas = await Image.get();
             const UserDatas = await User.get();
             const AlbumDatas = await Album.get();
-            const errorLimitInsert =
-                (visibilityDatas.length < limit && ImageDatas.length < limit && UserDatas.length < limit && AlbumDatas.length < limit) ||
-                (visibilityDatas.length < limit && UserDatas.length < limit && AlbumDatas.length < limit && ImageDatas.length > limit) ||
-                (ImageDatas.length < limit && UserDatas.length < limit && AlbumDatas.length < limit && visibilityDatas.length > limit) ||
-                (ImageDatas.length < limit && visibilityDatas.length < limit && AlbumDatas.length < limit && UserDatas.length > limit) ||
-                (ImageDatas.length < limit && visibilityDatas.length < limit && UserDatas.length < limit && AlbumDatas.length > limit);
 
-            if (errorLimitInsert) {
-                throw new Error(`Tabla 'post_tags' Datos` + `\x1b[31mInsuficientes FK\x1b[0m\n`);
+            const errorLimitInsert = controlLimitSeeder([visibilityDatas, ImageDatas, UserDatas, AlbumDatas], limit);
+            if (errorLimitInsert.TheDataIsNotCorrect) {
+                if (errorLimitInsert.IsMissingDataLength) {
+                    throw new Error(`Tabla 'posts' Data` + `\x1b[31mInsuficientes FK\x1b[0m\n`);
+                } else if (errorLimitInsert.IsNotMinimumData) {
+                    console.log(`Tabla 'posts' change Limit`, `\x1b[33m${errorLimitInsert.limitMax}\x1b[0m`);
+                    limit = errorLimitInsert.limitMax;
+                }
             }
 
             for (let index = 0; index < limit; index++) {
