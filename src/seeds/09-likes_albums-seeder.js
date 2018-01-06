@@ -1,8 +1,8 @@
-import { getRandomData, compareUnique, controlLimitSeeder } from '../helpers/index';
+import { getRandomData, controlLimitSeeder, compareUnique } from '../helpers/index';
 import Album from '../models/album';
 import User from '../models/user';
 
-let limit = 1;
+let limit = 60;
 export const seed = function(knex, Promise) {
     // Deletes ALL existing entries
     return knex('likes_albums').del()
@@ -23,11 +23,14 @@ export const seed = function(knex, Promise) {
                 }
             }
             for (let index = 0; index < limit; index++) {
-                const data = {
-                    albums_id: (await getRandomData(albumDatas)).attributes.id,
-                    user_id: (await getRandomData(userDatas)).attributes.id,
-                };
 
+                let data = {};
+                do {
+                    data = {
+                        albums_id: (await getRandomData(albumDatas)).attributes.id,
+                        user_id: (await getRandomData(userDatas)).attributes.id,
+                    };
+                } while (compareUnique(datas, data, ['albums_id', 'user_id']));
                 datas.push(data);
             }
 

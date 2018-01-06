@@ -1,6 +1,6 @@
 import Post from '../models/post';
 import Tag from '../models/tag';
-import { getRandomData, compareUnique, controlLimitSeeder } from '../helpers/index';
+import { getRandomData, controlLimitSeeder, compareUnique } from '../helpers/index';
 
 let limit = 3;
 export const seed = function(knex, Promise) {
@@ -24,11 +24,13 @@ export const seed = function(knex, Promise) {
             }
 
             for (let index = 0; index < limit; index++) {
-
-                const data = {
-                    post_id: (await getRandomData(postDatas)).attributes.id,
-                    tag_id: (await getRandomData(tagDatas)).attributes.id,
-                };
+                let data = {};
+                do {
+                    data = {
+                        post_id: (await getRandomData(postDatas)).attributes.id,
+                        tag_id: (await getRandomData(tagDatas)).attributes.id,
+                    };
+                } while (compareUnique(datas, data, ['post_id', 'tag_id']));
 
                 datas.push(data);
             }

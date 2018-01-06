@@ -19,10 +19,12 @@ export const controlLimitSeeder = (items: any[], limit: number): any => {
 }
 
 export const compareUnique = (datas: any[], data: any, namesFields: string[1]): boolean => {
-	return datas.findIndex(value =>
-		value[namesFields[0]] === data[namesFields[0]] &&
-		value[namesFields[1]] === data[namesFields[1]]) !== -1
+		return datas.findIndex( (value, index) => 
+			value[namesFields[0]] === data[namesFields[0]] &&
+			value[namesFields[1]] === data[namesFields[1]]
+		) !== -1;
 }
+
 
 export const getRandomData = async (modelDatas: any, ...numExcluded: number[]): Promise<any> => {
 	const numRandom: number = getRandomInt(0, modelDatas.length -1);
