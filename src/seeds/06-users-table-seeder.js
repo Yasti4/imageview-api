@@ -2,7 +2,7 @@ import { getRandomData, controlLimitSeeder } from '../helpers/index';
 import Role from '../models/role';
 import Image from '../models/image';
 
-let limit = 2;
+let limit = 40;
 export const seed = function(knex, Promise) {
     // Deletes ALL existing entries
     return knex('users').del()

@@ -1,8 +1,8 @@
+import { getRandomData, controlLimitSeeder, compareUnique } from '../helpers/index';
 import Post from '../models/post';
 import Tag from '../models/tag';
-import { getRandomData, controlLimitSeeder, compareUnique } from '../helpers/index';
 
-let limit = 3;
+let limit = 40;
 export const seed = function(knex, Promise) {
     // Deletes ALL existing entries
     return knex('post_tags').del()

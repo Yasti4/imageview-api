@@ -30,7 +30,7 @@ export const seed = function(knex, Promise) {
                         user_followed: (await getRandomData(userDatas)).attributes.id,
                         user_follower: (await getRandomData(userDatas)).attributes.id
                     };
-                } while (compareUnique(datas, data, ['user_followed', 'user_followed']) && data.user_followed != data.user_follower);
+                } while (compareUnique(datas, data, ['user_followed', 'user_followed']) && data.user_followed !== data.user_follower);
                 datas.push(data);
             }
 

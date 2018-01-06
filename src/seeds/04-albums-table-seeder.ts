@@ -1,7 +1,7 @@
 import Visibility from '../models/visibility';
 import { getRandomData, controlLimitSeeder } from '../helpers/index';
 
-let limit = 2;
+let limit = 40;
 export const seed = function (knex, Promise) {
 	// Deletes ALL existing entries
 	return knex('albums').del()
