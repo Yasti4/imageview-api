@@ -1,43 +1,30 @@
-import { getRandomData, controlLimitSeeder, compareUnique } from '../helpers/index';
+import {
+  randomItem
+} from '../helpers/index';
 import Album from '../models/album';
 import User from '../models/user';
 
-let limit = 60;
-export const seed = function(knex, Promise) {
-    // Deletes ALL existing entries
-    return knex('likes_albums').del()
-        .then(async() => {
-            const faker = require('faker/locale/es');
-            // Inserts seed entries
-            const datas = [];
-            const albumDatas = await Album.get();
-            const userDatas = await User.get();
-
-            const errorLimitInsert = controlLimitSeeder([albumDatas, userDatas], limit);
-            if (errorLimitInsert.TheDataIsNotCorrect) {
-                if (errorLimitInsert.IsMissingDataLength) {
-                    throw new Error(`Tabla 'likes_albums' Data` + `\x1b[31mInsuficientes FK\x1b[0m\n`);
-                } else if (errorLimitInsert.IsNotMinimumData) {
-                    console.log(`Tabla 'likes_albums' change Limit`, `\x1b[33m${errorLimitInsert.limitMax}\x1b[0m`);
-                    limit = errorLimitInsert.limitMax;
-                }
-            }
-            for (let index = 0; index < limit; index++) {
-
-                let data = {};
-                do {
-                    data = {
-                        albums_id: (await getRandomData(albumDatas)).attributes.id,
-                        user_id: (await getRandomData(userDatas)).attributes.id,
-                    };
-                } while (compareUnique(datas, data, ['albums_id', 'user_id']));
-                datas.push(data);
-            }
-
-            return knex('likes_albums').insert(datas)
-                .then(console.log(`Tabla 'likes_albums' Datos`, '\x1b[32mOK\x1b[0m'))
-                .catch((error) => {
-                    console.log(`Tabla 'likes_albums' Datos`, `\x1b[31mFAIL\x1b[0m\n${error}`)
-                });
-        });
+const limit = 20;
+export const seed = (knex) => {
+  return knex('likes_albums').del().then(async() => {
+    const faker = require('faker/locale/es');
+    const items = [];
+    const albums = (await Album.get()).toJSON().map(item => item.id);
+    const users = (await User.get()).toJSON().map(item => item.id);
+    let album_user;
+    for (let index = 0; index < limit; index++) {
+      do {
+        album_user = {
+          albums_id: randomItem(albums),
+          user_id: randomItem(users),
+        };
+      } while (items.findIndex(item =>
+          item.albums_id === album_user.albums_id && item.user_id && album_user.user_id
+        ) !== -1);
+      items.push(album_user);
+    }
+    return knex('likes_albums').insert(items)
+      .then(console.log(`Tabla 'likes_albums' Datos`, '\x1b[32mOK\x1b[0m'))
+      .catch((error) => console.log(`Tabla 'likes_albums' Datos`, `\x1b[31mFAIL\x1b[0m\n${error}`));
+  });
 };

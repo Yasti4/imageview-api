@@ -1,4 +1,4 @@
-![ImageView logo](https://i.imgur.com/aOdIOVy.png)
+## ImageView
 
 An API for an image sharing platform.
 

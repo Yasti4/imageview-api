@@ -1,44 +1,31 @@
-import { getRandomData, controlLimitSeeder, compareUnique } from '../helpers/index';
+import {
+  randomItem
+} from '../helpers/index';
 import User from '../models/user';
 import Post from '../models/post';
 
-let limit = 60;
-export const seed = function(knex, Promise) {
-    // Deletes ALL existing entries
-    return knex('comments').del()
-        .then(async() => {
-            const faker = require('faker/locale/es');
-            // Inserts seed entries
-            const datas = [];
-            const postDatas = await Post.get();
-            const userDatas = await User.get();
-
-            const errorLimitInsert = controlLimitSeeder([postDatas, userDatas], limit);
-            if (errorLimitInsert.TheDataIsNotCorrect) {
-                if (errorLimitInsert.IsMissingDataLength) {
-                    throw new Error(`Tabla 'comments' Data` + `\x1b[31mInsuficientes FK\x1b[0m\n`);
-                } else if (errorLimitInsert.IsNotMinimumData) {
-                    console.log(`Tabla 'comments' change Limit`, `\x1b[33m${errorLimitInsert.limitMax}\x1b[0m`);
-                    limit = errorLimitInsert.limitMax;
-                }
-            }
-            for (let index = 0; index < limit; index++) {
-
-                let data = {};
-                do {
-                    data = {
-                        comment: faker.lorem.sentence(),
-                        post_id: (await getRandomData(postDatas)).attributes.id,
-                        user_id: (await getRandomData(userDatas)).attributes.id,
-                    };
-                } while (compareUnique(datas, data, ['post_id', 'user_id']));
-                datas.push(data);
-            }
-
-            return knex('comments').insert(datas)
-                .then(console.log(`Tabla 'comments' Datos`, '\x1b[32mOK\x1b[0m'))
-                .catch((error) => {
-                    console.log(`Tabla 'comments' Datos`, `\x1b[31mFAIL\x1b[0m\n${error}`)
-                });
-        });
+const limit = 20;
+export const seed = (knex) => {
+  return knex('comments').del().then(async() => {
+    const faker = require('faker/locale/es');
+    const items = [];
+    const posts = (await Post.get()).toJSON().map(item => item.id);
+    const users = (await User.get()).toJSON().map(item => item.id);
+    let post_user;
+    for (let index = 0; index < limit; index++) {
+      do {
+        post_user = {
+          comment: faker.lorem.sentence(),
+          post_id: randomItem(posts),
+          user_id: randomItem(users),
+        };
+      } while (items.findIndex(item =>
+          item.post_id === post_user.post_id && item.user_id && post_user.user_id
+        ) !== -1);
+      items.push(post_user);
+    }
+    return knex('comments').insert(items)
+      .then(console.log(`Tabla 'comments' Datos`, '\x1b[32mOK\x1b[0m'))
+      .catch((error) => console.log(`Tabla 'comments' Datos`, `\x1b[31mFAIL\x1b[0m\n${error}`));
+  });
 };

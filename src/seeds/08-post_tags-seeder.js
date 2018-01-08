@@ -1,43 +1,32 @@
-import { getRandomData, controlLimitSeeder, compareUnique } from '../helpers/index';
+import {
+  randomItem
+} from '../helpers/index';
 import Post from '../models/post';
 import Tag from '../models/tag';
 
-let limit = 40;
-export const seed = function(knex, Promise) {
-    // Deletes ALL existing entries
-    return knex('post_tags').del()
-        .then(async() => {
-            const faker = require('faker/locale/es');
-            // Inserts seed entries
-            const datas = [];
-            const postDatas = await Post.get();
-            const tagDatas = await Tag.get();
-
-            const errorLimitInsert = controlLimitSeeder([postDatas, tagDatas], limit);
-            if (errorLimitInsert.TheDataIsNotCorrect) {
-                if (errorLimitInsert.IsMissingDataLength) {
-                    throw new Error(`Tabla 'post_tags' Data` + `\x1b[31mInsuficientes FK\x1b[0m\n`);
-                } else if (errorLimitInsert.IsNotMinimumData) {
-                    console.log(`Tabla 'post_tags' change Limit`, `\x1b[33m${errorLimitInsert.limitMax}\x1b[0m`);
-                    limit = errorLimitInsert.limitMax;
-                }
-            }
-
-            for (let index = 0; index < limit; index++) {
-                let data = {};
-                do {
-                    data = {
-                        post_id: (await getRandomData(postDatas)).attributes.id,
-                        tag_id: (await getRandomData(tagDatas)).attributes.id,
-                    };
-                } while (compareUnique(datas, data, ['post_id', 'tag_id']));
-
-                datas.push(data);
-            }
-            return knex('post_tags').insert(datas)
-                .then(console.log(`Tabla 'post_tags' Datos`, '\x1b[32mOK\x1b[0m'))
-                .catch((error) => {
-                    console.log(`Tabla 'post_tags' Datos`, `\x1b[31mFAIL\x1b[0m\n${error}`)
-                });
-        });
+const limit = 40;
+export const seed = (knex) => {
+  return knex('post_tags').del().then(async() => {
+    const faker = require('faker/locale/es');
+    const items = [];
+    const posts = (await Post.get()).toJSON().map(item => item.id);
+    const tags = (await Tag.get()).toJSON().map(item => item.id);
+    let post_tag;
+    for (let index = 0; index < limit; index++) {
+      do {
+        post_tag = {
+          post_id: randomItem(posts),
+          tag_id: randomItem(tags),
+        };
+      } while (items.findIndex(item =>
+          item.post_id === post_tag.post_id && item.tag_id && post_tag.tag_id
+        ) !== -1);
+      items.push(post_tag);
+    }
+    return knex('post_tags').insert(items)
+      .then(console.log(`Tabla 'post_tags' Datos`, '\x1b[32mOK\x1b[0m'))
+      .catch((error) => {
+        console.log(`Tabla 'post_tags' Datos`, `\x1b[31mFAIL\x1b[0m\n${error}`)
+      });
+  });
 };

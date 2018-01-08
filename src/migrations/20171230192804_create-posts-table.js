@@ -3,13 +3,13 @@ exports.up = function(knex, Promise) {
         knex.schema.createTableIfNotExists('posts', function(table) {
             table.increments('id').unsigned().primary();
             table.string('title').notNullable();
-            table.string('descriptions').nullable();
+            table.string('description').nullable();
             table.integer('user_id').unsigned().notNullable()
                 .references('id')
                 .inTable('users')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
-            table.integer('album_id').unsigned().notNullable()
+            table.integer('album_id').unsigned().nullable()
                 .references('id')
                 .inTable('albums')
                 .onUpdate('CASCADE')
