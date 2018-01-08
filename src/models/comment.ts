@@ -9,4 +9,8 @@ export default class Comment extends Bookshelf.Model<any> {
 		}
 	}
 
+	// post = function() {
+  //   return this.hasOne(Post, 'post_id');
+  // }
+
 }

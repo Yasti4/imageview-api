@@ -10,7 +10,7 @@ export const seed = function(knex, Promise) {
             const faker = require('faker/locale/es');
             // Inserts seed entries
             const datas = [];
-            const postDatas = await Post.get();
+            const postDatas: Post = await Post.get();
             const userDatas = await User.get();
 
             const errorLimitInsert = controlLimitSeeder([postDatas, userDatas], limit);

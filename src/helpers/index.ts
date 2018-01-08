@@ -18,7 +18,7 @@ export const controlLimitSeeder = (items: any[], limit: number): any => {
 	 return result;
 }
 
-export const compareUnique = (datas: any[], data: any, namesFields: string[1]): boolean => {
+export const compareUnique = (datas: any[], data: any, namesFields: string[]): boolean => {
 		return datas.findIndex( (value, index) => 
 			value[namesFields[0]] === data[namesFields[0]] &&
 			value[namesFields[1]] === data[namesFields[1]]
