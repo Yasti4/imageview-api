@@ -1,12 +1,14 @@
 import Bookshelf from './../config/bookshelf';
+import Role from './role';
 
-export default class User extends Bookshelf.Model<any> {
+export default class User extends Bookshelf.Model<User> {
 	get tableName() { return 'users'; }
 	get hasTimestamps() { return true; }
-	get defaults() {
-		return {
-			property1: 'name',
-		}
+	get idAttribute() { return 'id' }
+	
+
+	role = function() {
+		return this.belongsTo(Role, 'name');
 	}
 
 }
