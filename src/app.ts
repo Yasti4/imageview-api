@@ -23,6 +23,9 @@ app.listen(process.env.APP_PORT, async (err) => {
 	(async function () {
 		const role = await Role.with('users').offset(1).first();
 		console.log('role: ', role.toJSON());
+
+		// const role = await Role.offset(1).first();
+		// console.log('role: ', (await role.users().get()).toJSON());
 	})()
 	// end bookshelf tests
 });
