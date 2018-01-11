@@ -21,8 +21,8 @@ app.listen(process.env.APP_PORT, async (err) => {
 	console.log(`Server running at ${process.env.APP_URL}:${process.env.APP_PORT}`);
 	// start bookshelf tests
 	(async function () {
-		const role = await Role.with('users').offset(1).first();
-		console.log('role: ', role.toJSON());
+		const users = await Role.with('users').offset(1).first();
+		console.log('role: ', users.toJSON());
 
 		// const role = await Role.offset(1).first();
 		// console.log('role: ', (await role.users().get()).toJSON());

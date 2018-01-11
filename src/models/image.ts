@@ -1,12 +1,18 @@
 import Bookshelf from './../config/bookshelf';
+import Post from './post';
+import User from './user';
 
-export default class Image extends Bookshelf.Model<any> {
-	get tableName() { return 'images'; }
-	get hasTimestamps() { return false; }
-	get defaults() {
-		return {
-			property1: 'name',
-		}
+export default Bookshelf.Model.extend({
+	tableName: 'images',
+	idAttribute: 'id',
+	post: function () {
+		return this.belongsToMany(Post, 'id');
+	},
+	user: function () {
+		return this.belongsTo(User, 'id');
+	},
+	users: function () {
+		return this.belongsToMany(User, 'id');
 	}
-
-}
+	
+});

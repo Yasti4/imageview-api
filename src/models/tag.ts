@@ -1,12 +1,10 @@
 import Bookshelf from './../config/bookshelf';
+import Post from './post';
 
-export default class Tag extends Bookshelf.Model<any> {
-	get tableName() { return 'tags'; }
-	get hasTimestamps() { return false; }
-	get defaults() {
-		return {
-			property1: 'name',
-		}
+export default Bookshelf.Model.extend({
+	tableName: 'tags',
+	idAttribute: 'id',
+	post: function () {
+		return this.belongsToMany(Post, 'id');
 	}
-
-}
+});
