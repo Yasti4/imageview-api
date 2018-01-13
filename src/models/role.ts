@@ -1,7 +1,8 @@
-import Bookshelf from './../config/bookshelf';
+// import Bookshelf from './../config/bookshelf';
 import User from './user';
+import Model from './model';
 
-export default Bookshelf.Model.extend({
+export default Model({
 	tableName: 'roles',
 	idAttribute: 'name',
 	users: function () {

@@ -35,3 +35,8 @@ An API for an image sharing platform.
 
 - http://knexjs.org/#Seeds-CLI
 - https://github.com/marak/Faker.js
+
+#### Extras
+
+> lsof -i:3000
+> kill -p $PID

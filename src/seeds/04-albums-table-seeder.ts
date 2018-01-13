@@ -1,16 +1,16 @@
-import Visibility from '../models/visibility';
-import { randomItem } from '../helpers/index';
+import Visibility from './../models/visibility';
+import { randomItem } from './../helpers/index';
 
 const limit = 40;
 export const seed = (knex) => {
 	return knex('albums').del().then(async () => {
 		const faker = require('faker/locale/es');
-		const visibilities: Visibility[] = (await Visibility.get()).toJSON();
+		const visibilities = (await Visibility.get()).toJSON();
 		const now = new Date();
 		return knex('albums').insert([...Array(limit)].map(_ => ({
 			title: faker.name.findName(),
 			description: faker.name.findName(),
-			visibility: randomItem(visibilities).name,
+			visibility: (<any>randomItem(visibilities)).name,
 			created_at: now,
 			updated_at: now,
 		})))

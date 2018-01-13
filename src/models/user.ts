@@ -1,14 +1,15 @@
-import Bookshelf from './../config/bookshelf';
+// import Bookshelf from './../config/bookshelf';
 import Role from './role';
 import Image from './image';
 import User from './user';
+import Model from './model';
 
-export default Bookshelf.Model.extend({
+export default Model({
 	tableName: 'users',
 	idAttribute: 'id',
 	hasTimestamps: ['created_at', 'updated_at'],
 	hidden: [
-    'deletedAt',
+		'deleted_at',
 	],
 	softDelete: true,
 	image: function () {

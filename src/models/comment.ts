@@ -7,7 +7,7 @@ export default Bookshelf.Model.extend({
 	idAttribute: 'id',
 	hasTimestamps: ['created_at', 'updated_at'],
 	hidden: [
-    'deletedAt',
+    'deleted_at',
 	],
 	softDelete: true,
 	user: function () {

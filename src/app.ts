@@ -6,6 +6,17 @@ import * as dotenv from 'dotenv'
 import * as graphqlOptions from './graphql';
 import Role from './models/role';
 
+function pruebas() {
+	// start bookshelf tests
+	(async function () {
+		const users = await Role.with('users').offset(1).first();
+		console.log('role: ', users.toJSON());
+		// const role = await Role.offset(1).first();
+		// console.log('role: ', (await role.users().get()).toJSON());
+	})()
+	// end bookshelf tests
+};
+
 dotenv.load();
 const app = express();
 app.use(bodyParser.json({ type: 'application/json' }));
@@ -16,16 +27,17 @@ app.use((req, res, next) => {
 	next();
 });
 app.use('/graphql', graphqlHTTP(graphqlOptions));
-app.listen(process.env.APP_PORT, async (err) => {
+const server = app.listen(process.env.APP_PORT, async (err) => {
 	if (err) throw new Error('HTTP not enabled.');
-	console.log(`Server running at ${process.env.APP_URL}:${process.env.APP_PORT}`);
-	// start bookshelf tests
-	(async function () {
-		const users = await Role.with('users').offset(1).first();
-		console.log('role: ', users.toJSON());
-
-		// const role = await Role.offset(1).first();
-		// console.log('role: ', (await role.users().get()).toJSON());
-	})()
-	// end bookshelf tests
+	console.log(`ImageView server running at ${process.env.APP_URL}:${process.env.APP_PORT}`);
+	pruebas();
 });
+const shutdownFn = () => {
+	server.close(() => {
+		console.log('ImageView server closed.');
+		process.exit();
+	});
+	setTimeout(() => process.exit(), 10000);
+};
+process.on('SIGTERM' /* listen for TERM signal .e.g. kill  */, shutdownFn);
+process.on('SIGINT' /* listen for INT signal e.g. Ctrl-C */, shutdownFn);

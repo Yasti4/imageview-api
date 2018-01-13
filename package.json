@@ -31,6 +31,8 @@
     "mysql": "^2.15.0"
   },
   "devDependencies": {
+    "@types/bookshelf": "^0.9.7",
+    "@types/knex": "^0.14.0",
     "@types/node": "^8.5.8",
     "concurrently": "^3.5.1",
     "eslint": "^4.15.0",

@@ -1,13 +1,14 @@
-import Bookshelf from './../config/bookshelf';
+// import Bookshelf from './../config/bookshelf';
 import Visibility from './visibility';
 import User from './user';
+import Model from './model';
 
-export default Bookshelf.Model.extend({
+export default Model({
 	tableName: 'albums',
 	idAttribute: 'id',
 	hasTimestamps: ['created_at', 'updated_at'],
 	hidden: [
-    'deletedAt',
+		'deleted_at',
 	],
 	softDelete: true,
 	visibility: function () {
@@ -16,5 +17,4 @@ export default Bookshelf.Model.extend({
 	subscriptions: function () {
 		return this.belongsToMany(User, 'id');
 	}
-	
 });
