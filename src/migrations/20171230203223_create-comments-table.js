@@ -2,7 +2,7 @@ exports.up = function(knex, Promise) {
     return Promise.all([
         knex.schema.createTableIfNotExists('comments', function(table) {
             table.increments('id').unsigned().primary();
-            table.string('comment').notNullable();
+            table.string('content').notNullable();
             table.integer('post_id').unsigned().notNullable()
                 .references('id')
                 .inTable('posts')

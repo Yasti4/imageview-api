@@ -8,7 +8,7 @@ import Album from '../models/album';
 
 import {
     limit as usersLimitSeeder
-} from './06-users-table-seeder';
+} from './05-users-table-seeder';
 
 const limit = 60;
 export const seed = (knex) => {

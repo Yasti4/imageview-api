@@ -1,6 +1,6 @@
 exports.up = function(knex, Promise) {
     return Promise.all([
-        knex.schema.createTableIfNotExists('post_tags', function(table) {
+        knex.schema.createTableIfNotExists('posts_tags', function(table) {
             table.bigIncrements('id').unsigned().primary();
             table.integer('post_id').unsigned().notNullable()
                 .references('id')
@@ -13,13 +13,13 @@ exports.up = function(knex, Promise) {
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
             table.unique(['post_id', 'tag_id']);
-        }).then(console.log(`Table 'post_tags' has be created`))
+        }).then(console.log(`Table 'posts_tags' has be created`))
     ])
 };
 
 exports.down = function(knex, Promise) {
     return Promise.all([
-        knex.schema.dropTableIfExists('post_tags')
-        .then(console.log(`Table 'post_tags' has be deleted`))
+        knex.schema.dropTableIfExists('posts_tags')
+        .then(console.log(`Table 'posts_tags' has be deleted`))
     ])
 };

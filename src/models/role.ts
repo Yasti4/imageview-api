@@ -1,4 +1,3 @@
-// import Bookshelf from './../config/bookshelf';
 import User from './user';
 import Model from './model';
 

@@ -1,8 +1,8 @@
-import Bookshelf from './../config/bookshelf';
 import User from './user';
 import Post from './post';
+import Model from './model';
 
-export default Bookshelf.Model.extend({
+export default Model({
 	tableName: 'comments',
 	idAttribute: 'id',
 	hasTimestamps: ['created_at', 'updated_at'],
@@ -17,7 +17,7 @@ export default Bookshelf.Model.extend({
 		return this.belongsTo(Post, 'id');
 	},
 	likes: function () {
-		return this.belongsToMany(User, 'id');
+		return this.belongsToMany(User, 'likes_comments', 'user_id', 'comment_id');
 	}
 	
 });

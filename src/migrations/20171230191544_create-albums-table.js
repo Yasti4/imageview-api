@@ -4,6 +4,11 @@ exports.up = function(knex, Promise) {
             table.increments('id').primary().unsigned();
             table.string('title').notNullable();
             table.string('description').nullable();
+            table.integer('user_id').unsigned().notNullable()
+                .references('id')
+                .inTable('users')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
             table.string('visibility').notNullable()
                 .references('name')
                 .inTable('visibilities')

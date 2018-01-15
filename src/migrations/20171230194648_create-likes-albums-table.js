@@ -2,7 +2,7 @@ exports.up = function(knex, Promise) {
     return Promise.all([
         knex.schema.createTableIfNotExists('likes_albums', function(table) {
             table.bigIncrements('id').unsigned().primary();
-            table.integer('albums_id').unsigned().notNullable()
+            table.integer('album_id').unsigned().notNullable()
                 .references('id')
                 .inTable('albums')
                 .onUpdate('CASCADE')
@@ -12,7 +12,7 @@ exports.up = function(knex, Promise) {
                 .inTable('users')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
-            table.unique(['albums_id', 'user_id']);
+            table.unique(['album_id', 'user_id']);
         }).then(console.log(`Table 'likes_albums' has be created`))
     ])
 };

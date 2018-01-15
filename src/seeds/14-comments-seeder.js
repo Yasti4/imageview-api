@@ -16,7 +16,7 @@ export const seed = (knex) => {
         for (let index = 0; index < limit; index++) {
             do {
                 post_user = {
-                    comment: faker.lorem.sentence(),
+                    content: faker.lorem.sentence(),
                     post_id: randomItem(posts),
                     user_id: randomItem(users),
                     created_at: now,

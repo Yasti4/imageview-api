@@ -1,6 +1,6 @@
-// import Bookshelf from './../config/bookshelf';
 import Visibility from './visibility';
 import User from './user';
+import Post from './post';
 import Model from './model';
 
 export default Model({
@@ -11,10 +11,13 @@ export default Model({
 		'deleted_at',
 	],
 	softDelete: true,
-	visibility: function () {
-		return this.belongsTo(Visibility, 'name');
-	},
 	subscriptions: function () {
-		return this.belongsToMany(User, 'id');
-	}
+		return this.belongsToMany(User, 'subscriptions_albums', 'user_id', 'album_id');
+	},
+	likes: function () {
+		return this.belongsToMany(User, 'likes_albums', 'user_id', 'album_id');
+	},
+	posts: function () {
+		return this.hasMany(Post, 'id');
+	},
 });

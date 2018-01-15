@@ -1,10 +1,10 @@
-import Bookshelf from './../config/bookshelf';
+import Model from './model';
 import Post from './post';
 
-export default Bookshelf.Model.extend({
+export default Model({
 	tableName: 'tags',
 	idAttribute: 'id',
-	post: function () {
-		return this.belongsToMany(Post, 'id');
-	}
+	posts: function () {
+		return this.belongsToMany(Post, 'posts_tags', 'post_id', 'tag_id');
+	},
 });

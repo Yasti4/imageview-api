@@ -1,18 +1,14 @@
-import Bookshelf from './../config/bookshelf';
+import Model from './model';
 import Post from './post';
 import User from './user';
 
-export default Bookshelf.Model.extend({
+export default Model({
 	tableName: 'images',
 	idAttribute: 'id',
-	post: function () {
-		return this.belongsToMany(Post, 'id');
+	posts: function () {
+		return this.belongsToMany(Post, 'posts', 'image', 'id');
 	},
 	user: function () {
-		return this.belongsTo(User, 'id');
-	},
-	users: function () {
-		return this.belongsToMany(User, 'id');
+		return this.belongsToMany(User, 'users', 'image', 'id');
 	}
-	
 });

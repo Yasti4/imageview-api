@@ -4,15 +4,13 @@ import * as graphqlHTTP from 'express-graphql';
 import * as mysql from 'mysql';
 import * as dotenv from 'dotenv'
 import * as graphqlOptions from './graphql';
-import Role from './models/role';
+import User from './models/user';
 
 function pruebas() {
 	// start bookshelf tests
 	(async function () {
-		const users = await Role.with('users').offset(1).first();
-		console.log('role: ', users.toJSON());
-		// const role = await Role.offset(1).first();
-		// console.log('role: ', (await role.users().get()).toJSON());
+		const user = await User.where('id', 122).with('comments').first();
+		console.log( user.toJSON());
 	})()
 	// end bookshelf tests
 };
