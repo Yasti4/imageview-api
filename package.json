@@ -1,15 +1,14 @@
 {
-  "name": "imageview-api",
+  "name": "imageview-server",
   "version": "1.0.0",
   "description": "An API for an image sharing platform.",
   "scripts": {
-    "start": "./node_modules/.bin/concurrently --kill-others './node_modules/.bin/tsc -w' './node_modules/.bin/nodemon ./dist/app.js'",
-    "build": "./node_modules/.bin/tsc",
-    "migrate": "npm run build && node ./dist/scripts/migrations.js --migrate",
-    "migrate:rollback": "npm run build && node ./dist/scripts/migrations.js --rollback",
-    "make:migration": "npm run build && node ./dist/scripts/migrations.js --make",
-    "db:seed": "npm run build && node ./dist/scripts/seeds.js --run",
-    "make:seeder": "npm run build && node ./dist/scripts/seeds.js --make"
+    "start": "./node_modules/.bin/nodemon ./src/app.js",
+    "migrate": "node ./src/scripts/migrations.js --migrate",
+    "migrate:rollback": "node ./src/scripts/migrations.js --rollback",
+    "make:migration": "node ./src/scripts/migrations.js --make",
+    "db:seed": "node ./src/scripts/seeds.js --run",
+    "make:seeder": "node ./src/scripts/seeds.js --make"
   },
   "author": "Adrià Muñoz, Denís Navarro",
   "license": "MIT",
@@ -20,24 +19,22 @@
     "bookshelf-eloquent": "^0.1.15",
     "bookshelf-paranoia": "^0.11.0",
     "bookshelf-scopes": "^1.5.0",
-    "dotenv": "^4.0.0",
+    "dotenv": "^5.0.0",
     "express": "^4.16.2",
     "express-graphql": "^0.6.11",
-    "graphql": "^0.12.3",
+    "graphql": "^0.13.0",
     "graphql-fields": "^1.0.2",
     "jwt-simple": "^0.5.1",
-    "knex": "^0.14.2",
+    "knex": "^0.14.3",
     "moment": "^2.20.1",
     "mysql": "^2.15.0"
   },
   "devDependencies": {
-    "@types/bookshelf": "^0.9.7",
-    "@types/knex": "^0.14.0",
-    "@types/node": "^8.5.8",
-    "concurrently": "^3.5.1",
-    "eslint": "^4.15.0",
+    "@types/bookshelf": "^0.9.8",
+    "@types/knex": "^0.14.5",
+    "@types/node": "^9.4.5",
+    "eslint": "^4.17.0",
     "faker": "^4.1.0",
-    "nodemon": "^1.14.9",
-    "typescript": "^2.6.2"
+    "nodemon": "^1.14.12"
   }
 }

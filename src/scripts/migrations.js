@@ -1,14 +1,15 @@
-const knex = require('knex')(require('./../config/knexfile').development);
+'use strict';
+
+const knex = require('./../config/knex');
 const args = process.argv;
+const onFinish = () => knex.destroy();
 
 if (args.find(arg => arg === '--rollback')) {
-	knex.client.config.seeds.directory = 'dist/migrations';
-	knex.migrate.rollback().then(() => knex.destroy());
+	knex.migrate.rollback().then(onFinish);
 } else if (args.find(arg => arg === '--make')) {
-	knex.migrate.make(args[args.findIndex(arg => arg === '--make') + 1]).then(() => knex.destroy());
+	knex.migrate.make(args[args.findIndex(arg => arg === '--make') + 1]).then(onFinish);
 } else if (args.find(arg => arg === '--migrate')) {
-	knex.client.config.seeds.directory = 'dist/migrations';
-	knex.migrate.latest().then(() => knex.destroy());
+	knex.migrate.latest().then(onFinish);
 } else {
-	knex.destroy();
+	onFinish();
 }

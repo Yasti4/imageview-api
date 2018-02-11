@@ -22,21 +22,8 @@ An API for an image sharing platform.
 
 ### Documentation of Dependencies
 
-##### Query Builder
-
 - http://knexjs.org/
-
-##### ORM
-
 - https://github.com/bookshelf/bookshelf
 - https://www.npmjs.com/package/bookshelf-eloquent
-
-##### Seeds
-
 - http://knexjs.org/#Seeds-CLI
 - https://github.com/marak/Faker.js
-
-#### Extras
-
-> lsof -i:3000
-> kill -p $PID
