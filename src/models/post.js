@@ -15,7 +15,7 @@ module.exports = Bookshelf.model('Post', {
 	],
 	softDelete: true,
 	parse: function(post) {
-    if (post.enable_comments != null) post.enable_comments = !!+post.enable_comments;
+    post.enable_comments = !!post.enable_comments;
     return post;
   },
 	image: function () {

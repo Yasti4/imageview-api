@@ -13,19 +13,19 @@ module.exports = new GraphQLObjectType({
 	description: '...',
 	fields: {
 		id: {
-			type: new GraphQLNonNull(GraphQLInt)
+			type: GraphQLNonNull(GraphQLInt)
 		},
 		username: {
-			type: new GraphQLNonNull(GraphQLString)
+			type: GraphQLNonNull(GraphQLString)
 		},
 		email: {
-			type: new GraphQLNonNull(GraphQLString)
+			type: GraphQLNonNull(GraphQLString)
 		},
 		name: {
-			type: new GraphQLNonNull(GraphQLString)
+			type: GraphQLNonNull(GraphQLString)
 		},
 		lastname: {
-			type: new GraphQLNonNull(GraphQLString)
+			type: GraphQLNonNull(GraphQLString)
 		},
 		created_at: {
 			type: GraphQLDate

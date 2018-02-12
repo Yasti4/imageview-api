@@ -10,7 +10,8 @@ module.exports = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
     fields: {
-      user: UserQueries.user
+      user: UserQueries.user,
+      users: UserQueries.users
     }
-  }),
+  })
 });
