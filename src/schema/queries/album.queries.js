@@ -1,7 +1,7 @@
 'use strict';
 
-const type = require('./../types/user.type');
-const resolver = require('./../resolvers/user.resolvers');
+const type = require('./../types/album.type');
+const resolver = require('./../resolvers/album.resolvers');
 const {
     GraphQLNonNull,
     GraphQLList,
@@ -10,20 +10,17 @@ const {
 } = require('graphql');
 
 module.exports = {
-    user: {
+    album: {
         type: type,
         args: {
             id: {
                 type: GraphQLInt
-            },
-            username: {
-                type: GraphQLString
             }
         },
-        resolve: resolver.user
+        resolve: resolver.album
     },
-    users: {
+    albums: {
         type: GraphQLNonNull(GraphQLList(type)),
-        resolve: resolver.users
+        resolve: resolver.albums
     }
 };

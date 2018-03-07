@@ -7,37 +7,21 @@ const {
     GraphQLString
 } = require('graphql');
 const GraphQLDate = require('graphql-date');
-const resolver = require('../resolvers/user.resolvers');
-const Image = require('../types/image.type');
 
 module.exports = new GraphQLObjectType({
-    name: 'User',
+    name: 'Album',
     description: '...',
     fields: () => ({
         id: {
             type: GraphQLNonNull(GraphQLInt)
         },
-        username: {
+        title: {
             type: GraphQLNonNull(GraphQLString)
         },
-        email: {
-            type: GraphQLNonNull(GraphQLString)
+        description: {
+            type: GraphQLString
         },
-        name: {
-            type: GraphQLNonNull(GraphQLString)
-        },
-        lastname: {
-            type: GraphQLNonNull(GraphQLString)
-        },
-        image: {
-            type: GraphQLNonNull(Image),
-            resolve: (parent, args, context, info) => {
-                return resolver.image(parent, {
-                    id: parent.image_id
-                }, context, info);
-            }
-        },
-        role: {
+        visibility: {
             type: GraphQLNonNull(GraphQLString)
         },
         created_at: {
