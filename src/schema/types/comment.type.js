@@ -7,6 +7,9 @@ const {
     GraphQLString
 } = require('graphql');
 const GraphQLDate = require('graphql-date');
+const resolver = require('../resolvers/comment.resolvers');
+const Post = require('../types/post.type');
+const User = require('../types/user.type');
 
 module.exports = new GraphQLObjectType({
     name: 'Comment',
@@ -15,17 +18,24 @@ module.exports = new GraphQLObjectType({
         id: {
             type: GraphQLNonNull(GraphQLInt)
         },
-        comment: {
+        content: {
             type: GraphQLNonNull(GraphQLString)
         },
-        comment_id: {
-            type: GraphQLNonNull(GraphQLInt)
+        post: {
+            type: GraphQLNonNull(Post),
+            resolve: (parent, args, context, info) => {
+                return resolver.post(parent, {
+                    id: parent.post_id
+                }, context, info);
+            }
         },
-        post_id: {
-            type: GraphQLNonNull(GraphQLInt)
-        },
-        user_id: {
-            type: GraphQLNonNull(GraphQLInt)
+        user: {
+            type: GraphQLNonNull(User),
+            resolve: (parent, args, context, info) => {
+                return resolver.user(parent, {
+                    id: parent.user_id
+                }, context, info);
+            }
         },
         created_at: {
             type: GraphQLDate

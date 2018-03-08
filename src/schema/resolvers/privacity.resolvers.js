@@ -2,7 +2,8 @@
 
 
 const {
-    Privacity
+    Privacity,
+    User
 } = require('./../../models');
 
 module.exports = {
@@ -19,5 +20,8 @@ module.exports = {
     },
     privacities: async(parent, args, context, info) => {
         return (await Privacity.get()).toJSON();
+    },
+    user: async(parent, args, context, info) => {
+        return (await User.where('id', args.id).first()).toJSON();
     },
 };

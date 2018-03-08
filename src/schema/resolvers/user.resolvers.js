@@ -1,7 +1,9 @@
 'use strict';
 
-const User = require('./../../models/user');
-const Image = require('./../../models/image');
+const {
+    User,
+    Image
+} = require('./../../models');
 
 module.exports = {
     user: async(parent, args, context, info) => {

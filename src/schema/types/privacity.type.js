@@ -7,6 +7,8 @@ const {
     GraphQLString
 } = require('graphql');
 const GraphQLDate = require('graphql-date');
+const resolver = require('../resolvers/privacity.resolvers');
+const User = require('../types/user.type');
 
 module.exports = new GraphQLObjectType({
     name: 'Privacity',
@@ -15,8 +17,13 @@ module.exports = new GraphQLObjectType({
         id: {
             type: GraphQLNonNull(GraphQLInt)
         },
-        user_id: {
-            type: GraphQLNonNull(GraphQLInt)
+        user: {
+            type: GraphQLNonNull(User),
+            resolve: (parent, args, context, info) => {
+                return resolver.user(parent, {
+                    id: parent.user_id
+                }, context, info);
+            }
         },
         search: {
             type: GraphQLNonNull(GraphQLString)

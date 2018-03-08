@@ -3,7 +3,7 @@
 const {
     GraphQLObjectType,
     GraphQLNonNull,
-    GraphQLString
+    GraphQLString,
 } = require('graphql');
 const GraphQLDate = require('graphql-date');
 
@@ -12,7 +12,7 @@ module.exports = new GraphQLObjectType({
     description: '...',
     fields: () => ({
         name: {
-            type: GraphQLNonNull(GraphQLInt)
+            type: GraphQLNonNull(GraphQLString)
         }
     })
 });
