@@ -11,7 +11,6 @@ const resolver = require('../resolvers/post.resolvers');
 const User = require('../types/user.type');
 const Album = require('../types/album.type');
 
-
 module.exports = new GraphQLObjectType({
     name: 'Post',
     description: '...',

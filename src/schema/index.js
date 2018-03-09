@@ -4,16 +4,18 @@ const {
     GraphQLSchema,
     GraphQLObjectType
 } = require('graphql');
-const UserQueries = require('./queries/user.queries');
-const AlbumQueries = require('./queries/album.queries');
-const VisibilityQueries = require('./queries/visibility.queries');
-const PrivacityQueries = require('./queries/privacity.queries');
-const TagQueries = require('./queries/tag.queries');
-const CommentQueries = require('./queries/comment.queries');
-const ImageQueries = require('./queries/image.queries');
-const PostQueries = require('./queries/post.queries');
-const RoleQueries = require('./queries/role.queries');
 
+const {
+    UserQueries,
+    AlbumQueries,
+    VisibilityQueries,
+    PrivacityQueries,
+    TagQueries,
+    CommentQueries,
+    ImageQueries,
+    PostQueries,
+    RoleQueries
+} = require('./queries');
 
 module.exports = new GraphQLSchema({
     query: new GraphQLObjectType({

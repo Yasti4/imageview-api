@@ -1,14 +1,14 @@
 'use strict';
 
-const Album = require('./../models/album');
-const Comment = require('./../models/comment');
-const Image = require('./../models/image');
-const Post = require('./../models/post');
-const Privacity = require('./../models/privacity');
-const Role = require('./../models/role');
-const Tag = require('./../models/tag');
-const User = require('./../models/user');
-const Visibility = require('./../models/visibility');
+const Album = require('./album');
+const Comment = require('./comment');
+const Image = require('./image');
+const Post = require('./post');
+const Privacity = require('./privacity');
+const Role = require('./role');
+const Tag = require('./tag');
+const User = require('./user');
+const Visibility = require('./visibility');
 
 module.exports = {
     Album,
@@ -19,5 +19,5 @@ module.exports = {
     Role,
     Tag,
     User,
-    Visibility,
+    Visibility
 };

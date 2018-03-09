@@ -8,8 +8,8 @@ const {
 } = require('graphql');
 const GraphQLDate = require('graphql-date');
 const resolver = require('../resolvers/comment.resolvers');
-const Post = require('../types/post.type');
-const User = require('../types/user.type');
+const User = require('./user.type');
+const Post = require('./post.type');
 
 module.exports = new GraphQLObjectType({
     name: 'Comment',
