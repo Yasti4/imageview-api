@@ -33,7 +33,7 @@ module.exports = new GraphQLObjectType({
             }
         },
         album: {
-            type: GraphQLNonNull(Album),
+            type: Album,
             resolve: (parent, args, context, info) => {
                 return resolver.album(parent, {
                     id: parent.album_id

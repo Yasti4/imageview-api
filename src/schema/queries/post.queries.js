@@ -6,7 +6,8 @@ const {
     GraphQLNonNull,
     GraphQLList,
     GraphQLString,
-    GraphQLInt
+    GraphQLInt,
+    GraphQLBoolean
 } = require('graphql');
 
 module.exports = {
@@ -23,7 +24,7 @@ module.exports = {
                 type: GraphQLInt
             },
             enable_comments: {
-                type: GraphQLInt
+                type: GraphQLBoolean
             },
         },
         resolve: resolver.post

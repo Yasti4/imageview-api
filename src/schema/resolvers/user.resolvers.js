@@ -26,4 +26,19 @@ module.exports = {
     role: async(parent, args, context, info) => {
         return (await Role.where('name', args.name).first()).toJSON();
     },
+    updateUser: async(rootValue, { username, input }) => {
+        const user = await User.where('username', username).first();
+        console.log(input);
+        if (!user) {
+            return null;
+        }
+        for (const key in input) {
+            if (input.hasOwnProperty(key)) {
+                user.set(key, input[key])
+            }
+        }
+        user.save();
+        return user.toJSON();
+
+    }
 };

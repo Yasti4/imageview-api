@@ -17,6 +17,11 @@ const {
     RoleQueries
 } = require('./queries');
 
+const RoleMutation = require('./mutations/role.mutations');
+const VisibilityMutation = require('./mutations/visibility.mutations');
+
+const UserMutation = require('./mutations/user.mutations');
+
 module.exports = new GraphQLSchema({
     query: new GraphQLObjectType({
         name: 'Query',
@@ -39,6 +44,16 @@ module.exports = new GraphQLSchema({
             posts: PostQueries.posts,
             role: RoleQueries.role,
             roles: RoleQueries.roles,
+        }
+    }),
+    mutation: new GraphQLObjectType({
+        name: 'Mutation',
+        fields: {
+            createRole: RoleMutation.createRole,
+            updateRole: RoleMutation.updateRole,
+            createVisibility: VisibilityMutation.createVisibility,
+            deleteVisibility: VisibilityMutation.deleteVisibility,
+            updateUser: UserMutation.updateUser,
         }
     })
 });
