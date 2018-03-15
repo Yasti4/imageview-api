@@ -3,5 +3,5 @@
 const UserInput = require('./user.input');
 
 module.exports = {
-    UserInput
+  UserInput
 };
