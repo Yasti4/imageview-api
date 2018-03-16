@@ -1,7 +1,13 @@
 'use strict';
 
-const UserInput = require('./user.input');
+const UserInputInsert = require('./userInsert.input');
+const UserInputUpdate = require('./userUpdate.input');
+const PrivacityInputInsert = require('./privacityInsert.input');
+const PrivacityInputUpdate = require('./privacityUpdate.input');
 
 module.exports = {
-    UserInput
+    UserInputInsert,
+    UserInputUpdate,
+    PrivacityInputInsert,
+    PrivacityInputUpdate
 };

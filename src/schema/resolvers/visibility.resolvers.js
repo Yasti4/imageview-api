@@ -36,7 +36,7 @@ module.exports = {
         }
         const params = { 'name': name };
         let result = null;
-        await visibility.destroy(params, {
+        await visibility.destroy(params, { //TODO
                 delete: true
             })
             .then(data => {

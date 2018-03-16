@@ -19,8 +19,8 @@ const {
 
 const RoleMutation = require('./mutations/role.mutations');
 const VisibilityMutation = require('./mutations/visibility.mutations');
-
 const UserMutation = require('./mutations/user.mutations');
+const PrivacityMutation = require('./mutations/privacity.mutations');
 
 module.exports = new GraphQLSchema({
     query: new GraphQLObjectType({
@@ -44,6 +44,7 @@ module.exports = new GraphQLSchema({
             posts: PostQueries.posts,
             role: RoleQueries.role,
             roles: RoleQueries.roles,
+            search: TagQueries.search,
         }
     }),
     mutation: new GraphQLObjectType({
@@ -53,7 +54,10 @@ module.exports = new GraphQLSchema({
             updateRole: RoleMutation.updateRole,
             createVisibility: VisibilityMutation.createVisibility,
             deleteVisibility: VisibilityMutation.deleteVisibility,
+            createUser: UserMutation.createUser,
             updateUser: UserMutation.updateUser,
+            createPrivacity: PrivacityMutation.createPrivacity,
+            updatePrivacity: PrivacityMutation.updatePrivacity,
         }
     })
 });

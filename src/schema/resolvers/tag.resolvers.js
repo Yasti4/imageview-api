@@ -2,6 +2,7 @@
 
 
 const {
+    User,
     Tag
 } = require('./../../models');
 
@@ -19,5 +20,10 @@ module.exports = {
     },
     tags: async(parent, args, context, info) => {
         return (await Tag.get()).toJSON();
+    },
+    search: async(parent, args, context, info) => {
+        const users = (await User.whereLike('username', `%${args.search}%`).get()).toJSON();
+        const tags = (await Tag.whereLike('name', `%${args.search}%`).get()).toJSON();
+        return [...users, ...tags];
     },
 };

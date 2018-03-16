@@ -26,9 +26,17 @@ module.exports = {
     role: async(parent, args, context, info) => {
         return (await Role.where('name', args.name).first()).toJSON();
     },
+    createUser: async(rootValue, { input }) => {
+        input.image_id = 1; //TODO quitar implementar el id de la imagen subida
+        try {
+            const user = await User.create(input);
+            return user.toJSON();
+        } catch (error) {
+            throw error;
+        }
+    },
     updateUser: async(rootValue, { username, input }) => {
         const user = await User.where('username', username).first();
-        console.log(input);
         if (!user) {
             return null;
         }
@@ -39,6 +47,5 @@ module.exports = {
         }
         user.save();
         return user.toJSON();
-
     }
 };

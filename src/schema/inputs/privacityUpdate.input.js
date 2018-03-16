@@ -6,25 +6,28 @@ const {
     GraphQLString,
     GraphQLInputObjectType
 } = require('graphql');
-const GraphQLDate = require('graphql-date');
-const resolver = require('../resolvers/user.resolvers');
+
+const resolver = require('../resolvers/visibility.resolvers');
 const Image = require('../types/image.type');
 
 module.exports = new GraphQLInputObjectType({
-    name: 'UserInput',
+    name: 'VisibilityInputUpdate',
     description: '...',
     fields: () => ({
-        email: {
+        id: {
+            type: new GraphQLNonNull(GraphQLInt)
+        },
+        user_id: {
+            type: new GraphQLNonNull(GraphQLInt)
+        },
+        search: {
             type: GraphQLString
         },
-        name: {
+        posts: {
             type: GraphQLString
         },
-        lastname: {
+        albums: {
             type: GraphQLString
         },
-        role: {
-            type: GraphQLString
-        }
     })
 });

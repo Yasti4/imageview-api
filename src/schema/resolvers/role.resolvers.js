@@ -31,19 +31,9 @@ module.exports = {
         if (!role) {
             return null;
         }
-        role.set('name', newName);
-        role.save();
-        return role.toJSON();
-        // let result = null;
-        // const params = { 'name': newName };
-        // console.log(role);
-        // result = await role
-        //     .save(params, {
-        //         update: true,
-        //         debug: true,
-        //         patch: true
-        //     });
-
-        // return result;
+        const b = await role.eloquent.knex(role.tableName)
+            .where('name', role.attributes['name'])
+            .update({ name: newName });
+        return b > 0 ? role.toJSON() : null;
     },
 };
