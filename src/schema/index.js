@@ -4,6 +4,9 @@ const {
     GraphQLSchema,
     GraphQLObjectType
 } = require('graphql');
+const {
+    AuthDirective
+} = require('./directives');
 
 const {
     UserQueries,
@@ -22,43 +25,39 @@ const VisibilityMutation = require('./mutations/visibility.mutations');
 const UserMutation = require('./mutations/user.mutations');
 const PrivacityMutation = require('./mutations/privacity.mutations');
 
-module.exports = new GraphQLSchema({
+const schema = new GraphQLSchema({
     query: new GraphQLObjectType({
         name: 'Query',
         fields: {
-            user: UserQueries.user,
-            users: UserQueries.users,
-            album: AlbumQueries.album,
-            albums: AlbumQueries.albums,
-            visibility: VisibilityQueries.visibility,
-            visibilities: VisibilityQueries.visibilities,
-            privacity: PrivacityQueries.privacity,
-            privacities: PrivacityQueries.privacities,
-            tag: TagQueries.tag,
-            tags: TagQueries.tags,
-            comment: CommentQueries.comment,
-            comments: CommentQueries.comments,
-            image: ImageQueries.image,
-            images: ImageQueries.images,
-            post: PostQueries.post,
-            posts: PostQueries.posts,
-            role: RoleQueries.role,
-            roles: RoleQueries.roles,
-            search: TagQueries.search,
+            ...UserQueries,
+            ...AlbumQueries,
+            ...VisibilityQueries,
+            ...PrivacityQueries,
+            ...TagQueries,
+            ...CommentQueries,
+            ...ImageQueries,
+            ...PostQueries,
+            ...RoleQueries,
         }
     }),
     mutation: new GraphQLObjectType({
         name: 'Mutation',
         fields: {
-            following: UserMutation.following,
-            createRole: RoleMutation.createRole,
-            updateRole: RoleMutation.updateRole,
-            createVisibility: VisibilityMutation.createVisibility,
-            deleteVisibility: VisibilityMutation.deleteVisibility,
-            createUser: UserMutation.createUser,
-            updateUser: UserMutation.updateUser,
-            createPrivacity: PrivacityMutation.createPrivacity,
-            updatePrivacity: PrivacityMutation.updatePrivacity,
+            ...RoleMutation,
+            ...VisibilityMutation,
+            ...UserMutation,
+            ...PrivacityMutation
         }
     })
 });
+
+// const directiveResolvers = {
+//   isAuth(next, source, args, context, info) {
+//     throw Error('Ups!');
+//   }
+// };
+
+// const { addDirectiveResolveFunctionsToSchema } = require('graphql-directive');
+// addDirectiveResolveFunctionsToSchema(schema, directiveResolvers);
+
+module.exports = schema;

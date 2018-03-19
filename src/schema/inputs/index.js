@@ -12,4 +12,4 @@ module.exports = {
     UserFollow,
     PrivacityInputInsert,
     PrivacityInputUpdate
-};
+}

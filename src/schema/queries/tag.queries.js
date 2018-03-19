@@ -4,52 +4,52 @@ const typeTag = require('./../types/tag.type');
 const typeUser = require('./../types/user.type');
 const resolver = require('./../resolvers/tag.resolvers');
 const {
-    User,
-    Tag
+  User,
+  Tag
 } = require('./../../models');
 const {
-    GraphQLNonNull,
-    GraphQLList,
-    GraphQLString,
-    GraphQLInt,
-    GraphQLUnionType
+  GraphQLNonNull,
+  GraphQLList,
+  GraphQLString,
+  GraphQLInt,
+  GraphQLUnionType
 } = require('graphql');
 
 module.exports = {
-    tag: {
-        type: typeTag,
-        args: {
-            id: {
-                type: GraphQLInt
-            },
-            name: {
-                type: GraphQLString
-            }
-        },
-        resolve: resolver.tag
+  tag: {
+    type: typeTag,
+    args: {
+      id: {
+        type: GraphQLInt
+      },
+      name: {
+        type: GraphQLString
+      }
     },
-    tags: {
-        type: GraphQLNonNull(GraphQLList(typeTag)),
-        resolve: resolver.tags
+    resolve: resolver.tag
+  },
+  tags: {
+    type: GraphQLNonNull(GraphQLList(typeTag)),
+    resolve: resolver.tags
+  },
+  search: { //Ver donde va la consulta
+    args: {
+      search: {
+        type: GraphQLNonNull(GraphQLString)
+      },
     },
-    search: { //Ver donde va la consulta
-        args: {
-            search: {
-                type: GraphQLNonNull(GraphQLString)
-            },
-        },
-        type: GraphQLList(new GraphQLUnionType({
-            name: "Search",
-            types: () => [typeUser, typeTag],
-            resolveType(value) {
-                if (value.username) {
-                    return typeUser;
-                }
-                if (value.name) {
-                    return typeTag;
-                }
-            }
-        })),
-        resolve: resolver.search
-    }
+    type: GraphQLList(new GraphQLUnionType({
+      name: 'Search',
+      types: () => [typeUser, typeTag],
+      resolveType(value) {
+        if (value.username) {
+          return typeUser;
+        }
+        if (value.name) {
+          return typeTag;
+        }
+      }
+    })),
+    resolve: resolver.search
+  }
 };
