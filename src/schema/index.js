@@ -50,6 +50,7 @@ module.exports = new GraphQLSchema({
     mutation: new GraphQLObjectType({
         name: 'Mutation',
         fields: {
+            following: UserMutation.following,
             createRole: RoleMutation.createRole,
             updateRole: RoleMutation.updateRole,
             createVisibility: VisibilityMutation.createVisibility,

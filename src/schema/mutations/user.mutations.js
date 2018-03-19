@@ -8,9 +8,11 @@ const {
     GraphQLString,
     GraphQLInt
 } = require('graphql');
+
 const {
     UserInputInsert,
-    UserInputUpdate
+    UserInputUpdate,
+    UserFollow
 } = require('./../inputs');
 
 module.exports = {
@@ -34,5 +36,14 @@ module.exports = {
             }
         },
         resolve: resolver.updateUser,
-    }
+    },
+    following: {
+        type: type,
+        args: {
+            input: {
+                type: new GraphQLNonNull(UserFollow)
+            },
+        },
+        resolve: resolver.following,
+    },
 };

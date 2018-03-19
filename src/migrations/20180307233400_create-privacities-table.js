@@ -8,6 +8,7 @@ exports.up = function(knex, Promise) {
         knex.schema.createTable('privacity', function(table) {
             table.increments('id').primary().unsigned();
             table.integer('user_id').unsigned().notNullable()
+                .unique()
                 .references('id')
                 .inTable('users')
                 .onUpdate('CASCADE')

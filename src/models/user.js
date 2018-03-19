@@ -43,4 +43,10 @@ module.exports = Bookshelf.model('User', {
     commentsLikes: function() {
         return this.belongsToMany('Comment', 'likes_comments', 'user_id', 'comment_id');
     },
+    following: function() { //siguiendo
+        return this.hasMany('User', 'user_follower');
+    },
+    followed: function() { //seguido
+        return this.hasMany('User', 'user_followed');
+    }
 });
