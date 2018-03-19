@@ -4,10 +4,6 @@ const {
   GraphQLSchema,
   GraphQLObjectType
 } = require('graphql');
-// const {
-//   addDirectiveResolveFunctionsToSchema 
-// } = require('graphql-directive');
-
 const {
   AuthDirective
 } = require('./directives');
@@ -29,9 +25,6 @@ const VisibilityMutation = require('./mutations/visibility.mutations');
 const UserMutation = require('./mutations/user.mutations');
 
 const schema = new GraphQLSchema({
-  directives: [
-    // AuthDirective
-  ],
   query: new GraphQLObjectType({
     name: 'Query',
     fields: {
@@ -61,5 +54,8 @@ const schema = new GraphQLSchema({
 //     throw Error('Ups!');
 //   }
 // };
+
+// const { addDirectiveResolveFunctionsToSchema } = require('graphql-directive');
+// addDirectiveResolveFunctionsToSchema(schema, directiveResolvers);
 
 module.exports = schema;

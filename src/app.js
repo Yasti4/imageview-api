@@ -16,7 +16,7 @@ class App {
 
   constructor(fn) {
     dotenv.load();
-    this.isDev = process.env.NODE_ENV === 'development';
+    this.isDevelopment = process.env.NODE_ENV === 'development';
     this.app = express();
     this.config();
     this.run(fn);
@@ -24,17 +24,16 @@ class App {
 
   config() {
     this.app.use(compression());
-    this.app.use('/graphql', bodyParser.json(), graphqlExpress(request => ({
+    this.app.use('/graphql', bodyParser.json(), graphqlExpress({
       schema: require('./schema'),
       context: {
-        db: require('./config/knex'),
-        headers: request.headers
+        db: require('./config/knex')
       },
-      debug: this.isDev,
-      tracing: true,
+      debug: this.isDevelopment,
+      tracing: this.isDevelopment,
       cacheControl: true
-    })));
-    if (this.isDev) {
+    }));
+    if (this.isDevelopment) {
       this.app.use('/graphiql', graphiqlExpress({
         endpointURL: '/graphql'
       }));
