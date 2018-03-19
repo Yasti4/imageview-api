@@ -4,9 +4,6 @@ const dotenv = require('dotenv');
 const express = require('express');
 const compression = require('compression');
 const bodyParser = require('body-parser');
-// const {
-//     buildSchema
-// } = require('graphql');
 const {
   graphqlExpress,
   graphiqlExpress

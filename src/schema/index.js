@@ -23,6 +23,7 @@ const {
 const RoleMutation = require('./mutations/role.mutations');
 const VisibilityMutation = require('./mutations/visibility.mutations');
 const UserMutation = require('./mutations/user.mutations');
+const PrivacityMutation = require('./mutations/privacity.mutations');
 
 const schema = new GraphQLSchema({
   query: new GraphQLObjectType({
@@ -36,7 +37,7 @@ const schema = new GraphQLSchema({
       ...CommentQueries,
       ...ImageQueries,
       ...PostQueries,
-      ...RoleQueries
+      ...RoleQueries,
     }
   }),
   mutation: new GraphQLObjectType({
@@ -44,7 +45,8 @@ const schema = new GraphQLSchema({
     fields: {
       ...RoleMutation,
       ...VisibilityMutation,
-      ...UserMutation
+      ...UserMutation,
+      ...PrivacityMutation
     }
   })
 });

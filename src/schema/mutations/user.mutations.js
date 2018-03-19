@@ -9,10 +9,20 @@ const {
     GraphQLInt
 } = require('graphql');
 const {
-    UserInput
+    UserInputInsert,
+    UserInputUpdate
 } = require('./../inputs');
 
 module.exports = {
+    createUser: {
+        type: type,
+        args: {
+            input: {
+                type: UserInputInsert
+            }
+        },
+        resolve: resolver.createUser,
+    },
     updateUser: {
         type: type,
         args: {
@@ -20,7 +30,7 @@ module.exports = {
                 type: new GraphQLNonNull(GraphQLString)
             },
             input: {
-                type: new GraphQLNonNull(UserInput)
+                type: new GraphQLNonNull(UserInputUpdate)
             }
         },
         resolve: resolver.updateUser,

@@ -6,6 +6,7 @@ const {
     GraphQLNonNull,
     GraphQLList,
     GraphQLString,
+    GraphQLBoolean,
     GraphQLInt
 } = require('graphql');
 
@@ -20,7 +21,7 @@ module.exports = {
         resolve: resolver.createRole,
     },
     updateRole: {
-        type: type,
+        type: new GraphQLNonNull(GraphQLBoolean),
         args: {
             oldName: {
                 type: new GraphQLNonNull(GraphQLString)

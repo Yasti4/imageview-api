@@ -3,24 +3,24 @@
 const type = require('./../types/role.type');
 const resolver = require('./../resolvers/role.resolvers');
 const {
-    GraphQLNonNull,
-    GraphQLList,
-    GraphQLString,
-    GraphQLInt
+  GraphQLNonNull,
+  GraphQLList,
+  GraphQLString,
+  GraphQLInt
 } = require('graphql');
 
 module.exports = {
-    role: {
-        type: type,
-        args: {
-            name: {
-                type: GraphQLString
-            },
-        },
-        resolve: resolver.role
+  role: {
+    type: type,
+    args: {
+      name: {
+        type: GraphQLNonNull(GraphQLString)
+      },
     },
-    roles: {
-        type: GraphQLNonNull(GraphQLList(type)),
-        resolve: resolver.roles
-    }
+    resolve: resolver.role
+  },
+  roles: {
+    type: GraphQLNonNull(GraphQLList(type)),
+    resolve: resolver.roles
+  }
 };
