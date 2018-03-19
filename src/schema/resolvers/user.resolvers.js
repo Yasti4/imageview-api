@@ -49,28 +49,29 @@ module.exports = {
         return user.toJSON();
     },
     following: async(rootValue, { input }) => {
-        const foundUser = await User
-            .where('id', input.user_followed)
-            .with('following')
-            .where('user_followed', input.user_followed)
-            .orWhere('user_follower', input.user_follower)
-            .first();
-        if (foundUser) {
-            console.log('found');
-            for (const key in input) {
-                if (input.hasOwnProperty(key)) {
-                    user.set(key, input[key])
-                }
-            }
-            user.save();
-            return user.toJSON();
-        }
-        console.log('not found');
-        const user = await User.with('following').create(input);
-        if (!user) {
-            return null;
-        }
+        return false;
+        // const foundUser = await User
+        //     .where('id', input.user_followed)
+        //     .with('following')
+        //     .where('user_followed', input.user_followed)
+        //     .orWhere('user_follower', input.user_follower)
+        //     .first();
+        // if (foundUser) {
+        //     console.log('found');
+        //     for (const key in input) {
+        //         if (input.hasOwnProperty(key)) {
+        //             user.set(key, input[key])
+        //         }
+        //     }
+        //     user.save();
+        //     return user.toJSON();
+        // }
+        // console.log('not found');
+        // const user = await User.with('following').create(input);
+        // if (!user) {
+        //     return null;
+        // }
 
-        return user.toJSON();
+        // return user.toJSON();
     },
 };
