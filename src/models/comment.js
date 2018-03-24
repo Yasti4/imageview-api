@@ -1,24 +1,60 @@
 'use strict';
 
-const Bookshelf = require('./../config/bookshelf');
-require('./user');
-require('./post');
 
-module.exports = Bookshelf.model('Comment', {
-	tableName: 'comments',
-	idAttribute: 'id',
-	hasTimestamps: ['created_at', 'updated_at'],
-	hidden: [
-		'deleted_at',
-	],
-	softDelete: true,
-	user: function () {
-		return this.belongsTo('User', 'id');
-	},
-	post: function () {
-		return this.belongsTo('Post', 'id');
-	},
-	likes: function () {
-		return this.belongsToMany('User', 'likes_comments', 'user_id', 'comment_id');
-	}
-});
+module.exports = function(sequelize, DataTypes) {
+    var Comment = sequelize.define('Comment', {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        content: {
+            type: DataTypes.STRING,
+        },
+        post_id: {
+            type: DataTypes.INTEGER
+        },
+        user_id: {
+            type: DataTypes.INTEGER
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            field: 'created_at',
+            allowNull: true
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            field: 'updated_at',
+            allowNull: true
+        },
+        deletedAt: {
+            type: DataTypes.DATE,
+            field: 'deleted_at',
+            allowNull: true
+        },
+    }, {
+        tableName: 'comments',
+        timestamps: true,
+        paranoid: true
+    });
+
+    Comment.associate = function(models) {
+        Comment.belongsTo(models.User, {
+            as: 'user',
+            foreignKey: 'id',
+            sourceKey: 'user_id'
+        });
+        Comment.belongsTo(models.Post, {
+            as: 'post',
+            foreignKey: 'id',
+            sourceKey: 'post_id'
+        });
+        Comment.belongsToMany(models.User, {
+            as: 'likes',
+            through: 'likes_comments',
+            foreignKey: 'comment_id',
+            otherKey: 'user_id'
+        });
+    }
+    return Comment;
+};

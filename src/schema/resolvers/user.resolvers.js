@@ -1,30 +1,21 @@
 'use strict';
 
-const {
-    User,
-    Image
-} = require('./../../models');
-
 module.exports = {
-    user: async(parent, args, context, info) => {
+    user: (parent, args, context, info) => {
         if (args.id) {
-            const user = await User.where('id', args.id).first();
-            return user ? user.toJSON() : null;
+            return context.db.User.find({ where: { 'id': args.id } });
         } else if (args.username) {
-            const user = await User.where('username', args.username).first();
-            return user ? user.toJSON() : null;
-        } else {
-            return null;
+            return context.db.User.find({ where: { 'username': args.username } });
         }
     },
-    users: async(parent, args, context, info) => {
-        return (await User.get()).toJSON();
+    users: (parent, args, context, info) => {
+        return context.db.User.findAll();
     },
-    image: async(parent, args, context, info) => {
-        return (await Image.where('id', args.id).first()).toJSON();
+    image: (parent, args, context, info) => {
+        return context.db.Image.find({ where: { 'id': args.id } });
     },
     role: async(parent, args, context, info) => {
-        return (await Role.where('name', args.name).first()).toJSON();
+        return context.db.Role.find({ where: { 'name': args.name } });
     },
     createUser: async(rootValue, { input }) => {
         input.image_id = 1; //TODO quitar implementar el id de la imagen subida

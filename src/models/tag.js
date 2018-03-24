@@ -1,12 +1,28 @@
 'use strict';
 
-const Bookshelf = require('./../config/bookshelf');
-require('./post');
+module.exports = function(sequelize, DataTypes) {
+    var Tag = sequelize.define('Tag', {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        name: {
+            type: DataTypes.STRING,
+            unique: true,
+        }
+    }, {
+        tableName: 'tags'
+    });
 
-module.exports = Bookshelf.model('Tag', {
-	tableName: 'tags',
-	idAttribute: 'id',
-	posts: function () {
-		return this.belongsToMany('Post', 'posts_tags', 'post_id', 'tag_id');
-	},
-});
+    Tag.associate = function(models) {
+        Tag.belongsToMany(models.Post, {
+            as: 'posts',
+            through: 'posts_tags',
+            foreignKey: 'tag_id',
+            otherkey: 'post_id'
+        });
+    };
+
+    return Tag;
+};

@@ -1,16 +1,39 @@
 'use strict';
 
-const Bookshelf = require('./../config/bookshelf');
-require('./post');
-require('./user');
 
-module.exports = Bookshelf.model('Image', {
-	tableName: 'images',
-	idAttribute: 'id',
-	posts: function () {
-		return this.belongsToMany('Post', 'posts', 'image', 'id');
-	},
-	user: function () {
-		return this.belongsToMany('User', 'users', 'image', 'id');
-	}
-});
+module.exports = function(sequelize, DataTypes) {
+    var Image = sequelize.define('Image', {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        small: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        medium: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        large: {
+            type: DataTypes.STRING,
+            allowNull: true
+        }
+    }, {
+        tableName: 'images'
+    });
+
+    Image.associate = function(models) {
+        Image.hasOne(models.Post, {
+            as: 'post',
+            foreignKey: 'id'
+        });
+        Image.hasOne(models.User, {
+            as: 'user',
+            foreignKey: 'id'
+        });
+    };
+
+    return Image;
+};

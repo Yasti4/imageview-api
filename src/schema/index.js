@@ -14,16 +14,16 @@ const {
     VisibilityQueries,
     PrivacityQueries,
     TagQueries,
-    CommentQueries,
-    ImageQueries,
-    PostQueries,
-    RoleQueries
+    // CommentQueries,
+    // ImageQueries,
+    // PostQueries,
+    // RoleQueries
 } = require('./queries');
 
-const RoleMutation = require('./mutations/role.mutations');
-const VisibilityMutation = require('./mutations/visibility.mutations');
-const UserMutation = require('./mutations/user.mutations');
-const PrivacityMutation = require('./mutations/privacity.mutations');
+// const RoleMutation = require('./mutations/role.mutations');
+// const VisibilityMutation = require('./mutations/visibility.mutations');
+// const UserMutation = require('./mutations/user.mutations');
+// const PrivacityMutation = require('./mutations/privacity.mutations');
 
 const schema = new GraphQLSchema({
     query: new GraphQLObjectType({
@@ -34,21 +34,21 @@ const schema = new GraphQLSchema({
             ...VisibilityQueries,
             ...PrivacityQueries,
             ...TagQueries,
-            ...CommentQueries,
-            ...ImageQueries,
-            ...PostQueries,
-            ...RoleQueries,
+            // ...CommentQueries,
+            // ...ImageQueries,
+            // ...PostQueries,
+            // ...RoleQueries,
         }
     }),
-    mutation: new GraphQLObjectType({
-        name: 'Mutation',
-        fields: {
-            ...RoleMutation,
-            ...VisibilityMutation,
-            ...UserMutation,
-            ...PrivacityMutation
-        }
-    })
+    // mutation: new GraphQLObjectType({
+    //     name: 'Mutation',
+    //     fields: {
+    //         ...RoleMutation,
+    //         ...VisibilityMutation,
+    //         ...UserMutation,
+    //         ...PrivacityMutation
+    //     }
+    // })
 });
 
 // const directiveResolvers = {

@@ -1,28 +1,19 @@
 'use strict';
 
-const {
-    Visibility,
-    Privacity,
-    User
-} = require('./../../models');
-
 module.exports = {
     privacity: async(parent, args, context, info) => {
         if (args.id) {
-            const privacity = await Privacity.where('id', args.id).first();
-            return privacity ? privacity.toJSON() : null;
+            return context.db.Privacity.find({ where: { 'id': args.id } });
         } else if (args.user_id) {
-            const privacity = await Privacity.where('user_id', args.user_id).first();
-            return privacity ? privacity.toJSON() : null;
-        } else {
-            return null;
+            return context.db.Privacity.find({ where: { 'user_id': args.user_id } });
         }
     },
     privacities: async(parent, args, context, info) => {
-        return (await Privacity.get()).toJSON();
+        console.log(context);
+        return context.db.Privacity.findAll();
     },
     user: async(parent, args, context, info) => {
-        return (await User.where('id', args.id).first()).toJSON();
+        return context.db.User.find({ where: { 'id': args.id } });
     },
     createPrivacity: async(rootValue, { input }) => {
         const visibilities = (await Visibility.get()).toJSON();

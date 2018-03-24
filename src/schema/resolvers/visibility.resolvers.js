@@ -1,18 +1,13 @@
 'use strict';
 
-const Visibility = require('./../../models/visibility');
-
 module.exports = {
     visibility: async(parent, args, context, info) => {
         if (args.name) {
-            const visibility = await Visibility.where('name', args.name).first();
-            return visibility ? visibility.toJSON() : null;
-        } else {
-            return null;
+            return context.db.Visibility.find({ where: { 'name': args.name } });
         }
     },
     visibilities: async(parent, args, context, info) => {
-        return (await Visibility.get()).toJSON();
+        return context.db.Visibility.findAll();
     },
     createVisibility: async(rootValue, { name }) => {
         const params = { 'name': name };

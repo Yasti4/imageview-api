@@ -1,16 +1,32 @@
 'use strict';
 
-const Bookshelf = require('./../config/bookshelf');
-require('./album');
-require('./post');
+module.exports = function(sequelize, DataTypes) {
+    var Visibility = sequelize.define('Visibility', {
+        name: {
+            type: DataTypes.STRING,
+            primaryKey: true,
+        }
+    }, {
+        tableName: 'visibilities'
+    });
 
-module.exports = Bookshelf.model('Visibility', {
-	tableName: 'visibilities',
-	idAttribute: 'name',
-	albums: function () {
-		return this.hasMany('Album', 'visibility');
-	},
-	posts: function () {
-		return this.hasMany('Post', 'visibility');
-	},
-});
+    Visibility.associate = function(models) {
+        Visibility.hasMany(models.Album, {
+            as: 'albums',
+            foreignKey: 'id',
+        });
+    }
+
+    Visibility.associate = function(models) {
+        Visibility.hasMany(models.Post, {
+            as: 'posts',
+            foreignKey: 'id',
+        });
+        Visibility.hasMany(models.Album, {
+            as: 'albums',
+            foreignKey: 'id',
+        });
+    }
+
+    return Visibility;
+};

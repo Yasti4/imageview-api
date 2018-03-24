@@ -1,29 +1,31 @@
 'use strict';
 
-
-const {
-    User,
-    Tag
-} = require('./../../models');
-
 module.exports = {
-    tag: async(parent, args, context, info) => {
+    tag: (parent, args, context, info) => {
         if (args.id) {
-            const tag = await Tag.where('id', args.id).first();
-            return tag ? tag.toJSON() : null;
+            return context.db.Tag.find({ where: { 'id': args.id } });
         } else if (args.name) {
-            const tag = await Tag.where('name', args.name).first();
-            return tag ? tag.toJSON() : null;
-        } else {
-            return null;
+            return context.db.Tag.find({ where: { 'name': args.name } });
         }
     },
-    tags: async(parent, args, context, info) => {
-        return (await Tag.get()).toJSON();
+    tags: (parent, args, context, info) => {
+        return context.db.Tag.findAll();
     },
     search: async(parent, args, context, info) => {
-        const users = (await User.whereLike('username', `%${args.search}%`).get()).toJSON();
-        const tags = (await Tag.whereLike('name', `%${args.search}%`).get()).toJSON();
+        const users = await context.db.User.findAll({
+            where: {
+                username: {
+                    [context.db.Sequelize.Op.like]: `%${args.search}%`
+                }
+            }
+        });
+        const tags = await context.db.Tag.findAll({
+            where: {
+                name: {
+                    [context.db.Sequelize.Op.like]: `%${args.search}%`
+                }
+            }
+        });
         return [...users, ...tags];
     },
 };

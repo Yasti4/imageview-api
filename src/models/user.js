@@ -1,110 +1,128 @@
 'use strict';
 
-const { Sequelize, sequelize } = require('./../config/sequelize')
 
-const User = sequelize.define('User', {
-    id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    title: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false
-    },
-    email: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false
-    },
-    password: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    name: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    lastname: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    image_id: {
-        type: Sequelize.INTEGER,
-        references: {
-            model: Image,
-            key: 'id',
-        }
-    },
-    role: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        references: {
-            model: Role,
-            key: 'id',
-        }
-    },
-}, {
-    tableName: 'users',
-    timestamps: true,
-    createdAt: true,
-    updatedAt: true,
-    // And deletedAt to be called destroyTime (remember to enable paranoid for this to work)
-    deletedAt: true,
-    paranoid: true
-});
-return User;
+module.exports = function(sequelize, DataTypes) {
+    var User = sequelize.define('User', {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        username: {
+            type: DataTypes.STRING,
+            unique: true,
+            allowNull: false
+        },
+        email: {
+            type: DataTypes.STRING,
+            unique: true,
+            allowNull: false
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        lastname: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        image_id: {
+            type: DataTypes.INTEGER,
+        },
+        role: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            field: 'created_at',
+            allowNull: true
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            field: 'updated_at',
+            allowNull: true
+        },
+        deletedAt: {
+            type: DataTypes.DATE,
+            field: 'deleted_at',
+            allowNull: true
+        },
+    }, {
+        tableName: 'users',
+        timestamps: true,
+        paranoid: true
+    });
 
-module.exports = User;
+    User.associate = function(models) {
+        User.belongsTo(models.Role, {
+            foreignKey: 'name',
+            sourceKey: 'role'
+        });
+        User.belongsTo(models.Image, {
+            as: 'image',
+            foreignKey: 'id',
+            sourceKey: 'image_id'
+        });
+        User.hasMany(models.Album, {
+            as: 'albums',
+            foreignKey: 'user_id'
+        });
+        User.belongsToMany(models.Album, {
+            as: 'albumsSubscriptions',
+            through: 'subscriptions_albums',
+            foreignKey: 'user_id',
+            otherKey: 'album_id',
+        });
+        User.belongsToMany(models.Album, {
+            as: 'albumsLikes',
+            through: 'likes_albums',
+            foreignKey: 'user_id',
+            otherKey: 'album_id',
+        });
+        User.hasMany(models.Post, {
+            as: 'posts',
+            foreignKey: 'user_id'
+        });
+        User.belongsToMany(models.Post, {
+            as: 'subscriptions_posts',
+            through: 'likes_posts',
+            foreignKey: 'user_id',
+            otherKey: 'post_id',
+        });
+        User.belongsToMany(models.Post, {
+            as: 'postLikes',
+            through: 'likes_posts',
+            foreignKey: 'user_id',
+            otherKey: 'post_id',
+        });
+        User.hasMany(models.Comment, {
+            as: 'comments',
+            foreignKey: 'user_id'
+        });
+        User.belongsToMany(models.Comment, {
+            as: 'commentsLikes',
+            through: 'likes_comments',
+            foreignKey: 'user_id',
+            otherKey: 'comment_id',
+        });
+        User.belongsToMany(models.User, {
+            as: 'following',
+            through: 'subscriptions_users',
+            foreignKey: 'user_follower',
+            otherKey: 'user_followed',
+        });
+        User.belongsToMany(models.User, {
+            as: 'followed',
+            through: 'subscriptions_users',
+            foreignKey: 'user_followed',
+            otherKey: 'user_follower',
+        });
 
-// const Bookshelf = require('./../config/bookshelf');
-// require('./role');
-// require('./image');
-// require('./user');
-// require('./album');
-// require('./post');
-// require('./comment');
-
-// module.exports = Bookshelf.model('User', {
-//     tableName: 'users',
-//     idAttribute: 'id',
-//     hasTimestamps: ['created_at', 'updated_at'],
-//     hidden: [
-//         'deleted_at',
-//     ],
-//     softDelete: true,
-//     image: function() {
-//         return this.belongsTo('Image', 'id');
-//     },
-//     albums: function() {
-//         return this.hasMany('Album', 'user_id');
-//     },
-//     albumsSubscriptions: function() {
-//         return this.belongsToMany('Album', 'subscriptions_albums', 'user_id', 'album_id');
-//     },
-//     albumsLikes: function() {
-//         return this.belongsToMany('Album', 'likes_albums', 'user_id', 'album_id');
-//     },
-//     posts: function() {
-//         return this.hasMany('Post', 'user_id');
-//     },
-//     postsSubscriptions: function() {
-//         return this.belongsToMany('Post', 'subscriptions_posts', 'user_id', 'post_id');
-//     },
-//     postLikes: function() {
-//         return this.belongsToMany('Post', 'likes_post', 'user_id', 'post_id');
-//     },
-//     comments: function() {
-//         return this.hasMany('Comment', 'user_id');
-//     },
-//     commentsLikes: function() {
-//         return this.belongsToMany('Comment', 'likes_comments', 'user_id', 'comment_id');
-//     },
-//     following: function() { //siguiendo
-//         return this.hasMany('User', 'user_follower');
-//     },
-//     followed: function() { //seguido
-//         return this.hasMany('User', 'user_followed');
-//     }
-// });
+    }
+    return User;
+};

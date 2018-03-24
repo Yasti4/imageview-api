@@ -1,11 +1,28 @@
 'use strict';
 
-const Bookshelf = require('./../config/bookshelf');
-const {
-    Visibility
-} = require('./../models');
+module.exports = function(sequelize, DataTypes) {
+    var Privacity = sequelize.define('Privacity', {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        user_id: {
+            type: DataTypes.INTEGER
+        },
+        search: {
+            type: DataTypes.STRING
+        },
+        posts: {
+            type: DataTypes.STRING
+        },
+        albums: {
+            type: DataTypes.STRING
+        },
+    }, {
+        tableName: 'privacity'
+    });
 
-module.exports = Bookshelf.model('Privacity', {
-    tableName: 'privacity',
-    idAttribute: 'id'
-});
+    //TODO hacer relaciones
+    return Privacity;
+};

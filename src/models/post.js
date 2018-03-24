@@ -1,39 +1,93 @@
 'use strict';
 
-const Bookshelf = require('./../config/bookshelf');
-require('./tag');
-require('./image');
-require('./user');
-require('./comment');
 
-module.exports = Bookshelf.model('Post', {
-	tableName: 'posts',
-	idAttribute: 'id',
-	hasTimestamps: ['created_at', 'updated_at'],
-	hidden: [
-		'deleted_at',
-	],
-	softDelete: true,
-	parse: function(post) {
-    post.enable_comments = !!post.enable_comments;
-    return post;
-  },
-	image: function () {
-		return this.belongsTo('Image', 'id');
-	},
-	tags: function () {
-		return this.belongsToMany('Tag', 'posts_tags', 'tag_id', 'post_id');
-	},
-	user: function () {
-		return this.belongsTo('User', 'id');
-	},
-	comments: function () {
-		return this.hasMany('Comment', 'post_id');
-	},
-	subscriptions: function () {
-		return this.belongsToMany('User', 'subscriptions_posts', 'user_id', 'post_id');
-	},
-	likes: function () {
-		return this.belongsToMany('User', 'likes_posts', 'user_id', 'post_id');
-	},
-});
+module.exports = function(sequelize, DataTypes) {
+    var Post = sequelize.define('Post', {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        description: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        user_id: {
+            type: DataTypes.INTEGER,
+        },
+        album_id: {
+            type: DataTypes.INTEGER,
+            allowNull: true
+        },
+        image: {
+            type: DataTypes.INTEGER,
+        },
+        visibility: {
+            type: DataTypes.STRING,
+        },
+        enableComments: {
+            type: DataTypes.BOOLEAN,
+            field: 'enable_comments',
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            field: 'created_at',
+            allowNull: true
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            field: 'updated_at',
+            allowNull: true
+        },
+        deletedAt: {
+            type: DataTypes.DATE,
+            field: 'deleted_at',
+            allowNull: true
+        },
+    }, {
+        tableName: 'posts',
+        timestamps: true,
+        paranoid: true
+    });
+
+    Post.associate = function(models) {
+        Post.belongsTo(models.User, {
+            foreignKey: 'id',
+            sourceKey: 'image'
+        });
+        Post.belongsToMany(models.Tag, {
+            as: 'tags',
+            through: 'posts_tags',
+            foreignKey: 'post_id',
+            otherKey: 'tag_id'
+        });
+        Post.belongsTo(models.User, {
+            as: 'user',
+            foreignKey: 'id',
+            sourceKey: 'user_id'
+        });
+        Post.hasOne(models.Album, {
+            as: 'album',
+            foreignKey: 'id',
+            sourceKey: 'user_id'
+        });
+        Post.hasMany(models.Comment, {
+            as: 'comment',
+            foreignKey: 'id'
+        });
+        Post.belongsToMany(models.User, {
+            as: 'subscriptions',
+            through: 'subscriptions_posts',
+            foreignKey: 'post_id',
+            otherKey: 'user_id'
+        });
+        Post.belongsToMany(models.User, {
+            as: 'likes',
+            through: 'likes_posts',
+            foreignKey: 'post_id',
+            otherKey: 'user_id'
+        });
+    };
+
+    return Post;
+};
