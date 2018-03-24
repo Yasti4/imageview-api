@@ -2,7 +2,7 @@
 
 
 module.exports = function(sequelize, DataTypes) {
-    var User = sequelize.define('User', {
+    const User = sequelize.define('User', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -57,6 +57,12 @@ module.exports = function(sequelize, DataTypes) {
         timestamps: true,
         paranoid: true
     });
+
+    User.excludeRelations = function(fields) {
+        // Object.keys(this.attributes)
+        const relations = [ 'image', 'albums', 'posts', 'likes'];
+        return fields.filter(field => !relations.find(relation => relation === field));
+    };
 
     User.associate = function(models) {
         User.belongsTo(models.Role, {
@@ -122,7 +128,6 @@ module.exports = function(sequelize, DataTypes) {
             foreignKey: 'user_followed',
             otherKey: 'user_follower',
         });
-
     }
     return User;
 };
