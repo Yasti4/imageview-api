@@ -14,10 +14,10 @@ const {
     VisibilityQueries,
     PrivacityQueries,
     TagQueries,
-    // CommentQueries,
-    // ImageQueries,
-    // PostQueries,
-    // RoleQueries
+    CommentQueries,
+    ImageQueries,
+    PostQueries,
+    RoleQueries
 } = require('./queries');
 
 // const RoleMutation = require('./mutations/role.mutations');
@@ -34,10 +34,10 @@ const schema = new GraphQLSchema({
             ...VisibilityQueries,
             ...PrivacityQueries,
             ...TagQueries,
-            // ...CommentQueries,
-            // ...ImageQueries,
-            // ...PostQueries,
-            // ...RoleQueries,
+            ...CommentQueries,
+            ...ImageQueries,
+            ...PostQueries,
+            ...RoleQueries,
         }
     }),
     // mutation: new GraphQLObjectType({

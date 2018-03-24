@@ -1,37 +1,24 @@
 'use strict';
 
-
-const {
-    Post,
-    User,
-    Album
-} = require('./../../models');
-
 module.exports = {
-    post: async(parent, args, context, info) => {
+    post: (parent, args, context, info) => {
         if (args.id) {
-            const post = await Post.where('id', args.id).first();
-            return post ? post.toJSON() : null;
+            return context.db.Post.find({ where: { 'id': args.id } });
         } else if (args.user_id) {
-            const post = await Post.where('user_id', args.user_id).first();
-            return post ? post.toJSON() : null;
+            return context.db.Post.find({ where: { 'user_id': args.user_id } });
         } else if (args.album_id) {
-            const post = await Post.where('album_id', args.album_id).first();
-            return post ? post.toJSON() : null;
+            return context.db.Post.find({ where: { 'album_id': args.album_id } });
         } else if (args.enable_comments) {
-            const post = await Post.where('enable_comments', args.enable_comments).first();
-            return post ? post.toJSON() : null;
-        } else {
-            return null;
+            return context.db.Post.find({ where: { 'enable_comments': args.enable_comments } });
         }
     },
-    posts: async(parent, args, context, info) => {
-        return (await Post.get()).toJSON();
+    posts: (parent, args, context, info) => {
+        return context.db.Post.findAll();
     },
-    user: async(parent, args, context, info) => {
-        return (await User.where('id', args.id).first()).toJSON();
+    user: (parent, args, context, info) => {
+        return context.db.User.find({ where: { 'id': args.id } });
     },
-    album: async(parent, args, context, info) => {
-        return (await Album.where('id', args.id).first()).toJSON();
+    album: (parent, args, context, info) => {
+        return context.db.Album.find({ where: { 'id': args.id } });
     },
 };

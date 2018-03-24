@@ -1,36 +1,24 @@
 'use strict';
 
-const {
-  Comment,
-  Post,
-  User
-} = require('./../../models');
-
 module.exports = {
-  comment: async (parent, args, context, info) => {
-    if (args.id) {
-      const comment = await Comment.where('id', args.id).first();
-      return comment ? comment.toJSON() : null;
-    } else if (args.comment_id) {
-      const comment = await Comment.where('comment_id', args.comment_id).first();
-      return comment ? comment.toJSON() : null;
-    } else if (args.post_id) {
-      const comment = await Comment.where('post_id', args.post_id).first();
-      return comment ? comment.toJSON() : null;
-    } else if (args.user_id) {
-      const comment = await Comment.where('user_id', args.user_id).first();
-      return comment ? comment.toJSON() : null;
-    } else {
-      return null;
+    comment: (parent, args, context, info) => {
+        if (args.id) {
+            return context.db.Comment.find({ where: { 'id': args.id } });
+        } else if (args.comment_id) {
+            return context.db.Comment.find({ where: { 'comment_id': args.comment_id } });
+        } else if (args.post_id) {
+            return context.db.Comment.find({ where: { 'post_id': args.post_id } });
+        } else if (args.user_id) {
+            return context.db.Comment.find({ where: { 'user_id': args.user_id } });
+        }
+    },
+    comments: (parent, args, context, info) => {
+        return context.db.Comment.findAll();
+    },
+    post: (parent, args, context, info) => {
+        return context.db.Post.find({ where: { 'id': args.id } });
+    },
+    user: (parent, args, context, info) => {
+        return context.db.User.find({ where: { 'id': args.id } });
     }
-  },
-  comments: async (parent, args, context, info) => {
-    return (await Comment.get()).toJSON();
-  },
-  post: async (parent, args, context, info) => {
-    return (await Post.where('id', args.id).first()).toJSON();
-  },
-  user: async (parent, args, context, info) => {
-    return (await User.where('id', args.id).first()).toJSON();
-  }
 };

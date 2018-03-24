@@ -1,19 +1,12 @@
 'use strict';
 
-const {
-  Image
-} = require('./../../models');
-
 module.exports = {
-  image: async (parent, args, context, info) => {
-    if (args.id) {
-      const image = await Image.where('id', args.id).first();
-      return image ? image.toJSON() : null;
-    } else {
-      return null;
+    image: async(parent, args, context, info) => {
+        if (args.id) {
+            return context.db.Image.find({ where: { 'id': args.id } });
+        }
+    },
+    images: async(parent, args, context, info) => {
+        return context.db.Image.findAll();
     }
-  },
-  images: async (parent, args, context, info) => {
-    return (await Image.get()).toJSON();
-  }
 };
