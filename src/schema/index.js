@@ -10,11 +10,7 @@ const schema = makeExecutableSchema({
     ${require('./queries')}
   `,
   resolvers: {
-    Query: {
-      roles: (parent, args, context, info) => {
-        return context.db.Role.findAll();
-      }
-    }
+    Query: require('./resolvers/queries')
   }
 });
 

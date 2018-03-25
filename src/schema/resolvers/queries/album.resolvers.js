@@ -1,16 +1,19 @@
 'use strict';
 
 module.exports = {
-  album: async (parent, args, context, info) => {
-    if (args.id) {
-      return context.db.Album.find({
-        where: {
-          'id': args.id
-        }
-      });
-    }
+  album: (parent, args, context, info) => {
+    return context.db.Album.find({
+      where: {
+        id: args.id
+      }
+    });
   },
-  albums: async (parent, args, context, info) => {
-    return context.db.Album.findAll();
+  albums: (parent, args, context, info) => {
+    return context.db.Album.findAll({
+      where: args.userId ? {
+        user_id: args.userId
+      } : {},
+      limit: args.limit || 10
+    });
   },
 };
