@@ -11,13 +11,6 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     Visibility.associate = function(models) {
-        Visibility.hasMany(models.Album, {
-            as: 'albums',
-            foreignKey: 'id',
-        });
-    }
-
-    Visibility.associate = function(models) {
         Visibility.hasMany(models.Post, {
             as: 'posts',
             foreignKey: 'id',

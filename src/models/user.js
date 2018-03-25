@@ -60,7 +60,7 @@ module.exports = function(sequelize, DataTypes) {
 
     User.excludeRelations = function(fields) {
         // Object.keys(this.attributes)
-        const relations = [ 'image', 'albums', 'posts', 'likes'];
+        const relations = ['image', 'albums', 'posts', 'likes'];
         return fields.filter(field => !relations.find(relation => relation === field));
     };
 
@@ -93,12 +93,6 @@ module.exports = function(sequelize, DataTypes) {
         User.hasMany(models.Post, {
             as: 'posts',
             foreignKey: 'user_id'
-        });
-        User.belongsToMany(models.Post, {
-            as: 'subscriptions_posts',
-            through: 'likes_posts',
-            foreignKey: 'user_id',
-            otherKey: 'post_id',
         });
         User.belongsToMany(models.Post, {
             as: 'postLikes',
