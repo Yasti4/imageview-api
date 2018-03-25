@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = `
-input VisibilityInputUpdate {
+input PrivacityInputUpdate {
     id: Int!
     user_id: Int!
     search: String
