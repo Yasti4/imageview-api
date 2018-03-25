@@ -5,9 +5,9 @@ module.exports = `type Album {
   title: String!
   description: String
   visibility: String!
-  createdAt: String
-  updatedAt: String
-  deletedAt: String
+  createdAt: Date
+  updatedAt: Date
+  deletedAt: Date
 
   posts: [Post!]!
   subscribers: [User!]!
