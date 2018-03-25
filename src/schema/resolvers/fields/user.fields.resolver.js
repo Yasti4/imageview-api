@@ -3,34 +3,54 @@
 module.exports = {
   User: {
     image: (parent, args, context, info) => {
-      return parent.getImage();
+      return parent.getImage({
+        attributes: context.db.Image.onlyAttributes(info)
+      });
     },
     following: (parent, args, context, info) => {
-      return parent.getFollowing();
+      return parent.getFollowing({
+        attributes: context.db.User.onlyAttributes(info)
+      });
     },
     followers: (parent, args, context, info) => {
-      return parent.getFollowers();
+      return parent.getFollowers({
+        attributes: context.db.User.onlyAttributes(info)
+      });
     },
     posts: (parent, args, context, info) => {
-      return parent.getPosts();
+      return parent.getPosts({
+        attributes: context.db.Post.onlyAttributes(info)
+      });
     },
     postsLikes: (parent, args, context, info) => {
-      return parent.getPostsLikes();
+      return parent.getPostsLikes({
+        attributes: context.db.Post.onlyAttributes(info)
+      });
     },
     albums: (parent, args, context, info) => {
-      return parent.getAlbums();
+      return parent.getAlbums({
+        attributes: context.db.Album.onlyAttributes(info)
+      });
     },
     albumsLikes: (parent, args, context, info) => {
-      return parent.getAlbumsLikes();
+      return parent.getAlbumsLikes({
+        attributes: context.db.Album.onlyAttributes(info)
+      });
     },
     albumsSubscriptions: (parent, args, context, info) => {
-      return parent.getAlbumsSubscriptions();
+      return parent.getAlbumsSubscriptions({
+        attributes: context.db.Album.onlyAttributes(info)
+      });
     },
     comments: (parent, args, context, info) => {
-      return parent.getComments();
+      return parent.getComments({
+        attributes: context.db.Comment.onlyAttributes(info)
+      });
     },
     commentsLikes: (parent, args, context, info) => {
-      return parent.getCommentsLikes();
+      return parent.getCommentsLikes({
+        attributes: context.db.Comment.onlyAttributes(info)
+      });
     },
   }
 };
