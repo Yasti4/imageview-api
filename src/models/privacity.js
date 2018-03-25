@@ -23,6 +23,12 @@ module.exports = function (sequelize, DataTypes) {
     tableName: 'privacity'
   });
 
-  //TODO hacer relaciones
+  Privacity.associate = function (models) {
+    Privacity.belongsTo(models.User, {
+      as: 'user',
+      foreignKey: 'user_id',
+      sourceKey: 'id'
+    });
+  };
   return Privacity;
 };

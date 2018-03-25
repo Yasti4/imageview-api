@@ -64,8 +64,8 @@ module.exports = function (sequelize, DataTypes) {
     });
     User.belongsTo(models.Image, {
       as: 'image',
-      foreignKey: 'id',
-      sourceKey: 'image_id'
+      foreignKey: 'image_id',
+      sourceKey: 'id'
     });
     User.hasMany(models.Album, {
       as: 'albums',
@@ -88,7 +88,7 @@ module.exports = function (sequelize, DataTypes) {
       foreignKey: 'user_id'
     });
     User.belongsToMany(models.Post, {
-      as: 'postLikes',
+      as: 'postsLikes',
       through: 'likes_posts',
       foreignKey: 'user_id',
       otherKey: 'post_id',
@@ -110,7 +110,7 @@ module.exports = function (sequelize, DataTypes) {
       otherKey: 'user_followed',
     });
     User.belongsToMany(models.User, {
-      as: 'followed',
+      as: 'followers',
       through: 'subscriptions_users',
       foreignKey: 'user_followed',
       otherKey: 'user_follower',

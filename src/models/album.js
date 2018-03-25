@@ -45,20 +45,18 @@ module.exports = function (sequelize, DataTypes) {
     Album.belongsToMany(models.User, {
       as: 'subscribers',
       through: 'subscriptions_albums',
-      foreignKey: 'album_id',
-      otherKey: 'user_id',
+      foreignKey: 'album_id'
 
     });
     Album.belongsToMany(models.User, {
       as: 'likes',
       through: 'likes_albums',
-      foreignKey: 'album_id',
-      otherKey: 'user_id',
+      foreignKey: 'album_id'
 
     });
     Album.hasMany(models.Post, {
       as: 'posts',
-      foreignKey: 'id'
+      foreignKey: 'album_id'
     });
   };
 

@@ -7,7 +7,6 @@ module.exports = `type User {
   name: String!
   lastname: String!
   role: String!
-  image_id: Int!
   createdAt: String
   updatedAt: String
   deletedAt: String
