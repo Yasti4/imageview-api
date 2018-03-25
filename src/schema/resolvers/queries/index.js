@@ -1,13 +1,13 @@
 'use strict';
 
 module.exports = {
-  ...require('./album.resolvers'),
-  ...require('./comment.resolvers'),
-  ...require('./image.resolvers'),
-  ...require('./post.resolvers'),
-  ...require('./privacity.resolvers'),
-  ...require('./role.resolvers'),
-  ...require('./tag.resolvers'),
-  ...require('./user.resolvers'),
-  ...require('./visibility.resolvers'),
+    ...require('./album.query.resolvers'),
+    ...require('./comment.query.resolvers'),
+    ...require('./image.query.resolvers'),
+    ...require('./post.query.resolvers'),
+    ...require('./privacity.query.resolvers'),
+    ...require('./role.query.resolvers'),
+    ...require('./tag.query.resolvers'),
+    ...require('./user.query.resolvers'),
+    ...require('./visibility.query.resolvers'),
 };

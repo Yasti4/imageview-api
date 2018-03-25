@@ -1,35 +1,6 @@
 'use strict';
 
-const type = require('./../types/role.type');
-const resolver = require('./../resolvers/role.resolvers');
-const {
-    GraphQLNonNull,
-    GraphQLList,
-    GraphQLString,
-    GraphQLBoolean,
-    GraphQLInt
-} = require('graphql');
-
-module.exports = {
-    createRole: {
-        type: type,
-        args: {
-            name: {
-                type: new GraphQLNonNull(GraphQLString)
-            }
-        },
-        resolve: resolver.createRole,
-    },
-    updateRole: {
-        type: new GraphQLNonNull(GraphQLBoolean),
-        args: {
-            oldName: {
-                type: new GraphQLNonNull(GraphQLString)
-            },
-            newName: {
-                type: new GraphQLNonNull(GraphQLString)
-            }
-        },
-        resolve: resolver.updateRole,
-    }
-};
+module.exports = `
+    createRole(name: String!): Role
+    updateRole(oldName: String!, newName: String!): Role
+`;
