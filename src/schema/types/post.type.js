@@ -3,9 +3,6 @@
 module.exports = `type Post {
   id: Int!
   description: String
-  image_id: Int!
-  user_id: Int!
-  album_id: Int
   visibility: String!
   enableComments: Boolean
   createdAt: String

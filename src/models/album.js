@@ -1,6 +1,5 @@
 'use strict';
 
-
 module.exports = function (sequelize, DataTypes) {
   const Album = sequelize.define('Album', {
     id: {
@@ -44,7 +43,7 @@ module.exports = function (sequelize, DataTypes) {
 
   Album.associate = function (models) {
     Album.belongsToMany(models.User, {
-      as: 'subscriptions',
+      as: 'subscribers',
       through: 'subscriptions_albums',
       foreignKey: 'album_id',
       otherKey: 'user_id',

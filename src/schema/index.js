@@ -4,14 +4,13 @@ const {
   makeExecutableSchema
 } = require('graphql-tools');
 
-const schema = makeExecutableSchema({
+module.exports = makeExecutableSchema({
   typeDefs: `
     ${require('./types')}
     ${require('./queries')}
   `,
   resolvers: {
-    Query: require('./resolvers/queries')
+    Query: require('./resolvers/queries'),
+    ...require('./resolvers/fields')
   }
 });
-
-module.exports = schema;

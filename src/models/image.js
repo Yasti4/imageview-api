@@ -24,13 +24,13 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Image.associate = function (models) {
-    Image.hasOne(models.Post, {
-      as: 'post',
-      foreignKey: 'id'
-    });
     Image.hasOne(models.User, {
       as: 'user',
-      foreignKey: 'id'
+      foreignKey: 'image_id'
+    });
+    Image.hasOne(models.Post, {
+      as: 'post',
+      foreignKey: 'image_id'
     });
   };
 
