@@ -2,5 +2,5 @@
 
 module.exports = `
     createRole(name: String!): Role
-    updateRole(oldName: String!, newName: String!): Role
+    updateRole(oldName: String!, newName: String!): Boolean!
 `;
