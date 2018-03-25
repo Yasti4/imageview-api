@@ -3,7 +3,9 @@
 module.exports = {
   Tag: {
     posts: (parent, args, context, info) => {
-      return parent.getPosts();
+      return parent.getPosts({
+        attributes: context.db.Post.onlyAttributes(info)
+      });
     }
   }
 };
