@@ -3,9 +3,9 @@
 module.exports = `type Comment {
   id: Int!
   content: String!
-  createdAt: String
-  updatedAt: String
-  deletedAt: String
+  createdAt: Date
+  updatedAt: Date
+  deletedAt: Date
 
   user: User!
   post: Post!

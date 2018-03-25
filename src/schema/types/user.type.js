@@ -7,9 +7,9 @@ module.exports = `type User {
   name: String!
   lastname: String!
   role: String!
-  createdAt: String
-  updatedAt: String
-  deletedAt: String
+  createdAt: Date
+  updatedAt: Date
+  deletedAt: Date
 
   image: Image!
   following: [User!]!

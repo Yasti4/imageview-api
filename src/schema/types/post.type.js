@@ -5,9 +5,9 @@ module.exports = `type Post {
   description: String
   visibility: String!
   enableComments: Boolean
-  createdAt: String
-  updatedAt: String
-  deletedAt: String
+  createdAt: Date
+  updatedAt: Date
+  deletedAt: Date
 
   user: User!
   album: Album
