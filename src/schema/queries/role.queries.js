@@ -2,5 +2,5 @@
 
 module.exports = `
   role(name: String!): Role
-  roles: [Role!]!
+  roles: [Role!]! @auth
 `;
