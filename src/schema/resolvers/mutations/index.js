@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = {
-    ...require('./album.mutation.resolvers'),
+    ...require('./user.mutation.resolvers'),
 };
