@@ -6,9 +6,9 @@ An API for an image sharing platform.
 
 > npm install
 
-> npm run migrate
+<!-- > npm run migrate -->
 
-> npm run db:seed
+<!-- > npm run db:seed -->
 
 ### Upgrade
 
@@ -22,8 +22,5 @@ An API for an image sharing platform.
 
 ### Documentation of Dependencies
 
-- http://knexjs.org/
-- https://github.com/bookshelf/bookshelf
-- https://www.npmjs.com/package/bookshelf-eloquent
-- http://knexjs.org/#Seeds-CLI
-- https://github.com/marak/Faker.js
+- https://www.apollographql.com/docs/graphql-tools/
+- http://docs.sequelizejs.com/
