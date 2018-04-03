@@ -21,6 +21,14 @@ module.exports = {
             created_at: now,
             updated_at: now,
             deleted_at: null,
+        })).map((item, i) => (i !== 0 ? item : {
+            ...item,
+            username: 'imageview',
+            email: 'info@imageview.com',
+            password: 'secret',
+            name: 'ImageView',
+            lastname: 'GraphQL API',
+            role: 'admin'
         })), {});
     },
 

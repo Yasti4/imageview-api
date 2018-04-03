@@ -12,4 +12,4 @@ module.exports = {
     migrationStorageTableName: process.env.DB_MIGRATIONS_TABLENAME,
     operatorsAliases: false
   }
-}
+};

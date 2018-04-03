@@ -60,7 +60,7 @@ class App {
   run(fn) {
     if (this.isDevelopment) {
       this.app.get('/', (req, res) => {
-        res.redirect('/graphiql');
+        res.redirect(`/graphiql?token=${process.env.DEVELOPMENT_ADMIN_BEARER_TOKEN}`);
       });
       this.app.use((err, req, res, next) => {
         new Ouch([new Ouch.handlers.PrettyPageHandler()]).handleException(err, req, res);

@@ -1,4 +1,4 @@
-![ImageView](/static/icons/logo/black/logo@2x.png)
+![ImageView](static/icons/logo/black/logo@2x.png)
 
 An API for an image sharing platform.
 
@@ -22,5 +22,5 @@ An API for an image sharing platform.
 
 ### Documentation of Dependencies
 
-- The ORM: docs.sequelizejs.com
-- The Query Language for APIs: apollographql.com/docs/graphql-tools
+- The ORM: [Sequelize](docs.sequelizejs.com)
+- The Query Language for APIs: [GraphQL](apollographql.com/docs/graphql-tools)
