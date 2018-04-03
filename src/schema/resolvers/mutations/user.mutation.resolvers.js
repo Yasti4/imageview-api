@@ -1,7 +1,7 @@
 'use strict';
 
 const jwt = require('jwt-simple');
-const moment = require('moment');
+const { unixTimestamp } = require('./../../../helpers');
 
 module.exports = {
   signIn: (parent, args, context, info) => {
@@ -12,13 +12,15 @@ module.exports = {
         password: args.password
       }
     }).then(user => {
+      const now = new Date();
+      now.setDate(now.getDate() + 14);
       return user ? {
         tokenType: 'Bearer',
-        expiresIn: moment().add(14, 'days').unix(),
+        expiresIn: unixTimestamp(now),
         accessToken: jwt.encode({
           sub: user,
-          iat: moment().unix(),
-          exp: moment().add(14, 'days').unix(),
+          iat: unixTimestamp(),
+          exp: unixTimestamp(now),
         }, process.env.APP_KEY)
       } : null;
     });
@@ -28,7 +30,6 @@ module.exports = {
     return context.db.User.create(args.input);
   },
   updateUser: (parent, args, context, info) => {
-    console.log(args);
     return context.db.User.update(
       args.input, {
         where: {

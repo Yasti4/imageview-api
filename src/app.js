@@ -1,5 +1,6 @@
 'use strict';
 
+const Ouch = require('ouch');
 const dotenv = require('dotenv');
 const express = require('express');
 const compression = require('compression');
@@ -9,7 +10,9 @@ const {
   graphiqlExpress
 } = require('apollo-server-express');
 const jwt = require('jwt-simple');
-const moment = require('moment');
+const {
+  unixTimestamp
+} = require('./helpers');
 
 class App {
 
@@ -23,7 +26,7 @@ class App {
         const authorization = req.headers.Authorization || req.query.token || null;
         const token = authorization.split(' ')[1];
         const payload = jwt.decode(token, process.env.APP_KEY);
-        if (payload.exp > moment().unix()) {
+        if (payload.exp > unixTimestamp()) {
           req.isAuth = true;
           req.userAuth = payload.sub;
         }
@@ -45,8 +48,7 @@ class App {
         userAuth: req.userAuth
       },
       debug: this.isDevelopment,
-      // tracing: this.isDevelopment,
-      // cacheControl: true,
+      cacheControl: true,
     })));
     if (this.isDevelopment) {
       this.app.use('/graphiql', graphiqlExpress({
@@ -56,6 +58,14 @@ class App {
   }
 
   run(fn) {
+    if (this.isDevelopment) {
+      this.app.get('/', (req, res) => {
+        res.redirect('/graphiql');
+      });
+      this.app.use((err, req, res, next) => {
+        new Ouch([new Ouch.handlers.PrettyPageHandler()]).handleException(err, req, res);
+      });
+    }
     this.app.listen(process.env.APP_PORT, (err) => {
       if (err) throw err;
       console.log('\x1Bc');
@@ -67,5 +77,5 @@ class App {
 }
 
 module.exports = new App(() => {
-  console.log();
+  // callback
 }).app;

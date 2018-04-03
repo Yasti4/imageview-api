@@ -4,11 +4,11 @@
     "description": "An API for an image sharing platform.",
     "scripts": {
         "start": "./node_modules/.bin/nodemon ./src/app.js",
-        "migrate": "node ./src/scripts/migrations.js --migrate",
-        "migrate:rollback": "node ./src/scripts/migrations.js --rollback",
-        "make:migration": "node ./src/scripts/migrations.js --make",
-        "db:seed": "node ./src/scripts/seeds.js --run",
-        "make:seeder": "node ./src/scripts/seeds.js --make"
+        "migrate": "./node_modules/.bin/sequelize db:migrate",
+        "migrate:rollback": "./node_modules/.bin/sequelize db:migrate:undo:all",
+        "make:migration": "./node_modules/.bin/sequelize migration:generate --name",
+        "db:seed": "./node_modules/.bin/sequelize db:seed:all",
+        "make:seeder": "./node_modules/.bin/sequelize seed:generate --name"
     },
     "author": "Adrià Muñoz, Denís Navarro",
     "private": false,
@@ -29,7 +29,6 @@
         "graphql-fields": "^1.0.2",
         "graphql-tools": "^2.23.1",
         "jwt-simple": "^0.5.1",
-        "moment": "^2.21.0",
         "mysql2": "^1.5.3",
         "sequelize": "^4.37.2"
     },
@@ -40,12 +39,12 @@
         "@types/faker": "^4.1.2",
         "@types/graphql": "^0.12.4",
         "@types/jwt-simple": "^0.5.33",
-        "@types/moment": "^2.13.0",
         "@types/mysql": "^2.15.3",
         "@types/node": "^9.4.7",
         "@types/sequelize": "^4.27.10",
         "faker": "^4.1.0",
         "nodemon": "^1.17.2",
+        "ouch": "^1.1.0",
         "sequelize-cli": "^4.0.0"
     }
 }
