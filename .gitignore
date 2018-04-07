@@ -13,3 +13,7 @@ yarn.lock
 
 node_modules/
 
+static/icons/*
+static/images/*
+
+.env
