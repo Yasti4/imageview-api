@@ -20,7 +20,7 @@ An API for an image sharing platform.
 
 ### Execute
 
-> `npm start` *or* `yarn start`
+> `npm run serve` *or* `yarn serve`
 
 ---
 

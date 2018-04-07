@@ -40,7 +40,7 @@ class App {
 
   config() {
     this.app.use(compression());
-    this.app.use('/graphql', bodyParser.json(), this.isAuthMiddleware, graphqlExpress(req => ({
+    this.app.use('/api', bodyParser.json(), this.isAuthMiddleware, graphqlExpress(req => ({
       schema: require('./schema'),
       context: {
         db: require('./models'),
@@ -48,11 +48,13 @@ class App {
         userAuth: req.userAuth
       },
       debug: this.isDevelopment,
-      cacheControl: true,
+      cacheControl: {
+        defaultMaxAge: process.env.APP_CACHE_SECONDS || 1800
+      },
     })));
     if (this.isDevelopment) {
       this.app.use('/graphiql', graphiqlExpress({
-        endpointURL: '/graphql'
+        endpointURL: '/api'
       }));
     }
   }
@@ -68,8 +70,10 @@ class App {
     }
     this.app.listen(process.env.APP_PORT, (err) => {
       if (err) throw err;
-      console.log('\x1Bc');
-      console.log(`Running at ${process.env.APP_URL}:${process.env.APP_PORT}`);
+      const baseURL = `${process.env.APP_URL}:${process.env.APP_PORT}`;
+      console.group(`\x1Bc'ImageView`);
+      console.log(`\nRunning at ${baseURL}\nAPI: ${baseURL}/api\nDEV API: ${baseURL}/graphiql\n`);
+      console.groupEnd();
       fn && fn();
     });
   }
