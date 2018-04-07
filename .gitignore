@@ -12,6 +12,4 @@ package-lock.json
 yarn.lock
 
 node_modules/
-static/icons/*
-static/images/*
 
