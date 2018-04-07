@@ -2,5 +2,5 @@
 
 module.exports = `directive @auth(
 	role: String = "user"
-) on OBJECT | FIELD_DEFINITION | FIELD
+) on OBJECT | FIELD_DEFINITION
 `;

@@ -19,12 +19,13 @@ class App {
   constructor(fn) {
     dotenv.load();
     this.isDevelopment = process.env.NODE_ENV === 'development';
+    this.db = require('./models');
     this.isAuthMiddleware = (req, res, next) => {
       req.isAuth = false;
       req.userAuth = null;
       try {
         const authorization = req.headers.Authorization || req.query.token || null;
-        const token = authorization.split(' ')[1] /* HEADERS */ || authorization /* GET */;
+        const token = authorization.split(' ')[1] /* HEADERS */ || authorization /* GET */ ;
         const payload = jwt.decode(token, process.env.APP_KEY);
         if (payload.exp > unixTimestamp()) {
           req.isAuth = true;
@@ -43,7 +44,7 @@ class App {
     this.app.use('/api', bodyParser.json(), this.isAuthMiddleware, graphqlExpress(req => ({
       schema: require('./schema'),
       context: {
-        db: require('./models'),
+        db: this.db,
         isAuth: req.isAuth,
         userAuth: req.userAuth
       },
@@ -70,11 +71,13 @@ class App {
     }
     this.app.listen(process.env.APP_PORT, (err) => {
       if (err) throw err;
-      const baseURL = `${process.env.APP_URL}:${process.env.APP_PORT}`;
-      console.group(`\x1Bc'ImageView`);
-      console.log(`\nRunning at ${baseURL}\nAPI: ${baseURL}/api\nDEV API: ${baseURL}/graphiql\n`);
-      console.groupEnd();
-      fn && fn();
+      if (this.isDevelopment) {
+        const baseURL = `${process.env.APP_URL}:${process.env.APP_PORT}`;
+        console.group(`\x1Bc'ImageView`);
+        console.log(`\nRunning at ${baseURL}\nAPI: ${baseURL}/api\nDEV API: ${baseURL}/graphiql\n`);
+        console.groupEnd();
+        fn && fn();
+      }
     });
   }
 

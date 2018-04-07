@@ -6,7 +6,7 @@ const {
 
 module.exports = makeExecutableSchema({
   typeDefs: `
-    ${require('./typedefs/directives')}
+    # ${require('./typedefs/directives')}
     ${require('./typedefs/scalars')}
     ${require('./typedefs/types')}
     ${require('./typedefs/inputs')}
@@ -20,6 +20,6 @@ module.exports = makeExecutableSchema({
     Mutation: require('./resolvers/mutations'),
   },
   schemaDirectives: {
-    ...require('./resolvers/directives')
+    // ...require('./resolvers/directives')
   }
 });

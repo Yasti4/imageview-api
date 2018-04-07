@@ -15,7 +15,7 @@ module.exports = {
       type._requiredAuthRole = this.args.role;
     }
 
-    visitFieldDefinition(field, details) {
+    visitFieldDefinition(field, details) {      
       this.ensureFieldsWrapped(details.objectType);
       field._requiredAuthRole = this.args.role;
     }
