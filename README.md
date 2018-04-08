@@ -28,6 +28,10 @@ An API for an image sharing platform.
 
 > `npm test` *or* `yarn test`
 
+### Release
+
+> `npm run release`*or* `yarn release`
+
 ---
 
 ### Documentation of Dependencies
