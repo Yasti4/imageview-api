@@ -1,53 +1,55 @@
 {
-    "name": "imageview-server",
-    "version": "1.0.0",
-    "description": "An API for an image sharing platform.",
-    "scripts": {
-        "start": "node ./src/app.js",
-        "serve": "./node_modules/.bin/nodemon ./src/app.js",
-        "test": "./node_modules/.bin/jasmine-node tests",
-        "migrate": "./node_modules/.bin/sequelize db:migrate",
-        "migrate:rollback": "./node_modules/.bin/sequelize db:migrate:undo:all",
-        "make:migration": "./node_modules/.bin/sequelize migration:generate --name",
-        "db:seed": "./node_modules/.bin/sequelize db:seed:all",
-        "make:seeder": "./node_modules/.bin/sequelize seed:generate --name"
-    },
-    "author": "Adrià Muñoz, Denís Navarro",
-    "private": false,
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Yasti4/imageview-api.git"
-    },
-    "license": "MIT",
-    "dependencies": {
-        "@types/sequelize": "^4.27.10",
-        "apollo-server-express": "^1.3.2",
-        "bcrypt": "^1.0.3",
-        "body-parser": "^1.18.2",
-        "compression": "^1.7.2",
-        "dotenv": "^5.0.1",
-        "express": "^4.16.3",
-        "graphql": "^0.13.2",
-        "graphql-date": "^1.0.3",
-        "graphql-fields": "^1.0.2",
-        "graphql-tools": "^2.23.1",
-        "jasmine-node": "^1.14.5",
-        "jwt-simple": "^0.5.1",
-        "mysql2": "^1.5.3",
-        "sequelize": "^4.37.2"
-    },
-    "devDependencies": {
-        "@types/bcrypt": "^1.0.0",
-        "@types/body-parser": "^1.16.8",
-        "@types/dotenv": "^4.0.2",
-        "@types/faker": "^4.1.2",
-        "@types/graphql": "^0.12.4",
-        "@types/jwt-simple": "^0.5.33",
-        "@types/mysql": "^2.15.3",
-        "@types/node": "^9.4.7",
-        "faker": "^4.1.0",
-        "nodemon": "^1.17.2",
-        "ouch": "^1.1.0",
-        "sequelize-cli": "^4.0.0"
-    }
+  "name": "imageview-server",
+  "version": "1.0.1",
+  "description": "An API for an image sharing platform.",
+  "scripts": {
+    "start": "node ./src/app.js",
+    "serve": "./node_modules/.bin/nodemon ./src/app.js",
+    "test": "./node_modules/.bin/jasmine-node tests",
+    "release": "./node_modules/.bin/standard-version",
+    "migrate": "./node_modules/.bin/sequelize db:migrate",
+    "migrate:rollback": "./node_modules/.bin/sequelize db:migrate:undo:all",
+    "make:migration": "./node_modules/.bin/sequelize migration:generate --name",
+    "db:seed": "./node_modules/.bin/sequelize db:seed:all",
+    "make:seeder": "./node_modules/.bin/sequelize seed:generate --name"
+  },
+  "author": "Adrià Muñoz, Denís Navarro",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yasti4/imageview-api.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@types/sequelize": "^4.27.10",
+    "apollo-server-express": "^1.3.2",
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "compression": "^1.7.2",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "graphql": "^0.13.2",
+    "graphql-date": "^1.0.3",
+    "graphql-fields": "^1.0.2",
+    "graphql-tools": "^2.23.1",
+    "jasmine-node": "^1.14.5",
+    "jwt-simple": "^0.5.1",
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.37.2"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^1.0.0",
+    "@types/body-parser": "^1.16.8",
+    "@types/dotenv": "^4.0.2",
+    "@types/faker": "^4.1.2",
+    "@types/graphql": "^0.12.4",
+    "@types/jwt-simple": "^0.5.33",
+    "@types/mysql": "^2.15.3",
+    "@types/node": "^9.4.7",
+    "faker": "^4.1.0",
+    "nodemon": "^1.17.2",
+    "ouch": "^1.1.0",
+    "sequelize-cli": "^4.0.0",
+    "standard-version": "^4.3.0"
+  }
 }
