@@ -1,6 +1,6 @@
 {
   "name": "imageview-server",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "An API for an image sharing platform.",
   "scripts": {
     "start": "node ./src/app.js",
@@ -54,7 +54,7 @@
   },
   "standard-version": {
     "scripts": {
-      "precommit": "git push"
+      "precommit": "git push --follow-tags origin master"
     }
   }
 }
