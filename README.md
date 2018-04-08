@@ -10,9 +10,9 @@ An API for an image sharing platform.
 
 > `npm install` *or* `yarn install`
 
-> `npm run migrate` *or* `yarn run migrate`
+> `npm run migrate` *or* `yarn migrate`
 
-> `npm run db:seed` *or* `yarn run db:seed`
+> `npm run db:seed` *or* `yarn db:seed`
 
 ### Upgrade
 
@@ -32,3 +32,4 @@ An API for an image sharing platform.
 
 - The ORM: [Sequelize](http://docs.sequelizejs.com)
 - The Query Language for APIs: [GraphQL](https://www.apollographql.com/docs/graphql-tools)
+- The framework for testing: [Jasmine](https://jasmine.github.io/api/edge/global)
