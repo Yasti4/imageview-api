@@ -25,7 +25,7 @@ class App {
       req.userAuth = null;
       try {
         const authorization = req.headers.Authorization || req.query.token || null;
-        const token = authorization.split(' ')[1] /* HEADERS */ || authorization /* GET */ ;
+        const token = authorization.split(' ')[1] /* HEADERS */ || authorization /* GET */;
         const payload = jwt.decode(token, process.env.APP_KEY);
         if (payload.exp > unixTimestamp()) {
           req.isAuth = true;
