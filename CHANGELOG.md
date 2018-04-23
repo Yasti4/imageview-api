@@ -1,3 +1,12 @@
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+<a name="1.0.18"></a>
+## [1.0.18](https://github.com/Yasti4/imageview-api/compare/v1.0.17...v1.0.18) (2018-04-23)
+
+
+
 ## v1.0.17 (2018-04-23)
 
 *  chore(release): 1.0.17 [View](https://bitbucket.org/projects/test/repos/my-project/commits/607f7f9e2264800c6de1a87c79c7eb2915ee8867)
@@ -67,5 +76,3 @@
 ## v1.0.2 (2018-04-09)
 
 *  chore: Update package.json [View](https://bitbucket.org/projects/test/repos/my-project/commits/97d0dbb7016ee773ab97388a8cdda766430a693a)
-
-
