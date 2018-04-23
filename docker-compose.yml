@@ -1,0 +1,16 @@
+version: '2'
+services:
+    db:
+        build: dockerfiles/mysql/
+        ports:
+            - '3306:3306'
+    app:
+        build: .
+        command: 'npm run serve'
+        ports:
+            - '3000:3000'
+        links:
+            - 'db:db'
+        volumes:
+            - '.:/home/app/imageview'
+            - /home/app/imageview/node_modules
