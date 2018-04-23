@@ -1,6 +1,6 @@
 {
   "name": "imageview-server",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "An API for an image sharing platform.",
   "scripts": {
     "start": "node ./src/app.js",
