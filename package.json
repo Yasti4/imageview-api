@@ -1,13 +1,13 @@
 {
   "name": "imageview-server",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "An API for an image sharing platform.",
   "scripts": {
     "start": "node ./src/app.js",
     "serve": "./node_modules/.bin/nodemon ./src/app.js",
     "test": "./node_modules/.bin/jasmine-node tests",
-    "prerelease": "git add . && ./node_modules/.bin/standard-version",
-    "release": "git commit -m",
+    "prerelease": "./node_modules/.bin/standard-version",
+    "release": "git add . && git commit -m",
     "postrelease": "git push --follow-tags origin master",
     "migrate": "./node_modules/.bin/sequelize db:migrate",
     "migrate:rollback": "./node_modules/.bin/sequelize db:migrate:undo:all",
