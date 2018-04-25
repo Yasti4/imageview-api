@@ -1,6 +1,6 @@
 {
   "name": "imageview-server",
-  "version": "1.0.14",
+  "version": "1.0.25",
   "description": "An API for an image sharing platform.",
   "scripts": {
     "dev": "docker-compose up --build",
@@ -9,7 +9,9 @@
     "start": "node ./src/app.js",
     "serve": "./node_modules/.bin/nodemon ./src/app.js",
     "test": "./node_modules/.bin/jasmine-node tests",
-    "release": "git add . && ./node_modules/.bin/standard-version -a",
+    "prerelease": "./node_modules/.bin/standard-version",
+    "release": "git commit -am",
+    "postrelease": "git push --follow-tags origin master",
     "migrate": "./node_modules/.bin/sequelize db:migrate",
     "migrate:rollback": "./node_modules/.bin/sequelize db:migrate:undo:all",
     "make:migration": "./node_modules/.bin/sequelize migration:generate --name",
@@ -54,10 +56,5 @@
     "ouch": "^1.1.0",
     "sequelize-cli": "^4.0.0",
     "standard-version": "^4.3.0"
-  },
-  "standard-version": {
-    "scripts": {
-      "postcommit": "git push --follow-tags origin master"
-    }
   }
 }
