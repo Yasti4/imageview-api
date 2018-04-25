@@ -17,6 +17,7 @@ module.exports = {
             user_id: user.pop(),
             created_at: now,
             updated_at: now,
+            deleted_at: null,
         })), {});
     },
 

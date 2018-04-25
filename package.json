@@ -3,6 +3,9 @@
   "version": "1.0.14",
   "description": "An API for an image sharing platform.",
   "scripts": {
+    "dev": "docker-compose up --build",
+    "dev:up": "docker-compose up --build -d",
+    "dev:down": "docker-compose down",
     "start": "node ./src/app.js",
     "serve": "./node_modules/.bin/nodemon ./src/app.js",
     "test": "./node_modules/.bin/jasmine-node tests",

@@ -32,6 +32,13 @@ An API for an image sharing platform.
 
 > `npm run release`*or* `yarn release`
 
+### Docker
+
+> `npm run dev` or `yarn dev ` # with logs
+
+> `npm run dev:up` or `yarn dev:up ` #in background
+> `npm run dev:down` or `yarn dev:down `#stop background containers
+
 ---
 
 ### Documentation of Dependencies
