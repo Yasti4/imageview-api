@@ -6,7 +6,7 @@ services:
         env_file:
             - .env
         ports: 
-            - '${APP_PORT}:3000'
+            - '${APP_PORT}:${APP_PORT}'
     mysql:
         image: mysql:5.7
         volumes: 
@@ -15,4 +15,4 @@ services:
             - .env
         command: 'mysqld'
         ports: 
-            - '${DB_PORT}:3306'
+            - '${DB_PORT}:${DB_PORT}'
