@@ -4,9 +4,9 @@
   "description": "An API for an image sharing platform.",
   "scripts": {
     "dev": "docker-compose down && docker-compose up --build -d",
-    "dev:open": "docker-compose --build",
+    "dev:open": "docker-compose up --build",
     "dev:close": "docker-compose down",
-    "terminal": "docker exec -it $(docker ps --filter name=dockerimageview_node -q) /bin/sh",
+    "terminal": "docker exec -it $(docker ps --filter name=imageview_node -q) /bin/sh",
     "exec": "npm run terminal -c",
     "start": "node ./src/app.js",
     "serve": "./node_modules/.bin/nodemon ./src/app.js",

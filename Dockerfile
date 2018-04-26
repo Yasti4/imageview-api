@@ -1,4 +1,5 @@
 FROM node:alpine
-WORKDIR /home/node/imageview
-COPY . /home/node/imageview
-RUN /bin/sh -c "yarn install"
+WORKDIR /usr/app
+COPY package.json yarn.lock ./
+RUN yarn --pure-lockfile
+COPY . .

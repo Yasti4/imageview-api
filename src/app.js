@@ -73,7 +73,7 @@ class App {
       if (err) throw err;
       if (this.isDevelopment) {
         const baseURL = `${process.env.APP_URL}:${process.env.APP_PORT}`;
-        // console.group(`\x1Bc'ImageView`);
+        console.group(`\x1Bc'ImageView`);
         console.log(`\nRunning at ${baseURL}\nAPI: ${baseURL}/api\nDEV API: ${baseURL}/graphiql\n`);
         console.groupEnd();
         fn && fn();
