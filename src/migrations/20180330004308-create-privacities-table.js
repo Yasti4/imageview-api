@@ -2,7 +2,7 @@
 
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('privacity', {
+        return queryInterface.createTable('privacities', {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
@@ -11,6 +11,7 @@ module.exports = {
             user_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
+                unique: true,
                 references: {
                     model: 'users',
                     key: 'id'
@@ -52,6 +53,6 @@ module.exports = {
     },
 
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('privacity');
+        return queryInterface.dropTable('privacities');
     }
 };

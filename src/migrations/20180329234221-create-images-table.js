@@ -14,7 +14,7 @@ module.exports = {
             },
             medium: {
                 type: Sequelize.STRING,
-                allowNull: true
+                allowNull: false
             },
             large: {
                 type: Sequelize.STRING,

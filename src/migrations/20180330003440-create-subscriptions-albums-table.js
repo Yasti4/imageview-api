@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = {
-    up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('subscriptions_albums', {
+    up: async(queryInterface, Sequelize) => {
+        await queryInterface.createTable('subscriptions_albums', {
             id: {
-                type: Sequelize.INTEGER,
+                type: Sequelize.BIGINT,
                 primaryKey: true,
                 autoIncrement: true
             },
@@ -29,8 +29,8 @@ module.exports = {
                 onDelete: 'cascade'
             },
         });
-        queryInterface.addConstraint('subscriptions_albums', ['album_id', 'user_id'], {
-            type: 'unique'
+        return queryInterface.addConstraint('subscriptions_albums', ['album_id', 'user_id'], {
+            type: 'unique',
         });
     },
 

@@ -34,8 +34,6 @@ services:
         environment:
             PMA_HOST: '${DB_CONNECTION}'
             PMA_PORT: '${DB_PORT}'
-        depends_on:
-            - mysql
         networks:
             network:
                 ipv4_address: 172.18.0.4

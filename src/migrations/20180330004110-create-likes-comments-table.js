@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = {
-    up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('likes_comments', {
+    up: async(queryInterface, Sequelize) => {
+        await queryInterface.createTable('likes_comments', {
             id: {
-                type: Sequelize.INTEGER,
+                type: Sequelize.BIGINT,
                 primaryKey: true,
                 autoIncrement: true
             },
@@ -29,7 +29,7 @@ module.exports = {
                 onDelete: 'cascade'
             },
         });
-        queryInterface.addConstraint('likes_comments', ['comment_id', 'user_id'], {
+        return queryInterface.addConstraint('likes_comments', ['comment_id', 'user_id'], {
             type: 'unique'
         });
     },
