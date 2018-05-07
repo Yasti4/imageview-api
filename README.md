@@ -24,10 +24,6 @@ An API for an image sharing platform.
 
 > `npm run serve` *or* `yarn serve`
 
-### Tests
-
-> `npm test` *or* `yarn test`
-
 ### Release
 
 > `npm run release`*or* `yarn release`
