@@ -1049,7 +1049,7 @@
 									"type": "INTEGER",
 									"length": 0,
 									"primaryKey": false,
-									"foreignKey": false,
+									"foreignKey": true,
 									"nullable": false,
 									"unique": false
 								},
@@ -1063,7 +1063,7 @@
 									"type": "VARCHAR",
 									"length": 0,
 									"primaryKey": false,
-									"foreignKey": false,
+									"foreignKey": true,
 									"nullable": false,
 									"unique": false
 								},
@@ -1685,7 +1685,6 @@
 									},
 									"name": "enable_comments",
 									"type": "TINYINT",
-									"length": 0,
 									"primaryKey": false,
 									"foreignKey": false,
 									"nullable": false,
@@ -1807,7 +1806,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFgmOX9HbwyfjM="
 							},
-							"name": "privacity",
+							"name": "privacities",
 							"columns": [
 								{
 									"_type": "ERDColumn",
@@ -6932,7 +6931,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 931,
+									"left": 926,
 									"top": 955,
 									"width": 0,
 									"height": 13,
@@ -6963,7 +6962,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 946,
+									"left": 941,
 									"top": 793,
 									"width": 0,
 									"height": 13,
@@ -7027,7 +7026,7 @@
 								"$ref": "AAAAAAFgmPDE/L4pAr4="
 							},
 							"lineStyle": 2,
-							"points": "931:774;931:976;1016:976",
+							"points": "926:774;926:976;1016:976",
 							"nameLabel": {
 								"$ref": "AAAAAAFgnTmUt0kURxE="
 							},
@@ -7063,7 +7062,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 414,
+									"left": 411,
 									"top": 935,
 									"width": 0,
 									"height": 13,
@@ -7094,7 +7093,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 429,
+									"left": 426,
 									"top": 582,
 									"width": 0,
 									"height": 13,
@@ -7158,7 +7157,7 @@
 								"$ref": "AAAAAAFgmOa/R7xVnW0="
 							},
 							"lineStyle": 2,
-							"points": "414:563;414:956;1016:956",
+							"points": "411:563;411:956;1016:956",
 							"nameLabel": {
 								"$ref": "AAAAAAFgnToAaEkpSFk="
 							},
@@ -7200,7 +7199,7 @@
 									"height": 13,
 									"autoResize": false,
 									"underline": false,
-									"text": "privacity",
+									"text": "privacities",
 									"horizontalAlignment": 2,
 									"verticalAlignment": 5,
 									"wordWrap": false
@@ -7398,7 +7397,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 702,
+									"left": 701,
 									"top": 163,
 									"width": 0,
 									"height": 13,
@@ -7429,7 +7428,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 644,
+									"left": 642,
 									"top": 84,
 									"width": 0,
 									"height": 13,
@@ -7493,7 +7492,7 @@
 								"$ref": "AAAAAAFgmOeeE7yb9pY="
 							},
 							"lineStyle": 2,
-							"points": "629:65;629:184;776:184;776:232",
+							"points": "627:65;627:184;776:184;776:232",
 							"nameLabel": {
 								"$ref": "AAAAAAFhH7P747a+9Dw="
 							},
@@ -7660,7 +7659,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 705,
+									"left": 701,
 									"top": 483,
 									"width": 0,
 									"height": 13,
@@ -7691,7 +7690,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 495,
+									"left": 492,
 									"top": 265,
 									"width": 0,
 									"height": 13,
@@ -7722,7 +7721,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 946,
+									"left": 941,
 									"top": 562,
 									"width": 0,
 									"height": 13,
@@ -7755,7 +7754,7 @@
 								"$ref": "AAAAAAFgmO33Hr2VhFc="
 							},
 							"lineStyle": 2,
-							"points": "480:246;480:504;931:504;931:594",
+							"points": "477:246;477:504;926:504;926:594",
 							"nameLabel": {
 								"$ref": "AAAAAAFiXb7I688F0Fo="
 							},
