@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.6'
 services:
     node:
         build: .
@@ -10,6 +10,9 @@ services:
         volumes:
             - .:/usr/app/
             - /usr/app/node_modules
+        networks:
+            imageview-network:
+                ipv4_address: 172.18.0.3
     mysql:
         image: mysql:5.7
         volumes: 
@@ -19,3 +22,12 @@ services:
         command: 'mysqld'
         ports: 
             - '${DB_PORT}:${DB_PORT}'
+        networks:
+            imageview-network:
+                ipv4_address: 172.18.0.2
+networks:
+    imageview-network:
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.18.0.0/16
