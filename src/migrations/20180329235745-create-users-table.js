@@ -24,11 +24,11 @@ module.exports = {
             },
             name: {
                 type: Sequelize.STRING,
-                allowNull: true
+                allowNull: false
             },
             lastname: {
                 type: Sequelize.STRING,
-                allowNull: true
+                allowNull: false
             },
             image_id: {
                 type: Sequelize.INTEGER,

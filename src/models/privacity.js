@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING
         },
     }, {
-        tableName: 'privacity'
+        tableName: 'privacities'
     });
 
     Privacity.associate = function(models) {

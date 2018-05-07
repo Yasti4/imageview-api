@@ -15,6 +15,7 @@
         "postrelease": "git push --follow-tags origin master",
         "migrate": "./node_modules/.bin/sequelize db:migrate",
         "migrate:rollback": "./node_modules/.bin/sequelize db:migrate:undo:all",
+        "migrate:reset": "npm run migrate:rollback && npm run migrate",
         "make:migration": "./node_modules/.bin/sequelize migration:generate --name",
         "db:seed": "./node_modules/.bin/sequelize db:seed:all",
         "make:seeder": "./node_modules/.bin/sequelize seed:generate --name"
