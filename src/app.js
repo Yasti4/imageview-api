@@ -5,10 +5,14 @@ const dotenv = require('dotenv');
 const express = require('express');
 const compression = require('compression');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const {
   graphqlExpress,
   graphiqlExpress
 } = require('apollo-server-express');
+const {
+  apolloUploadExpress
+} = require('apollo-upload-server');
 const jwt = require('jwt-simple');
 const {
   unixTimestamp
@@ -25,7 +29,7 @@ class App {
       req.userAuth = null;
       try {
         const authorization = req.headers.Authorization || req.query.token || null;
-        const token = authorization.split(' ')[1] /* HEADERS */ || authorization /* GET */;
+        const token = authorization.split(' ')[1] /* HEADERS */ || authorization /* GET */ ;
         const payload = jwt.decode(token, process.env.APP_KEY);
         if (payload.exp > unixTimestamp()) {
           req.isAuth = true;
@@ -34,25 +38,30 @@ class App {
       } catch (err) {}
       next();
     };
-    this.app = express();
+    this.app = express();    
     this.config();
     this.run(fn);
   }
 
   config() {
+    this.app.use('/static', express.static(`${__dirname}'/../static`));
+    this.app.use(cors());
     this.app.use(compression());
-    this.app.use('/api', bodyParser.json(), this.isAuthMiddleware, graphqlExpress(req => ({
-      schema: require('./schema'),
-      context: {
-        db: this.db,
-        isAuth: req.isAuth,
-        userAuth: req.userAuth
-      },
-      debug: this.isDevelopment,
-      cacheControl: {
-        defaultMaxAge: process.env.APP_CACHE_SECONDS || 1800
-      },
-    })));
+    this.app.use('/api', this.isAuthMiddleware,
+      bodyParser.json(), bodyParser.urlencoded({ extended: true, limit: '10mb', parameterLimit: 1000000 }),
+      apolloUploadExpress(), graphqlExpress(req => ({
+        schema: require('./schema'),
+        context: {
+          db: this.db,
+          isAuth: req.isAuth,
+          userAuth: req.userAuth
+        },
+        debug: this.isDevelopment,
+        cacheControl: {
+          defaultMaxAge: process.env.APP_CACHE_SECONDS || 1800
+        },
+      })
+    ));
     if (this.isDevelopment) {
       this.app.use('/graphiql', graphiqlExpress({
         endpointURL: '/api'
@@ -73,7 +82,7 @@ class App {
       if (err) throw err;
       if (this.isDevelopment) {
         const baseURL = `${process.env.APP_URL}:${process.env.APP_PORT}`;
-        console.group(`\x1Bc'ImageView`);
+        console.group(`ImageView`);
         console.log(`\nRunning at ${baseURL}\nAPI: ${baseURL}/api\nDEV API: ${baseURL}/graphiql\n`);
         console.groupEnd();
         fn && fn();

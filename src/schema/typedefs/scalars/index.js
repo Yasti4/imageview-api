@@ -2,4 +2,5 @@
 
 module.exports = `
   ${require('./date.scalar')}
+  ${require('./upload.scalar')}
 `;
