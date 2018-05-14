@@ -10,6 +10,8 @@ services:
         volumes:
             - .:/usr/app/
             - /usr/app/node_modules
+        depends_on: 
+            - phpmyadmin
         networks:
             network:
                 ipv4_address: 172.18.0.3
@@ -34,6 +36,8 @@ services:
         environment:
             PMA_HOST: '${DB_CONNECTION}'
             PMA_PORT: '${DB_PORT}'
+        depends_on: 
+            - mysql
         networks:
             network:
                 ipv4_address: 172.18.0.4

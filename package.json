@@ -41,7 +41,6 @@
         "graphql-tools": "^2.24.0",
         "jwt-simple": "^0.5.1",
         "mysql2": "^1.5.3",
-        "promises-all": "^1.0.0",
         "sequelize": "^4.37.6",
         "sharp": "^0.20.2",
         "shortid": "^2.2.8"

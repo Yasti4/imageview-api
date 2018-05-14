@@ -1,5 +1,5 @@
-FROM node:alpine
+FROM node
 WORKDIR /usr/app
 COPY package.json yarn.* ./
-RUN yarn install
+RUN yarn
 COPY . .

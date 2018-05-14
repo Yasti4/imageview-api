@@ -47,8 +47,7 @@ class App {
     this.app.use('/static', express.static(`${__dirname}'/../static`));
     this.app.use(cors());
     this.app.use(compression());
-    this.app.use('/api', this.isAuthMiddleware,
-      bodyParser.json(), bodyParser.urlencoded({ extended: true, limit: '10mb', parameterLimit: 1000000 }),
+    this.app.use('/api', this.isAuthMiddleware, bodyParser.json(),
       apolloUploadExpress(), graphqlExpress(req => ({
         schema: require('./schema'),
         context: {
