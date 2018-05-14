@@ -11,7 +11,7 @@ const {
   graphiqlExpress
 } = require('apollo-server-express');
 const {
-  apolloUploadExpress
+  apolloUploadExpress, processRequest
 } = require('apollo-upload-server');
 const jwt = require('jwt-simple');
 const {
@@ -48,7 +48,9 @@ class App {
     this.app.use(cors());
     this.app.use(compression());
     this.app.use('/api', this.isAuthMiddleware, bodyParser.json(),
-      apolloUploadExpress(), graphqlExpress(req => ({
+      apolloUploadExpress({
+        maxFileSize: 1024 * 2
+      }), graphqlExpress(req => ({
         schema: require('./schema'),
         context: {
           db: this.db,
