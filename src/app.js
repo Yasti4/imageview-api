@@ -1,56 +1,56 @@
-'use strict'
+'use strict';
 
 const Ouch = require('ouch');
-const express = require('express')
-const cors = require('cors')
-const compression = require('compression')
-const bodyParser = require('body-parser')
-const { graphqlExpress, graphiqlExpress } = require('apollo-server-express')
-const { apolloUploadExpress } = require('apollo-upload-server')
-const jwt = require('jwt-simple')
-const { unixTimestamp } = require('./helpers')
+const express = require('express');
+const cors = require('cors');
+const compression = require('compression');
+const bodyParser = require('body-parser');
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+const { apolloUploadExpress } = require('apollo-upload-server');
+const jwt = require('jwt-simple');
+const { unixTimestamp } = require('./helpers');
 
-const isDevelopment = process.env.NODE_ENV !== 'production'
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
 // Sequelize
 
-const db = require('./models')
+const db = require('./models');
 
 // Express
 
-const app = express()
+const app = express();
 app.use('/static', express.static(`${__dirname}'/../static`));
-app.set('port', +process.env.APP_PORT)
-app.use(cors())
-app.use(compression())
+app.set('port', +process.env.APP_PORT);
+app.use(cors());
+app.use(compression());
 app.use(bodyParser.urlencoded({
   limit: '50mb',
   extended: true,
   parameterLimit: 50000
-}))
+}));
 app.use(bodyParser.json({
   limit: '50mb'
-}))
+}));
 app.use((err, req, res, next) => {
   new Ouch([new Ouch.handlers.PrettyPageHandler()]).handleException(err, req, res);
-})
+});
 
 // JWT
 
 const isAuthMiddleware = (req, res, next) => {
-  req.isAuth = false
-  req.userAuth = null
+  req.isAuth = false;
+  req.userAuth = null;
   try {
     const authorization = req.headers.Authorization || req.headers.authorization || req.query.token || ''
-    const token = authorization.split(' ')[1] /* HEADERS */ || authorization /* GET */
-    const payload = jwt.decode(token, process.env.APP_KEY)
+    const token = authorization.split(' ')[1] /* HEADERS */ || authorization; /* GET */
+    const payload = jwt.decode(token, process.env.APP_KEY);
     if (payload.exp > unixTimestamp()) {
-      req.isAuth = true
-      req.userAuth = payload.sub
+      req.isAuth = true;
+      req.userAuth = payload.sub;
     }
   } catch (err) {}
-  next()
-}
+  next();
+};
 
 // GraphQL
 
@@ -66,21 +66,21 @@ app.use('/api', isAuthMiddleware, apolloUploadExpress(), graphqlExpress(async re
     cacheControl: {
       defaultMaxAge: process.env.APP_CACHE_SECONDS || 1800
     }
-  }
-}))
+  };
+}));
 if (isDevelopment) {
   app.use('/graphiql', graphiqlExpress({
     endpointURL: '/api'
-  }))
+  }));
 }
 
 // Listen the server
 
-app.listen(+process.env.APP_PORT, (err) => {
-  const baseUrl = `${process.env.APP_URL}:${process.env.APP_PORT}`
-  console.log('\n\x1b[34m∞ Web Running at\x1b[0m', baseUrl)
-  console.log('\x1b[36m∞ Intranet Running at\x1b[0m', `${baseUrl}/intranet`)
-  console.log('\n\x1b[31m∞ API Running at\x1b[0m', `${baseUrl}/api`)
-  console.log('\x1b[35m∞ GraphiQL Running at\x1b[0m', `${baseUrl}/graphiql`)
-  console.log('\n\x1b[33mBy yasti4 & ticdenis 💃\x1b[0m')
-})
+app.listen(+process.env.APP_PORT, () => {
+  const baseUrl = `${process.env.APP_URL}:${process.env.APP_PORT}`;
+  console.log('\n\x1b[34m∞ Web Running at\x1b[0m', baseUrl);
+  console.log('\x1b[36m∞ Intranet Running at\x1b[0m', `${baseUrl}/intranet`);
+  console.log('\n\x1b[31m∞ API Running at\x1b[0m', `${baseUrl}/api`);
+  console.log('\x1b[35m∞ GraphiQL Running at\x1b[0m', `${baseUrl}/graphiql`);
+  console.log('\n\x1b[33mBy yasti4 & ticdenis 💃\x1b[0m');
+});
