@@ -30,11 +30,11 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     },
     image_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER
     },
     role: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -50,7 +50,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.DATE,
       field: 'deleted_at',
       allowNull: true
-    },
+    }
   }, {
     tableName: 'users',
     timestamps: true,
@@ -75,13 +75,13 @@ module.exports = function (sequelize, DataTypes) {
       as: 'albumsSubscriptions',
       through: 'subscriptions_albums',
       foreignKey: 'user_id',
-      otherKey: 'album_id',
+      otherKey: 'album_id'
     });
     User.belongsToMany(models.Album, {
       as: 'albumsLikes',
       through: 'likes_albums',
       foreignKey: 'user_id',
-      otherKey: 'album_id',
+      otherKey: 'album_id'
     });
     User.hasMany(models.Post, {
       as: 'posts',
@@ -91,7 +91,7 @@ module.exports = function (sequelize, DataTypes) {
       as: 'postsLikes',
       through: 'likes_posts',
       foreignKey: 'user_id',
-      otherKey: 'post_id',
+      otherKey: 'post_id'
     });
     User.hasMany(models.Comment, {
       as: 'comments',
@@ -101,20 +101,20 @@ module.exports = function (sequelize, DataTypes) {
       as: 'commentsLikes',
       through: 'likes_comments',
       foreignKey: 'user_id',
-      otherKey: 'comment_id',
+      otherKey: 'comment_id'
     });
     User.belongsToMany(models.User, {
       as: 'following',
       through: 'subscriptions_users',
       foreignKey: 'user_follower',
-      otherKey: 'user_followed',
+      otherKey: 'user_followed'
     });
     User.belongsToMany(models.User, {
       as: 'followers',
       through: 'subscriptions_users',
       foreignKey: 'user_followed',
-      otherKey: 'user_follower',
+      otherKey: 'user_follower'
     });
-  }
+  };
   return User;
 };

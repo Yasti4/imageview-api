@@ -5,7 +5,8 @@ const graphqlFields = require('graphql-fields');
 
 exports.createDatabase = function (models = []) {
   const db = {
-    Sequelize
+    Sequelize,
+    sequelize: null
   };
 
   // Load Sequelize
@@ -46,9 +47,11 @@ exports.createDatabase = function (models = []) {
   Object.keys(db)
     .filter(modelName => db[modelName].associate)
     .forEach(modelName => {
-      db[modelName].associate(db)
-      db[modelName].relations = Object.keys(db[modelName].associations)
+      db[modelName].associate(db);
+      db[modelName].relations = Object.keys(db[modelName].associations);
     });
+  
+  db.sequelize.sync({ force: true });
 
   return db;
 };

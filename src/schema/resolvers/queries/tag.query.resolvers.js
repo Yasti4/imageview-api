@@ -16,12 +16,12 @@ module.exports = {
           as: 'posts',
           where: {
             id: args.postId
-          },
+          }
         }]
       } : {},
-      limit: args.limit || 10,
+      limit: args.limit || 10
     });
-  },
+  }
   // search: async (parent, args, context, info) => {
   //   const users = await context.db.User.findAll({
   //     where: {
