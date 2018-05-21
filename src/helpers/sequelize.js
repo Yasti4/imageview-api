@@ -1,12 +1,12 @@
-'use strict'
+'use strict';
 
-const Sequelize = require('sequelize')
-const graphqlFields = require('graphql-fields')
+const Sequelize = require('sequelize');
+const graphqlFields = require('graphql-fields');
 
 exports.createDatabase = function (models = []) {
   const db = {
     Sequelize
-  }
+  };
 
   // Load Sequelize
   db.sequelize = new Sequelize(
@@ -29,18 +29,18 @@ exports.createDatabase = function (models = []) {
         timestamps: false
       }
     }
-  )
+  );
 
   // Load Models
   models.forEach(modelFn => {
-    const model = modelFn(db.sequelize, Sequelize.DataTypes)
-    db[model.name] = model
-    db[model.name].fields = Object.keys(model.attributes)
+    const model = modelFn(db.sequelize, Sequelize.DataTypes);
+    db[model.name] = model;
+    db[model.name].fields = Object.keys(model.attributes);
     db[model.name].onlyAttributes = (info) => {
-      const topLevelFields = Object.keys(graphqlFields(info))
-      return db[model.name].fields.filter(field => topLevelFields.indexOf(field) > -1)
-    }
-  })
+      const topLevelFields = Object.keys(graphqlFields(info));
+      return db[model.name].fields.filter(field => topLevelFields.indexOf(field) > -1);
+    };
+  });
 
   // Load Associations
   Object.keys(db)
@@ -48,18 +48,18 @@ exports.createDatabase = function (models = []) {
     .forEach(modelName => {
       db[modelName].associate(db)
       db[modelName].relations = Object.keys(db[modelName].associations)
-    })
+    });
 
-  return db
-}
+  return db;
+};
 
-exports.softDelete = (softDelete) => !(softDelete === undefined ? true : softDelete)
+exports.softDelete = (softDelete) => !(softDelete === undefined ? true : softDelete);
 
 exports.pagination = (page = 1, limit = 10) => ({
   offset: (page - 1) * limit,
   limit: limit
-})
+});
 
 exports.orderBy = (field = 'updatedAt', order = 'DESC') => ({
   order: [ [ field, order ] ]
-})
+});

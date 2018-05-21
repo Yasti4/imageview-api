@@ -10,6 +10,7 @@ const { apolloUploadExpress } = require('apollo-upload-server');
 const jwt = require('jwt-simple');
 const { unixTimestamp } = require('./helpers');
 
+require('dotenv').load();
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 // Sequelize

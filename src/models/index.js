@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-const { createDatabase } = require('./../helpers')
+const { createDatabase } = require('./../helpers');
 
 module.exports = createDatabase([
   require('./album'),
@@ -12,4 +12,4 @@ module.exports = createDatabase([
   require('./tag'),
   require('./user'),
   require('./visibility')
-])
+]);
