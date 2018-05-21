@@ -51,7 +51,7 @@ exports.createDatabase = function (models = []) {
       db[modelName].relations = Object.keys(db[modelName].associations);
     });
   
-  db.sequelize.sync({ force: true });
+  db.sequelize.sync();
 
   return db;
 };

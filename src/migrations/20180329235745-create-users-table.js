@@ -46,7 +46,9 @@ module.exports = {
         references: {
           model: 'roles',
           key: 'name'
-        }
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
       },
       created_at: {
         type: Sequelize.DATE,
