@@ -59,10 +59,9 @@ app.use('/api', isAuthMiddleware, apolloUploadExpress(), graphqlExpress(async re
     schema: require('./schema'),
     context: {
       db,
-      // isAdmin: role && req.isAuth ? req.userAuth.roleId === role.id : false,
+      isAdmin: req.isAuth ? req.userAuth.role === 'admin' : false,
       isAuth: req.isAuth,
-      userAuth: req.userAuth,
-      roleAdminId: role ? role.id : 0
+      userAuth: req.userAuth
     },
     cacheControl: {
       defaultMaxAge: process.env.APP_CACHE_SECONDS || 1800
@@ -77,7 +76,7 @@ if (isDevelopment) {
 
 // Listen the server
 
-app.listen(+process.env.APP_PORT, process.env.APP_URL, (err) => {
+app.listen(+process.env.APP_PORT, (err) => {
   const baseUrl = `${process.env.APP_URL}:${process.env.APP_PORT}`
   console.log('\n\x1b[34m∞ Web Running at\x1b[0m', baseUrl)
   console.log('\x1b[36m∞ Intranet Running at\x1b[0m', `${baseUrl}/intranet`)
