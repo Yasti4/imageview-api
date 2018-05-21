@@ -43,7 +43,8 @@
         "mysql2": "^1.5.3",
         "sequelize": "^4.37.6",
         "sharp": "^0.20.2",
-        "shortid": "^2.2.8"
+        "shortid": "^2.2.8",
+        "stream-length": "^1.0.2"
     },
     "devDependencies": {
         "@types/faker": "^4.1.2",

@@ -1,8 +1,6 @@
 'use strict';
 
-const {
-  saveImage
-} = require('./../../../helpers/file')
+const { saveImage } = require('./../../../helpers')
 // const sharp = require('sharp');
 
 
