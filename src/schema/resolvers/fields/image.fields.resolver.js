@@ -11,6 +11,6 @@ module.exports = {
       return parent.getPost({
         attributes: context.db.Post.onlyAttributes(info)
       });
-    },
+    }
   }
 };

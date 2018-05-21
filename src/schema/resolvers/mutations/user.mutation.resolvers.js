@@ -1,7 +1,7 @@
 'use strict';
 
 const jwt = require('jwt-simple');
-const { unixTimestamp, softDelete } = require('./../../../helpers');
+const { unixTimestamp } = require('./../../../helpers');
 
 module.exports = {
   signIn: (parent, args, context, info) => {
@@ -39,14 +39,14 @@ module.exports = {
       where: { id: args.input.user_follower },
       include: [{
         model: context.db.User,
-        as: 'following',
+        as: 'following'
         // where: { id: args.input.user_follower }
       }]
     });
-    const followedId = 13; //args.input.user_followed;
+    const followedId = 13; // args.input.user_followed;
     const unfollow = !!follower.following.find(user => user.id === followedId);
     if (unfollow) {
-      context.db.User.removeFollowing(unfollow)
+      context.db.User.removeFollowing(unfollow);
       // follower.destroy({ force: softDelete() });
     } else {
       // follower.create({ force: softDelete() });

@@ -17,7 +17,7 @@ module.exports = makeExecutableSchema({
     ...require('./resolvers/scalars'),
     ...require('./resolvers/fields'),
     Query: require('./resolvers/queries'),
-    Mutation: require('./resolvers/mutations'),
+    Mutation: require('./resolvers/mutations')
   },
   schemaDirectives: {
     // ...require('./resolvers/directives')

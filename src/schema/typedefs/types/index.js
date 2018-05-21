@@ -12,4 +12,3 @@ ${require('./tag.type')}
 ${require('./user.type')}
 ${require('./visibility.type')}
 `;
-

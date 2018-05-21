@@ -4,7 +4,7 @@ module.exports = function (sequelize, DataTypes) {
   const Visibility = sequelize.define('Visibility', {
     name: {
       type: DataTypes.STRING,
-      primaryKey: true,
+      primaryKey: true
     }
   }, {
     tableName: 'visibilities'
@@ -13,13 +13,13 @@ module.exports = function (sequelize, DataTypes) {
   Visibility.associate = function (models) {
     Visibility.hasMany(models.Post, {
       as: 'posts',
-      foreignKey: 'visibility',
+      foreignKey: 'visibility'
     });
     Visibility.hasMany(models.Album, {
       as: 'albums',
-      foreignKey: 'visibility',
+      foreignKey: 'visibility'
     });
-  }
+  };
 
   return Visibility;
 };

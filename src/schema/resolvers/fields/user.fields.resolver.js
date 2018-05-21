@@ -51,6 +51,6 @@ module.exports = {
       return parent.getCommentsLikes({
         attributes: context.db.Comment.onlyAttributes(info)
       });
-    },
+    }
   }
 };

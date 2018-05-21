@@ -29,6 +29,6 @@ module.exports = {
     },
     likes: (parent, args, context, info) => {
       return parent.countLikes();
-    },
+    }
   }
 };

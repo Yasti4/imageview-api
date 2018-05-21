@@ -9,7 +9,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     name: {
       type: DataTypes.STRING,
-      unique: true,
+      unique: true
     }
   }, {
     tableName: 'tags'
