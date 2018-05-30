@@ -23,7 +23,8 @@
         "migrate:reset": "npm run migrate:rollback && npm run migrate",
         "make:migration": "./node_modules/.bin/sequelize migration:generate --name",
         "db:seed": "./node_modules/.bin/sequelize db:seed:all",
-        "make:seeder": "./node_modules/.bin/sequelize seed:generate --name"
+        "make:seeder": "./node_modules/.bin/sequelize seed:generate --name",
+        "db:reset": "npm run migrate:reset && npm run db:seed"
     },
     "author": "Adrià Muñoz, Denís Navarro",
     "private": false,
