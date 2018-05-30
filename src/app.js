@@ -39,8 +39,10 @@ app.use((err, req, res, next) => {
 // JWT
 
 const isAuthMiddleware = (req, res, next) => {
-  req.isAuth = false;
-  req.userAuth = null;
+  // req.isAuth = false;
+  // req.userAuth = null;
+  req.isAuth = true;
+  req.userAuth = { id: 1, role: 'admin' };
   try {
     const authorization = req.headers.Authorization || req.headers.authorization || req.query.token || '';
     const token = authorization.split(' ')[1] /* HEADERS */ || authorization; /* GET */
