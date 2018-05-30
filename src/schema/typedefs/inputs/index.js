@@ -6,4 +6,14 @@ module.exports = `
   ${require('./user-follow.input')}
   ${require('./user-insert.input')}
   ${require('./user-update.input')}
+
+  input PostInput {
+    description: String
+    user_id: Int!
+    album_id: Int
+    image_id: Int!
+    visibility: String!
+    enable_comments: Boolean!
+    tags: [Tag!]
+  }
 `;
