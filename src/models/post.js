@@ -12,21 +12,21 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true
     },
     user_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER
     },
     album_id: {
       type: DataTypes.INTEGER,
       allowNull: true
     },
     image_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER
     },
     visibility: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     enableComments: {
       type: DataTypes.BOOLEAN,
-      field: 'enable_comments',
+      field: 'enable_comments'
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -42,7 +42,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.DATE,
       field: 'deleted_at',
       allowNull: true
-    },
+    }
   }, {
     tableName: 'posts',
     timestamps: true,

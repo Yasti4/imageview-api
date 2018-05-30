@@ -8,7 +8,7 @@ module.exports = function (sequelize, DataTypes) {
       autoIncrement: true
     },
     content: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     post_id: {
       type: DataTypes.INTEGER
@@ -30,7 +30,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.DATE,
       field: 'deleted_at',
       allowNull: true
-    },
+    }
   }, {
     tableName: 'comments',
     timestamps: true,
@@ -53,6 +53,6 @@ module.exports = function (sequelize, DataTypes) {
       through: 'likes_comments',
       foreignKey: 'comment_id'
     });
-  }
+  };
   return Comment;
 };

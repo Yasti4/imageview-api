@@ -4,7 +4,7 @@ module.exports = function (sequelize, DataTypes) {
   const Role = sequelize.define('Role', {
     name: {
       type: DataTypes.STRING,
-      primaryKey: true,
+      primaryKey: true
     }
   }, {
     tableName: 'roles'
@@ -16,7 +16,7 @@ module.exports = function (sequelize, DataTypes) {
       foreignKey: 'role',
       sourceKey: 'name'
     });
-  }
+  };
 
   return Role;
 };

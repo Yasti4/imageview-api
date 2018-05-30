@@ -1,26 +1,21 @@
 'use strict';
 
-const { 
-  defaultFieldResolver
-} = require('graphql');
-const {
-  SchemaDirectiveVisitor
-} = require('graphql-tools');
+const { defaultFieldResolver } = require('graphql');
+const { SchemaDirectiveVisitor } = require('graphql-tools');
 
 module.exports = {
   auth: class extends SchemaDirectiveVisitor {
-
-    visitObject(type) {
+    visitObject (type) {
       this.ensureFieldsWrapped(type);
       type._requiredAuthRole = this.args.role;
     }
 
-    visitFieldDefinition(field, details) {      
+    visitFieldDefinition (field, details) {
       this.ensureFieldsWrapped(details.objectType);
       field._requiredAuthRole = this.args.role;
     }
 
-    ensureFieldsWrapped(objectType) {
+    ensureFieldsWrapped (objectType) {
       if (objectType._authFieldsWrapped) return;
       objectType._authFieldsWrapped = true;
       const fields = objectType.getFields();
@@ -29,7 +24,7 @@ module.exports = {
       });
     }
 
-    run(field) {
+    run (field) {
       const {
         resolve = defaultFieldResolver
       } = field;

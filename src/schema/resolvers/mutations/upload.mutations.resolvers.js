@@ -1,8 +1,7 @@
 'use strict';
 
-const { saveImage } = require('./../../../helpers')
+const { saveImage } = require('./../../../helpers');
 // const sharp = require('sharp');
-
 
 module.exports = {
   uploadImage: async (parent, args, context, info) => {

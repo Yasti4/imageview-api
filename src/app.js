@@ -42,7 +42,7 @@ const isAuthMiddleware = (req, res, next) => {
   req.isAuth = false;
   req.userAuth = null;
   try {
-    const authorization = req.headers.Authorization || req.headers.authorization || req.query.token || ''
+    const authorization = req.headers.Authorization || req.headers.authorization || req.query.token || '';
     const token = authorization.split(' ')[1] /* HEADERS */ || authorization; /* GET */
     const payload = jwt.decode(token, process.env.APP_KEY);
     if (payload.exp > unixTimestamp()) {

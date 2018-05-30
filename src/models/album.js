@@ -8,10 +8,10 @@ module.exports = function (sequelize, DataTypes) {
       autoIncrement: true
     },
     user_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER
     },
     title: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     description: {
       type: DataTypes.STRING,
@@ -34,7 +34,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.DATE,
       field: 'deleted_at',
       allowNull: true
-    },
+    }
   }, {
     tableName: 'albums',
     timestamps: true,

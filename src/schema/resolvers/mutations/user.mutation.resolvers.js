@@ -6,11 +6,7 @@ const { unixTimestamp } = require('./../../../helpers');
 module.exports = {
   signIn: (parent, args, context, info) => {
     return context.db.User.find({
-      raw: true,
-      where: {
-        email: args.email,
-        password: args.password
-      }
+      where: { email: args.email, password: args.password }
     }).then(user => {
       const now = new Date();
       now.setDate(now.getDate() + 14);
@@ -20,7 +16,7 @@ module.exports = {
         accessToken: jwt.encode({
           sub: user,
           iat: unixTimestamp(),
-          exp: unixTimestamp(now),
+          exp: unixTimestamp(now)
         }, process.env.APP_KEY)
       } : null;
     });
@@ -36,6 +32,27 @@ module.exports = {
           username: args.username
         }
       }
-    )
+    );
+  },
+  follow: async (parent, args, context, info) => {
+    const follower = await context.db.User.find({
+      where: { id: args.input.user_follower },
+      include: [{
+        model: context.db.User,
+        as: 'following'
+        // where: { id: args.input.user_follower }
+      }]
+    });
+    const followedId = 13; // args.input.user_followed;
+    const unfollow = !!follower.following.find(user => user.id === followedId);
+    if (unfollow) {
+      context.db.User.removeFollowing(unfollow);
+      // follower.destroy({ force: softDelete() });
+    } else {
+      // follower.create({ force: softDelete() });
+    }
+    console.log('encontrado: ' + unfollow);
+    // console.log(follower.following);
+    return true;
   }
 };

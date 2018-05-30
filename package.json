@@ -12,6 +12,7 @@
         "dev:close": "docker-compose down",
         "terminal": "docker exec -it $(docker ps --filter name=imageview_node -q) /bin/sh",
         "exec": "npm run terminal -c",
+        "preserve": "./node_modules/.bin/eslint --fix src",
         "start": "node ./src/app.js",
         "serve": "./node_modules/.bin/nodemon ./src/app.js",
         "prerelease": "./node_modules/.bin/standard-version",
@@ -22,7 +23,8 @@
         "migrate:reset": "npm run migrate:rollback && npm run migrate",
         "make:migration": "./node_modules/.bin/sequelize migration:generate --name",
         "db:seed": "./node_modules/.bin/sequelize db:seed:all",
-        "make:seeder": "./node_modules/.bin/sequelize seed:generate --name"
+        "make:seeder": "./node_modules/.bin/sequelize seed:generate --name",
+        "db:reset": "npm run migrate:reset && npm run db:seed"
     },
     "author": "Adrià Muñoz, Denís Navarro",
     "private": false,
@@ -49,6 +51,7 @@
         "eslint-plugin-standard": "^3.1.0",
         "eslint-plugin-vue": "^4.5.0",
         "express": "^4.16.3",
+        "global": "^4.3.2",
         "graphql": "^0.13.2",
         "graphql-date": "^1.0.3",
         "graphql-fields": "^1.0.2",
