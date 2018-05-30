@@ -79,8 +79,9 @@ if (isDevelopment) {
 
 app.listen(+process.env.APP_PORT, () => {
   const baseUrl = `${process.env.APP_URL}:${process.env.APP_PORT}`;
+  const baseUrlPHPMyAdmin = `${process.env.APP_URL}:${process.env.PHPMYADMIN_PORT}`;
   console.log('\n\x1b[34m∞ Web Running at\x1b[0m', baseUrl);
-  console.log('\x1b[36m∞ Intranet Running at\x1b[0m', `${baseUrl}/intranet`);
+  console.log('\x1b[36m∞ PHPMyAdmin Running at\x1b[0m', baseUrlPHPMyAdmin);
   console.log('\n\x1b[31m∞ API Running at\x1b[0m', `${baseUrl}/api`);
   console.log('\x1b[35m∞ GraphiQL Running at\x1b[0m', `${baseUrl}/graphiql`);
   console.log('\n\x1b[33mBy yasti4 & ticdenis 💃\x1b[0m');
