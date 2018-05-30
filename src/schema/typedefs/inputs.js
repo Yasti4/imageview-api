@@ -9,12 +9,11 @@ module.exports = `
   
   input PostInput {
     description: String
-    user_id: Int!
     album_id: Int
     image_id: Int!
-    visibility: String!
-    enable_comments: Boolean!
-    #tags: [Tag!]
+    visibility: String = "public"
+    enable_comments: Boolean = true
+    # tags: [Tag!]! = []
   }
 
   input PrivacityInput {
@@ -30,12 +29,19 @@ module.exports = `
   }
 
   input UserInput {
+    image_id: Int!
     username: String!
     email: String!
     password: String
     name: String!
     lastname: String!
-    role: String!
+    role: String = "user"
+  }
+
+  input UserPrivacityInput {
+    search: String = "public"
+    posts: String = "public"
+    albums: String = "public"
   }
 
 `;

@@ -28,4 +28,5 @@ module.exports = `type Query {
 
   visibility(name: String!): Visibility
   visibilities: [Visibility!]!
+  
 }`;

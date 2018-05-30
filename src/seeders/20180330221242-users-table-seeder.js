@@ -1,5 +1,7 @@
 'use strict';
 
+const bcrypt = require('bcrypt');
+
 const limit = 20;
 exports.limit = limit;
 module.exports = {
@@ -9,10 +11,11 @@ module.exports = {
     const { Image } = require('./../models');
     const avatars = (await Image.findAll({ limit: limit })).map(item => item.id);
     const now = new Date();
+    const password = await bcrypt.hash('secret', +process.env.APP_SALT || 10);
     return queryInterface.bulkInsert('users', [...Array(limit)].map(item => ({
       username: faker.internet.userName(),
       email: faker.internet.email(),
-      password: faker.internet.password(),
+      password,
       name: faker.name.findName(),
       lastname: faker.name.lastName(),
       image_id: avatars.pop(),
@@ -24,7 +27,6 @@ module.exports = {
       ...item,
       username: 'imageview',
       email: 'info@imageview.com',
-      password: 'secret',
       name: 'ImageView',
       lastname: 'GraphQL API',
       role: 'admin'
