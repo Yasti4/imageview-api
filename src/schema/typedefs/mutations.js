@@ -8,8 +8,8 @@ module.exports = `type Mutation {
 
   createComment(input: CommentInputInsert!): Comment
 
-  createPrivacity(input: PrivacityInputInsert!): Privacity
-  updatePrivacity(input: PrivacityInputUpdate!): Boolean!
+  createPrivacity(input: PrivacityInput!): Privacity
+  updatePrivacity(input: PrivacityInput!): Boolean!
 
   createRole(name: String!): Role
   updateRole(oldName: String!, newName: String!): Boolean!
@@ -18,8 +18,8 @@ module.exports = `type Mutation {
   uploadImage(file: Upload!): Image
 
   signIn(email: String!, password: String!): JWT
-  createUser(input: UserInputInsert!): User
-  updateUser(username: String!, input: UserInputUpdate!): User
+  createUser(input: UserInput!): User
+  updateUser(input: UserInput!): User
   follow(input: UserFollow!): Boolean
 
   createVisibility(name: String!): Visibility
