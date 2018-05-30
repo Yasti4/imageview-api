@@ -6,4 +6,5 @@ module.exports = `
   ${require('./user-follow.input')}
   ${require('./user-insert.input')}
   ${require('./user-update.input')}
+  ${require('./comment-insert.input')}
 `;

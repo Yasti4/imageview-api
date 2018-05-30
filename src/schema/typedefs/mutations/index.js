@@ -6,4 +6,5 @@ module.exports = `type Mutation {
   ${require('./upload.mutations')}
   ${require('./user.mutations')}
   ${require('./visibility.mutations')}
+  ${require('./comment.mutations')}
 }`;
