@@ -24,8 +24,10 @@ module.exports = `type Mutation {
 
   signIn(email: String!, password: String!): JWT
   createUser(input: UserInput!): User
-  updateUser(input: UserInput!): User
-  follow(input: UserFollow!): Boolean
+  updateUser(input: UserInput!): Boolean!
+  changePassword(old: String!, new: String!): Boolean!
+  updateUserPrivacity(input: UserPrivacityInput!): Boolean!
+  follow(input: UserFollow!): Boolean!
 
   createVisibility(name: String!): Visibility
   deleteVisibility(oldName: String!, newName: String!): Visibility
