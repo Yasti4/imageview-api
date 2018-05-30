@@ -2,11 +2,16 @@
 
 module.exports = `type Mutation {
 
+  createAlbum(input: AlbumInput!): Album
+  updateAlbum(id: Int!, input: AlbumInput!): Boolean!
+  deleteAlbum(id: Int!): Boolean!
+
   createPost(input: PostInput!): Post
   updatePost(id: Int!, input: PostInput!): Boolean!
   deletePost(id: Int!): Boolean!
 
-  createComment(input: CommentInputInsert!): Comment
+  createComment(input: CommentInput!): Comment
+  updateComment(id: Int!, comment: String!): Boolean!
 
   createPrivacity(input: PrivacityInput!): Privacity
   updatePrivacity(input: PrivacityInput!): Boolean!

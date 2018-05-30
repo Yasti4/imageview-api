@@ -2,11 +2,17 @@
 
 module.exports = `
 
-  input CommentInputInsert {
+  input AlbumInput {
+    title: String!
+    description: String
+    visibility: String!
+  }
+
+  input CommentInput {
     content: String!
     post_id: Int!
   }
-  
+
   input PostInput {
     description: String
     user_id: Int!

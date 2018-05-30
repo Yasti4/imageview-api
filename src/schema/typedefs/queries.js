@@ -21,6 +21,9 @@ module.exports = `type Query {
 
   tag(name: String!): Tag
   tags(postId: Int, limit: Int): [Tag!]!
+ 
+  #search(search: String!): [User]
+
 
   user(id: Int, username: String, email: String): User
   users(limit: Int): [User!]!

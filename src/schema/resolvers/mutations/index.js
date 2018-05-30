@@ -5,5 +5,6 @@ module.exports = {
   ...require('./role.mutations.resolvers'),
   ...require('./upload.mutations.resolvers'),
   ...require('./user.mutation.resolvers'),
-  ...require('./comment.mutation.resolvers')
+  ...require('./comment.mutation.resolvers'),
+  ...require('./album.mutation.resolvers')
 };
