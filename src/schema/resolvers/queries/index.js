@@ -3,6 +3,7 @@
 module.exports = {
   ...require('./album.query.resolvers'),
   ...require('./comment.query.resolvers'),
+  ...require('./email.query.resolvers'),
   ...require('./image.query.resolvers'),
   ...require('./post.query.resolvers'),
   ...require('./privacity.query.resolvers'),

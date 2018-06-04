@@ -85,5 +85,5 @@ app.listen(+process.env.APP_PORT, () => {
   console.log('\x1b[36m∞ Intranet Running at\x1b[0m', `${baseUrl}/intranet`);
   console.log('\n\x1b[31m∞ API Running at\x1b[0m', `${baseUrl}/api`);
   console.log('\x1b[35m∞ GraphiQL Running at\x1b[0m', `${baseUrl}/graphiql`);
-  console.log('\n\x1b[33mBy yasti4 & ticdenis 💃\x1b[0m');
+  console.log('\n\x1b[32mBy yasti4 & ticdenis 💃\x1b[0m');
 });

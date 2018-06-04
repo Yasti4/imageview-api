@@ -11,5 +11,7 @@ module.exports = createDatabase([
   require('./role'),
   require('./tag'),
   require('./user'),
-  require('./visibility')
+  require('./visibility'),
+  // n-m
+  require('./like-post')
 ]);
