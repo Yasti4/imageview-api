@@ -28,9 +28,7 @@ module.exports = `type Mutation {
   changePassword(old: String!, new: String!): Boolean!
   updateUserPrivacity(input: UserPrivacityInput!): Boolean!
   
-  # falla...
-  follow(input: UserFollow!): Boolean!
-  # falla...
+  follow(input: FollowInput!): Boolean!
   like(input: LikeInput!): Boolean!
 
   createVisibility(name: String!): Visibility
