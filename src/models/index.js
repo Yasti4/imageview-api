@@ -13,5 +13,7 @@ module.exports = createDatabase([
   require('./user'),
   require('./visibility'),
   // n-m
+  require('./like-album'),
+  require('./like-comment'),
   require('./like-post')
 ]);

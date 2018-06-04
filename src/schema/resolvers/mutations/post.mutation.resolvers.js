@@ -45,13 +45,13 @@ module.exports = {
         user_id: context.userAuth.id, post_id: args.input.post_id
       });
     } else if (args.input.album_id) {
-      // return findDestroyOrCreate(context.db.LikeAlbum, {
-      //   user_id: context.userAuth.id, album_id: args.input.album_id
-      // });
+      return findDestroyOrCreate(context.db.LikeAlbum, {
+        user_id: context.userAuth.id, album_id: args.input.album_id
+      });
     } else if (args.input.comment_id) {
-      // return findDestroyOrCreate(context.db.LikeComment, {
-      //   user_id: context.userAuth.id, comment_id: args.input.comment_id
-      // });
+      return findDestroyOrCreate(context.db.LikeComment, {
+        user_id: context.userAuth.id, comment_id: args.input.comment_id
+      });
     } else {
       return false;
     }
