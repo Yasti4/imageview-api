@@ -34,6 +34,12 @@ module.exports = `
     user_follower: Int!
   }
 
+  input LikeInput {
+    post_id: Int
+    album_id: Int
+    comment_id: Int
+  }
+
   input UserInput {
     image_id: Int!
     username: String!

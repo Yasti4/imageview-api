@@ -32,5 +32,4 @@ module.exports = `type Query {
   visibilities: [Visibility!]!
 
   forgottenPassword(email: String!): Boolean!
-  
 }`;
