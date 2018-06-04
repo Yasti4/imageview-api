@@ -24,12 +24,13 @@ module.exports = `type Query {
  
   search(search: String!): [SearchResult!]!
 
-
   user(id: Int, username: String, email: String): User
   users(limit: Int): [User!]!
   me(token: String): User
 
   visibility(name: String!): Visibility
   visibilities: [Visibility!]!
+
+  forgottenPassword(email: String!): Boolean!
   
 }`;
