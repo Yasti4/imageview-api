@@ -8,6 +8,7 @@ module.exports = makeExecutableSchema({
   typeDefs: `
     # ${require('./typedefs/directives')}
     ${require('./typedefs/scalars')}
+    ${require('./typedefs/unions')}
     ${require('./typedefs/types')}
     ${require('./typedefs/inputs')}
     ${require('./typedefs/queries')}
@@ -18,7 +19,6 @@ module.exports = makeExecutableSchema({
     ...require('./resolvers/fields'),
     Query: require('./resolvers/queries'),
     Mutation: require('./resolvers/mutations')
-    
   },
   schemaDirectives: {
     // ...require('./resolvers/directives')

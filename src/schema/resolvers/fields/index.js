@@ -9,5 +9,14 @@ module.exports = {
   ...require('./role.fields.resolver'),
   ...require('./tag.fields.resolver'),
   ...require('./user.fields.resolver'),
-  ...require('./visibility.fields.resolver')
+  ...require('./visibility.fields.resolver'),
+  SearchResult: {
+    __resolveType (obj, context, info) {
+      if (obj.username) {
+        return 'User';
+      } else {
+        return 'Tag';
+      }
+    }
+  }
 };

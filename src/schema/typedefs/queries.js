@@ -22,7 +22,7 @@ module.exports = `type Query {
   tag(name: String!): Tag
   tags(postId: Int, limit: Int): [Tag!]!
  
-  #search(search: String!): [User]
+  search(search: String!): [SearchResult!]!
 
 
   user(id: Int, username: String, email: String): User

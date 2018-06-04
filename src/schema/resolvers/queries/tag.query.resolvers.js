@@ -21,22 +21,22 @@ module.exports = {
       } : {},
       limit: args.limit || 10
     });
+  },
+  search: async (parent, args, context, info) => {
+    const users = await context.db.User.findAll({
+      where: {
+        username: {
+          [context.db.Sequelize.Op.like]: `%${args.search}%`
+        }
+      }
+    });
+    const tags = await context.db.Tag.findAll({
+      where: {
+        name: {
+          [context.db.Sequelize.Op.like]: `%${args.search}%`
+        }
+      }
+    });
+    return [...users, ...tags];
   }
-  // search: async (parent, args, context, info) => {
-  //   const users = await context.db.User.findAll({
-  //     where: {
-  //       username: {
-  //         [context.db.Sequelize.Op.like]: `%${args.search}%`
-  //       }
-  //     }
-  //   });
-  //   const tags = await context.db.Tag.findAll({
-  //     where: {
-  //       name: {
-  //         [context.db.Sequelize.Op.like]: `%${args.search}%`
-  //       }
-  //     }
-  //   });
-  //   return [...users, ...tags];
-  // }
 };
