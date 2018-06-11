@@ -20,12 +20,15 @@ module.exports = {
       album_id: args.input.album_id,
       description: args.input.description,
       enable_comments: args.input.enable_comments,
-      visibility: args.input.visibility
-    }, { where: { id: args.id, ...canUpdate } });
+      visibility: args.input.visibility,
+      tags: args.input.tags.map(tag => ({ name: tag }))
+    }, {
+      where: { id: args.id, ...canUpdate }
+      // include: [ context.db.Tag ]
+    });
     return !!affectedRows[0];
   },
   deletePost: async (parent, args, context, info) => {
-    // TODO: tags ids - remove
     const canUpdate = context.isAdmin ? {} : { user_id: context.userAuth.id };
     const affectedRows = await context.db.Post.destroy({ where: { id: args.id, ...canUpdate } });
     return !!affectedRows;

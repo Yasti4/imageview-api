@@ -65,24 +65,25 @@ module.exports = {
     return !!affectedRows[0];
   },
   follow: async (parent, args, context, info) => {
-    const follower = await context.db.User.find({
-      where: { id: args.input.user_follower },
-      include: [{
-        model: context.db.User,
-        as: 'following'
-        // where: { id: args.input.user_follower }
-      }]
-    });
-    const followedId = 13; // args.input.user_followed;
-    const unfollow = !!follower.following.find(user => user.id === followedId);
-    if (unfollow) {
-      context.db.User.removeFollowing(unfollow);
-      // follower.destroy({ force: softDelete() });
+    const findDestroyOrCreate = async (Model, input) => {
+      const instance = await Model.find({ where: input });
+      if (instance) {
+        return !!(await Model.destroy({ where: { id: instance.id } }));
+      } else {
+        return !!(await Model.create(input));
+      }
+    };
+
+    if (args.input.user_follower && args.input.user_followed) {
+      return findDestroyOrCreate(context.db.SubscriptionUser, {
+        user_follower: args.input.user_follower, user_followed: args.input.user_followed 
+      });
+    } else if (args.input.album_id) {
+      return findDestroyOrCreate(context.db.SubscriptionAlbum, {
+        user_id: context.userAuth.id, album_id: args.input.album_id
+      });
     } else {
-      // follower.create({ force: softDelete() });
+      return false;
     }
-    console.log('encontrado: ' + unfollow);
-    // console.log(follower.following);
-    return true;
   }
 };

@@ -1,50 +1,32 @@
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
-
-## ImageView
-
+# ImageView
 An API for an image sharing platform.
 
-### Setup
+## Installation
 
-> `cp .env.example .env`
+**Make sure are using Node 8+, NPM 5+ and MySQL 5.5+**
 
-### Install and Update
+``` sh
+cp .env.example .env
 
-> `npm install` *or* `yarn install`
+npm install
 
-> `npm run migrate` *or* `yarn migrate`
+npm run db:create
 
-> `npm run db:seed` *or* `yarn db:seed`
+npm run migrate
 
-### Upgrade
+npm run db:seed # Only dev enviroment
+```
 
-> `npm update` *or* `yarn upgrade`
+## Usage
 
-### Execute
+``` sh
+npm run serve # Only dev environment without Docker
 
-> `npm run serve` *or* `yarn serve`
+npm run dev # Only dev enviroment with Docker
 
-### Release
+npm start # Only prod enviroment
+```
 
-> `npm run release`*or* `yarn release`
+## License
 
-### Docker [before]
-
-> `npm run dev` or `yarn dev`
-
-> `npm run dev:open` or `yarn dev:open`
-
-### Docker [after]
-
-> `npm run dev:close` or `yarn dev:close`
-
-> `npm run terminal` or `yarn terminal`
-
-> `npm run exec "npm run ..."` or `yarn exec "yarn ..."` 
----
-
-### Documentation of Dependencies
-
-- The ORM: [Sequelize](http://docs.sequelizejs.com)
-- The Query Language for APIs: [GraphQL](https://www.apollographql.com/docs/graphql-tools)
-- The framework for testing: [Jasmine](https://jasmine.github.io/api/edge/global)
+[MIT](https://github.com/Yasti4/imageview-api/src/master/LICENSE)

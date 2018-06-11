@@ -19,7 +19,7 @@ module.exports = `
     image_id: Int!
     visibility: String = "public"
     enable_comments: Boolean = true
-    # tags: [Tag!]! = []
+    tags: [String!]! = []
   }
 
   input PrivacityInput {
@@ -29,9 +29,10 @@ module.exports = `
     albums: String!
   }
   
-  input UserFollow {
-    user_followed: Int!
-    user_follower: Int!
+  input FollowInput {
+    user_followed: Int
+    user_follower: Int
+    album_id: Int
   }
 
   input LikeInput {
