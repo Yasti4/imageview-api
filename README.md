@@ -15,8 +15,6 @@ npm run db:create
 npm run migrate
 
 npm run db:seed # Only dev enviroment
-
-npm run build # Only prod enviroment
 ```
 
 ## Usage
