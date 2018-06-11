@@ -19,7 +19,7 @@ module.exports = `
     image_id: Int!
     visibility: String = "public"
     enable_comments: Boolean = true
-    # tags: [Tag!]! = []
+    tags: [String!]! = []
   }
 
   input PrivacityInput {
