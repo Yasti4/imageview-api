@@ -1,4 +1,5 @@
 'use strict';
+const { pagination } = require('./../../../helpers');
 
 module.exports = {
   post: (parent, args, context, info) => {
@@ -14,5 +15,25 @@ module.exports = {
       },
       limit: args.limit || 10
     });
+  },
+  feed: (parent, args, context, info) => {
+    // No auth
+    if (!context.isAuth) {
+      console.log(context.db.Post.associations);
+      return context.db.Post.findAll({
+        include: [
+          {
+            model: context.db.User,
+            as: 'likes',
+            attributes: [],
+            through: {
+              
+              attributes: ['id']
+            }
+          }
+        ],
+        ...pagination(args.pagination, args.limit)
+      });
+    }
   }
 };

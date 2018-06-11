@@ -13,6 +13,7 @@ module.exports = `type Query {
 
   post(id: Int!): Post
   posts(userId: Int, albumId: Int, limit: Int): [Post!]!
+  feed(page: Int = 1, limit: Int = 10): [Post!]!
 
   privacity(userId: Int!): Privacity
 
@@ -22,7 +23,7 @@ module.exports = `type Query {
   tag(name: String!): Tag
   tags(postId: Int, limit: Int): [Tag!]!
  
-  search(search: String!): [SearchResult!]!
+  search(search: String!, page: Int = 1, limit: Int = 10): [SearchResult!]!
 
   user(id: Int, username: String, email: String): User
   users(limit: Int): [User!]!

@@ -1,4 +1,5 @@
 'use strict';
+const { pagination } = require('./../../../helpers');
 
 module.exports = {
   tag: (parent, args, context, info) => {
@@ -28,7 +29,8 @@ module.exports = {
         username: {
           [context.db.Sequelize.Op.like]: `%${args.search}%`
         }
-      }
+      }, 
+      ...pagination(args.page, args.limit)
     });
     const tags = await context.db.Tag.findAll({
       where: {
