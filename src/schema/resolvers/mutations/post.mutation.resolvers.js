@@ -1,9 +1,8 @@
 'use strict';
 
 module.exports = {
-  createPost: (parent, args, context, info) => {
-    // TODO: tags ids - insert
-    return context.db.Post.create({
+  createPost: async (parent, args, context, info) => {
+    const post = await context.db.Post.create({
       image_id: args.input.image_id,
       album_id: args.input.album_id,
       user_id: context.userAuth.id,
@@ -11,22 +10,33 @@ module.exports = {
       enable_comments: args.input.enable_comments,
       visibility: args.input.visibility
     });
+    if (post) {
+      args.input.tags.forEach(async name => {
+        const tag = (await context.db.Tag.findOrCreate({ where: { name }, defaults: { name } }))[0];
+        await context.db.PostTag.create({ post_id: post.id, tag_id: tag.id });
+      });
+    }
+    return context.db.Post.find({ where: { id: post.id } });
   },
   updatePost: async (parent, args, context, info) => {
-    // TODO: tags ids - insert or remove
     const canUpdate = context.isAdmin ? {} : { user_id: context.userAuth.id };
-    const affectedRows = await context.db.Post.update({
+    const affectedRows = !!(await context.db.Post.update({
       image_id: args.input.image_id,
       album_id: args.input.album_id,
       description: args.input.description,
       enable_comments: args.input.enable_comments,
-      visibility: args.input.visibility,
-      tags: args.input.tags.map(tag => ({ name: tag }))
+      visibility: args.input.visibility
     }, {
       where: { id: args.id, ...canUpdate }
-      // include: [ context.db.Tag ]
-    });
-    return !!affectedRows[0];
+    }))[0];
+    if (affectedRows) {
+      args.input.tags.forEach(async name => {
+        const tag = (await context.db.Tag.findOrCreate({ where: { name }, defaults: { name } }))[0];
+        await context.db.PostTag.destroy({ where: { post_id: args.id } });
+        await context.db.PostTag.create({ post_id: args.id, tag_id: tag.id });
+      });
+    }
+    return affectedRows;
   },
   deletePost: async (parent, args, context, info) => {
     const canUpdate = context.isAdmin ? {} : { user_id: context.userAuth.id };

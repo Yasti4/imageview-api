@@ -15,6 +15,7 @@
         "preserve": "./node_modules/.bin/eslint --fix src",
         "start": "node ./src/app.js",
         "serve": "./node_modules/.bin/nodemon ./src/app.js",
+        "db:create": "sequelize db:create",
         "prerelease": "./node_modules/.bin/standard-version",
         "release": "git commit -am",
         "postrelease": "git push --follow-tags origin master",

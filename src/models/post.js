@@ -50,31 +50,31 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Post.associate = function (models) {
-    Post.belongsTo(models.Image, {
+    Post.Image = Post.belongsTo(models.Image, {
       as: 'image',
       foreignKey: 'image_id',
       sourceKey: 'id'
     });
-    Post.belongsToMany(models.Tag, {
+    Post.Tags = Post.belongsToMany(models.Tag, {
       as: 'tags',
       through: 'posts_tags',
       foreignKey: 'post_id'
     });
-    Post.belongsTo(models.User, {
+    Post.User = Post.belongsTo(models.User, {
       as: 'user',
       foreignKey: 'user_id',
       sourceKey: 'id'
     });
-    Post.belongsTo(models.Album, {
+    Post.Album = Post.belongsTo(models.Album, {
       as: 'album',
       foreignKey: 'album_id',
       sourceKey: 'id'
     });
-    Post.hasMany(models.Comment, {
+    Post.Comments = Post.hasMany(models.Comment, {
       as: 'comments',
       foreignKey: 'post_id'
     });
-    Post.belongsToMany(models.User, {
+    Post.Likes = Post.belongsToMany(models.User, {
       as: 'likes',
       through: 'likes_posts',
       foreignKey: 'post_id'
