@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const { saveImage, imageSizeFrom, resizeImage } = require('./../../../helpers');
 
 module.exports = {
@@ -32,6 +33,7 @@ module.exports = {
         payload.large = `${size.type}/${filename}`;
         break;
       default:
+        fs.unlinkSync(filepath);
         throw Error('Image size not found');
     }
     return context.db.Image.create(payload);
