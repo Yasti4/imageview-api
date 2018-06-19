@@ -14,6 +14,10 @@ yarn.lock
 node_modules/
 
 static/icons/*
-static/images/*
+static/images/raw/*
+static/images/xs/*
+static/images/sm/*
+static/images/md/*
+static/images/lg/*
 
 .env

@@ -75,6 +75,20 @@ if (isDevelopment) {
   app.use('/graphiql', graphiqlExpress({
     endpointURL: '/api'
   }));
+
+  app.get('/dev/test-image', async (req, res, next) => {
+    const filePath = `${process.env.IMAGES_FOLDER}/imagen.png`;
+    // const imageSize = require('image-size');
+    // const { width, height } = await imageSize(filePath);
+    // res.send(
+    //   JSON.stringify({ width, height })
+    // );
+    const sharp = require('sharp');
+    const data = await sharp(filePath).resize(400).toFile(`${process.env.IMAGES_FOLDER}/aaa.png`);
+    res.send(
+      JSON.stringify(data)
+    );
+  });
 }
 
 // Listen the server
