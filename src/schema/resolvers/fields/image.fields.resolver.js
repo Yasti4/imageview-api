@@ -2,15 +2,12 @@
 
 module.exports = {
   Image: {
-    user: (parent, args, context, info) => {
-      return parent.getUser({
-        attributes: context.db.User.onlyAttributes(info)
-      });
+    type: (parent, args, context, info) => {
+      const types = { 160: 'xs', 320: 'sm', 640: 'md', 1024: 'lg' };
+      return types[parent.width] || types[parent.height] || 'unknown';
     },
-    post: (parent, args, context, info) => {
-      return parent.getPost({
-        attributes: context.db.Post.onlyAttributes(info)
-      });
+    file: (parent, args, context, info) => {
+      return context.db.File.find({ where: { id: parent.file_id } });
     }
   }
 };

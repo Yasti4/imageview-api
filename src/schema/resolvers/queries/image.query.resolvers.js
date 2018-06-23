@@ -8,6 +8,7 @@ module.exports = {
   },
   images: (parent, args, context, info) => {
     return context.db.Image.findAll({
+      ...args.fileId ? { where: { file_id: args.fileId } } : {},
       limit: args.limit || 10
     });
   }

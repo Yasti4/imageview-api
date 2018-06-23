@@ -1,41 +1,33 @@
 'use strict';
 
 const fs = require('fs');
-const { saveImage, imageSizeFrom, resizeImage } = require('./../../../helpers');
+const { saveImage, resizeImages } = require('./../../../helpers');
 
 module.exports = {
   uploadImage: async (parent, args, context, info) => {
-    const imgFolder = process.env.IMAGES_FOLDER;
-    const rawFolder = `${imgFolder}/raw`;
-    const file = await saveImage(args.file, { uploadDir: rawFolder });
-    const filepath = `${rawFolder}/${file.filename}`;
-    const filename = `${file.filename.split('.')[0]}.jpg`;
-    const size = await imageSizeFrom(filepath);
-    const payload = { small: null, medium: null, large: null };
-    switch (size.type) {
-      case 'xs':
-      case 'sm':
-        await resizeImage({ ...size, type: 'sm' }, filepath, filename);
-        payload.small = `${size.type}/${filename}`;
-        break;
-      case 'md':
-        await resizeImage({ ...size, type: 'sm' }, filepath, filename);
-        payload.small = `sm/${filename}`;
-        await resizeImage(size, filepath, filename);
-        payload.medium = `${size.type}/${filename}`;
-        break;
-      case 'lg':
-        await resizeImage({ ...size, type: 'sm' }, filepath, filename);
-        payload.small = `sm/${filename}`;
-        await resizeImage({ ...size, type: 'md' }, filepath, filename);
-        payload.medium = `md/${filename}`;
-        await resizeImage(size, filepath, filename);
-        payload.large = `${size.type}/${filename}`;
-        break;
-      default:
-        fs.unlinkSync(filepath);
-        throw Error('Image size not found');
+    const path = `${process.env.IMAGES_FOLDER}/raw`;
+    const fileData = await saveImage(args.file, { uploadDir: path });
+    const filename = `${fileData.filename.split('.')[0]}.jpg`;
+
+    const removeFile = () => fs.unlinkSync(`${path}/${filename}`);
+
+    try {
+      const imagesPayload = await resizeImages(path, filename);
+      if (imagesPayload.length === 0) {
+        removeFile();
+        return null;
+      }
+
+      const file = await context.db.File.create({ filename });
+
+      for (let i = 0; i < imagesPayload.length; i++) {
+        await context.db.Image.create({ ...imagesPayload[i], file_id: file.id });
+      }
+
+      return file;
+    } catch (err) {
+      removeFile();
+      return err;
     }
-    return context.db.Image.create(payload);
   }
 };

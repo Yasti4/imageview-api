@@ -8,22 +8,28 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true
       },
-      small: {
-        type: Sequelize.STRING,
+      file_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'files',
+          key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
+      },
+      width: {
+        type: Sequelize.INTEGER,
         allowNull: false
       },
-      medium: {
-        type: Sequelize.STRING,
+      height: {
+        type: Sequelize.INTEGER,
         allowNull: false
-      },
-      large: {
-        type: Sequelize.STRING,
-        allowNull: true
       }
     });
   },
 
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.dropTable('images');
   }
 };

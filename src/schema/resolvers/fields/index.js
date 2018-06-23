@@ -3,6 +3,7 @@
 module.exports = {
   ...require('./album.fields.resolver'),
   ...require('./comment.fields.resolver'),
+  ...require('./file.fields.resolver'),
   ...require('./image.fields.resolver'),
   ...require('./post.fields.resolver'),
   ...require('./privacity.fields.resolver'),
@@ -12,11 +13,17 @@ module.exports = {
   ...require('./visibility.fields.resolver'),
   SearchResult: {
     __resolveType (obj, context, info) {
-      if (obj.username) {
-        return 'User';
-      } else {
-        return 'Tag';
-      }
+      return obj.username ? 'User' : 'Tag';
+    }
+  },
+  Timestamps: {
+    __resolveType (obj, context, info) {
+      if (obj.username) return 'User';
+      else if (obj.enableComments) return 'Post';
+      else if (obj.filename) return 'File';
+      else if (obj.content) return 'Comment';
+      else if (obj.description) return 'Album';
+      else return null;
     }
   }
 };

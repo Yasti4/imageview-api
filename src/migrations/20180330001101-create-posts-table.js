@@ -32,11 +32,11 @@ module.exports = {
         onUpdate: 'cascade',
         onDelete: 'cascade'
       },
-      image_id: {
+      file_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'images',
+          model: 'files',
           key: 'id'
         },
         onUpdate: 'cascade',

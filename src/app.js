@@ -76,18 +76,21 @@ if (isDevelopment) {
     endpointURL: '/api'
   }));
 
-  app.get('/dev/test-image', async (req, res, next) => {
-    const filePath = `${process.env.IMAGES_FOLDER}/imagen.png`;
+  app.get('/dev/test-image', (req, res, next) => {
+    // const filePath = `${process.env.IMAGES_FOLDER}/lg/sj_gkfdzm.jpg`;
     // const imageSize = require('image-size');
     // const { width, height } = await imageSize(filePath);
     // res.send(
     //   JSON.stringify({ width, height })
     // );
-    const sharp = require('sharp');
-    const data = await sharp(filePath).resize(400).toFile(`${process.env.IMAGES_FOLDER}/aaa.png`);
-    res.send(
-      JSON.stringify(data)
-    );
+    // const sharp = require('sharp');
+    // const data = await sharp(filePath).metadata();
+    // const getColors = require('get-image-colors');
+    // getColors(filePath).then(colors => {
+    //   res.send(
+    //     JSON.stringify(colors)
+    //   );
+    // });
   });
 }
 

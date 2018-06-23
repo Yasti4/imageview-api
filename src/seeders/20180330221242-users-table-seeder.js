@@ -8,8 +8,8 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkDelete('users', null, {});
     const faker = require('faker/locale/es');
-    const { Image } = require('./../models');
-    const avatars = (await Image.findAll({ limit: limit })).map(item => item.id);
+    const { File } = require('./../models');
+    const avatars = (await File.findAll({ limit: limit })).map(item => item.id);
     const now = new Date();
     const password = await bcrypt.hash('secret', +process.env.APP_SALT || 10);
     return queryInterface.bulkInsert('users', [...Array(limit)].map(item => ({
@@ -18,7 +18,7 @@ module.exports = {
       password,
       name: faker.name.findName(),
       lastname: faker.name.lastName(),
-      image_id: avatars.pop(),
+      file_id: avatars.pop(),
       role: 'user',
       created_at: now,
       updated_at: now,

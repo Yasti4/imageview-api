@@ -2,7 +2,6 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    // await queryInterface.bulkDelete('albums', null, {});
     const limit = 20;
     const faker = require('faker/locale/es');
     const { randomItem } = require('./../helpers');

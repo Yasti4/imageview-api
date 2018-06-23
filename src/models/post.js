@@ -18,7 +18,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    image_id: {
+    file_id: {
       type: DataTypes.INTEGER
     },
     visibility: {
@@ -50,9 +50,9 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Post.associate = function (models) {
-    Post.Image = Post.belongsTo(models.Image, {
-      as: 'image',
-      foreignKey: 'image_id',
+    Post.File = Post.belongsTo(models.File, {
+      as: 'file',
+      foreignKey: 'file_id',
       sourceKey: 'id'
     });
     Post.Tags = Post.belongsToMany(models.Tag, {

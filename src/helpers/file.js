@@ -2,7 +2,6 @@
 
 const fs = require('fs');
 const shortid = require('shortid');
-const imageSize = require('image-size');
 const sharp = require('sharp');
 
 const saveFile = async (file, options = {}) => {
@@ -47,27 +46,39 @@ exports.savePDF = (file, options = {}) => {
   });
 };
 
-exports.imageSizeFrom = async (filepath) => {
-  const { width, height } = await imageSize(filepath);
-  let obj = { type: null, width, height };
-  if ((width >= 160 && width < 320) || (height >= 160 && height < 320)) {
-    obj.type = 'xs';
-  } else if ((width >= 320 && width < 640) || (height >= 320 && height < 640)) {
-    obj.type = 'sm';
-  } else if ((width >= 640 && width < 1024) || (height >= 640 && height < 1024)) {
-    obj.type = 'md';
-  } else if (width >= 1024 || height >= 1024) {
-    obj.type = 'lg';
-  }
-  return obj;
-};
-
-exports.resizeImage = (sizeObject, filepath, name) => {
+exports.resizeImages = async (path, filename) => {
+  const filepath = `${path}/${filename}`;
+  const dimensions = filepath => sharp(filepath).metadata();
+  const dim = await dimensions(filepath);
   const sizes = { xs: 160, sm: 320, md: 640, lg: 1024 };
-  return sharp(filepath)
-    .resize(sizes[sizeObject.type])
-    .jpeg({ progressive: true, quality: 75 })
-    .toFile(`${process.env.IMAGES_FOLDER}/${sizeObject.type}/${name}`);
+  const fileOut = size => `${process.env.IMAGES_FOLDER}/${size}/${filename}`;
+
+  const isSmall = (w, h) => (w >= sizes.xs && w < sizes.md) || (h >= sizes.xs && h < sizes.md);
+  const isMedium = (w, h) => (w >= sizes.md && w < sizes.lg) || (h >= sizes.md && h < sizes.lg);
+  const isLarge = (w, h) => (w >= sizes.lg || h >= sizes.lg);
+  
+  const generate = async size => {
+    const newPath = fileOut(size);
+    await sharp(filepath).resize(sizes[size]).jpeg({ progressive: true, quality: 75 }).toFile(newPath);
+    const metadata = await dimensions(newPath); 
+    return { width: metadata.width, height: metadata.height };
+  };
+  const generated = [];
+
+  if (isSmall(dim.width, dim.height)) {
+    const dimensions = await generate('sm');
+    generated.push(dimensions);
+  } else if (isMedium(dim.width, dim.height)) {
+    const dimensions = await generate('md');
+    generated.push(dimensions);
+  } else if (isLarge(dim.width, dim.height)) {
+    let dimensions = await generate('md');
+    generated.push(dimensions);
+    dimensions = await generate('lg');
+    generated.push(dimensions);
+  }
+
+  return generated;
 };
 
 /*
