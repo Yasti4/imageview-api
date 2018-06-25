@@ -7,6 +7,7 @@ const {
 module.exports = makeExecutableSchema({
   typeDefs: `
     # ${require('./typedefs/directives')}
+    ${require('./typedefs/interfaces')}
     ${require('./typedefs/scalars')}
     ${require('./typedefs/unions')}
     ${require('./typedefs/types')}

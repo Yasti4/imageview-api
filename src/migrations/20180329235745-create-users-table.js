@@ -30,11 +30,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      image_id: {
+      file_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'images',
+          model: 'files',
           key: 'id'
         },
         onUpdate: 'cascade',

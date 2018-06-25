@@ -9,7 +9,7 @@ module.exports = `type Query {
   comments(userId: Int, postId: Int, limit: Int): [Comment!]!
 
   image(id: Int!): Image
-  images(limit: Int): [Image!]!
+  images(fileId: Int, limit: Int): [Image!]!
 
   post(id: Int!): Post
   posts(userId: Int, albumId: Int, limit: Int): [Post!]!

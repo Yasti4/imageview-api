@@ -1,25 +1,33 @@
 'use strict';
 
-const { saveImage } = require('./../../../helpers');
-// const sharp = require('sharp');
+const fs = require('fs');
+const { saveImage, resizeImages } = require('./../../../helpers');
 
 module.exports = {
   uploadImage: async (parent, args, context, info) => {
-    const file = await saveImage(args.file);
-    return context.db.Image.create({
-      small: file.filename,
-      medium: file.filename
-    });
+    const path = `${process.env.IMAGES_FOLDER}/raw`;
+    const fileData = await saveImage(args.file, { uploadDir: path });
+    const filename = `${fileData.filename.split('.')[0]}.jpg`;
+
+    const removeFile = () => fs.unlinkSync(`${path}/${filename}`);
+
+    try {
+      const imagesPayload = await resizeImages(path, filename);
+      if (imagesPayload.length === 0) {
+        removeFile();
+        return null;
+      }
+
+      const file = await context.db.File.create({ filename });
+
+      for (let i = 0; i < imagesPayload.length; i++) {
+        await context.db.Image.create({ ...imagesPayload[i], file_id: file.id });
+      }
+
+      return file;
+    } catch (err) {
+      removeFile();
+      return err;
+    }
   }
 };
-
-/*
-multipleUpload: async (obj, { files }) => {
-  const { resolve, reject } = await Promose.all(files.map(processUpload));
-  if (reject.length)
-    reject.forEach(({ name, message }) =>
-      console.error(`${name}: ${message}`)
-    );
-  return resolve;
-}
-*/

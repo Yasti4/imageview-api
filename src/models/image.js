@@ -1,38 +1,34 @@
 'use strict';
 
 module.exports = function (sequelize, DataTypes) {
-  const Image = sequelize.define('Image', {
+  const Model = sequelize.define('Image', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    small: {
-      type: DataTypes.STRING,
+    file_id: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
-    medium: {
-      type: DataTypes.STRING,
+    width: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
-    large: {
-      type: DataTypes.STRING,
+    height: {
+      type: DataTypes.INTEGER,
       allowNull: true
     }
   }, {
     tableName: 'images'
   });
 
-  Image.associate = function (models) {
-    Image.hasOne(models.User, {
-      as: 'user',
-      foreignKey: 'image_id'
-    });
-    Image.hasOne(models.Post, {
-      as: 'post',
-      foreignKey: 'image_id'
+  Model.associate = function (models) {
+    Model.belongsTo(models.File, {
+      as: 'file',
+      foreignKey: 'file_id'
     });
   };
 
-  return Image;
+  return Model;
 };

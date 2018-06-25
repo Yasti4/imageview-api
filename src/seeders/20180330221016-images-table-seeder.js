@@ -1,13 +1,15 @@
 'use strict';
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: async (queryInterface, Sequelize) => {
     const limit = 60;
-    const faker = require('faker/locale/es');
+    const { File } = require('./../models');
+    const files = (await File.findAll({ limit: limit })).map(item => item.id);
+    const { randomItem } = require('./../helpers');
     return queryInterface.bulkInsert('images', [...Array(limit)].map(item => ({
-      small: faker.image.imageUrl(),
-      medium: faker.image.imageUrl(),
-      large: null
+      file_id: files.pop(),
+      width: +randomItem([320, 640, 1024]),
+      height: +randomItem([320, 640, 1024])
     })), {});
   },
 

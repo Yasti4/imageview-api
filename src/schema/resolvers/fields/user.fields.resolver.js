@@ -2,9 +2,10 @@
 
 module.exports = {
   User: {
-    image: (parent, args, context, info) => {
-      return parent.getImage({
-        attributes: context.db.Image.onlyAttributes(info)
+    image: async (parent, args, context, info) => {
+      const file = await parent.getFile();
+      return context.db.Image.find({
+        where: { file_id: file.id }
       });
     },
     following: (parent, args, context, info) => {

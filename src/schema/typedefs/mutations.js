@@ -20,7 +20,7 @@ module.exports = `type Mutation {
   updateRole(oldName: String!, newName: String!): Boolean!
   deleteRole(name: String!): Boolean!
 
-  uploadImage(file: Upload!): Image
+  uploadImage(file: Upload!): File
 
   signIn(email: String!, password: String!): JWT
   createUser(input: UserInput!): User

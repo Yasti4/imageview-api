@@ -29,7 +29,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    image_id: {
+    file_id: {
       type: DataTypes.INTEGER
     },
     role: {
@@ -62,9 +62,9 @@ module.exports = function (sequelize, DataTypes) {
       foreignKey: 'name',
       sourceKey: 'role'
     });
-    User.belongsTo(models.Image, {
-      as: 'image',
-      foreignKey: 'image_id',
+    User.belongsTo(models.File, {
+      as: 'file',
+      foreignKey: 'file_id',
       sourceKey: 'id'
     });
     User.hasMany(models.Album, {

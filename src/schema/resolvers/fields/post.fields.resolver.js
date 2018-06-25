@@ -12,9 +12,9 @@ module.exports = {
         attributes: context.db.Album.onlyAttributes(info)
       });
     },
-    image: (parent, args, context, info) => {
-      return parent.getImage({
-        attributes: context.db.Image.onlyAttributes(info)
+    file: (parent, args, context, info) => {
+      return parent.getFile({
+        attributes: context.db.File.onlyAttributes(info)
       });
     },
     comments: (parent, args, context, info) => {
@@ -25,6 +25,12 @@ module.exports = {
     tags: (parent, args, context, info) => {
       return parent.getTags({
         attributes: context.db.Tag.onlyAttributes(info)
+      });
+    },
+    images: async (parent, args, context, info) => {
+      const file = await parent.getFile();
+      return file.getImages({
+        attributes: context.db.Image.onlyAttributes(info)
       });
     },
     likes: (parent, args, context, info) => {

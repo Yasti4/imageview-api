@@ -5,6 +5,7 @@ const { createDatabase } = require('./../helpers');
 module.exports = createDatabase([
   require('./album'),
   require('./comment'),
+  require('./file'),
   require('./image'),
   require('./post'),
   require('./privacity'),

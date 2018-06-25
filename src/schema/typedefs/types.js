@@ -2,7 +2,7 @@
 
 module.exports = `
 
-  type Album {
+  type Album implements Timestamps {
     id: Int!
     title: String!
     description: String
@@ -15,7 +15,7 @@ module.exports = `
     likes: Int!
   }
 
-  type Comment {
+  type Comment implements Timestamps {
     id: Int!
     content: String!
     createdAt: Date
@@ -26,13 +26,23 @@ module.exports = `
     likes: Int!
   }
 
-  type Image {
+  type File implements Timestamps {
     id: Int!
-    small: String!
-    medium: String!
-    large: String
+    filename: String!
+    createdAt: Date
+    updatedAt: Date
+    deletedAt: Date
+    images: [Image!]!
     user: User
     post: Post
+  }
+
+  type Image {
+    id: Int!
+    file: File!
+    type: String!
+    width: Int!
+    height: Int!
   }
 
   type JWT {
@@ -41,7 +51,7 @@ module.exports = `
     accessToken: String!
   }
 
-  type Post {
+  type Post implements Timestamps {
     id: Int!
     description: String
     visibility: String!
@@ -51,10 +61,11 @@ module.exports = `
     deletedAt: Date
     user: User!
     album: Album
-    image: Image!
+    file: File!
     likes: Int!
     comments: [Comment!]!
     tags: [Tag!]!
+    images: [Image!]!
   }
 
   type Privacity {
@@ -77,16 +88,16 @@ module.exports = `
     posts: [Post!]!
   }
 
-  type User {
+  type User implements Timestamps {
     id: Int!
     username: String!
-    email: String! @auth(role: "user")
+    email: String!
     name: String!
     lastname: String!
-    role: String! @auth(role: "admin")
+    role: String!
     createdAt: Date
-    updatedAt: Date @auth(role: "admin")
-    deletedAt: Date @auth(role: "admin")
+    updatedAt: Date
+    deletedAt: Date
     image: Image!
     following: [User!]!
     followers: [User!]!
