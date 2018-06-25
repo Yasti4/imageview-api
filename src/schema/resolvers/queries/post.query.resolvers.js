@@ -1,5 +1,5 @@
 'use strict';
-// const { pagination } = require('./../../../helpers');
+const { orderBy } = require('./../../../helpers');
 
 module.exports = {
   post: (parent, args, context, info) => {
@@ -17,37 +17,83 @@ module.exports = {
     });
   },
   feed: async (parent, args, context, info) => {
-    // No auth
-    if (!context.isAuth) {
-      /* var b = await context.db.LikePost.count({
-        attributes: ['post_id'],
-        group: ['post_id'],
-        include: [
-          { 
-            model: context.db.Post,
-            as: 'post',
-            order: 'created_at ASC'
-          }
-        ]
-      }); */
-      // SELECT post_id, count(*) as max FROM likes_posts group by post_id order by max DESC ;
-      var sequelize = context.db.sequelize;
-      
-      var idsPostLike = (await context.db.LikePost.findAll(
-        {
-          attributes: ['post_id', [sequelize.fn('count', sequelize.col('id')), 'likecount']],
-          group: 'post_id',
-          order: [
-            [[sequelize.literal('likecount'), 'DESC']]
-          ]
-        }
-      ).map(item => {
-        delete item.likecount;
-        return item;
-      }
-      ));
-      
-      return idsPostLike;
-    }
+    return context.isAuth ? getAuthFeed(context) : getFeed(context); 
   }
 };
+
+async function getAuthFeed (context) {
+  const userIds = (await context.db.SubscriptionUser.findAll({
+    attributes: ['user_followed'],
+    where: {
+      user_follower: context.userAuth.id
+    }
+  })).map((item) => { return item.user_followed; });
+
+  const op = context.db.Sequelize.Op;
+  const postIds = (await context.db.Post.findAll({
+    attributes: ['id'],
+    where: {
+      user_id: {
+        [op.in]: userIds
+      }
+    }
+  })).map((item) => { return item.id; });
+
+  return getFeed(context, postIds);
+}
+
+async function getFeed (context, ids = []) {
+  const popularsIds = await getPopularPostIds(context, ids);
+  const recentsIds = await getRecentPostIds(context, ids);
+  ids = [...new Set([...popularsIds, ...recentsIds])];
+  
+  const op = context.db.Sequelize.Op;
+ 
+  return context.db.Post.findAll({
+    where: {
+      id: {
+        [op.in]: ids
+      }
+    },
+    order: context.db.sequelize.random()
+  });
+}
+async function getRecentPostIds (context, ids = []) {
+  const op = context.db.Sequelize.Op;
+  const items = await context.db.Post.findAll({
+    attributes: ['id'],
+    ...!ids.length ? {} : {
+      where: {
+        id: {
+          [op.in]: ids
+        }
+      }
+    },
+    ...orderBy()
+  }).map(item => { return item.id; });
+  return items;
+}
+
+async function getPopularPostIds (context, ids = []) {
+  const sequelize = context.db.sequelize;
+  const op = context.db.Sequelize.Op;
+  const items = (await context.db.LikePost.findAll(
+    {
+      attributes: ['post_id', [sequelize.fn('count', sequelize.col('id')), 'likecount']],
+      ...!ids.length ? {} : {
+        where: {
+          post_id: {
+            [op.in]: ids
+          }
+        }
+      },
+      group: 'post_id',
+      order: [
+        [[sequelize.literal('likecount'), 'DESC']]
+      ],
+      limit: 20
+    }
+  ).map(item => { return item.post_id; }
+  ));
+  return items;
+}

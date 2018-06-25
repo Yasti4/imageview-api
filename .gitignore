@@ -15,7 +15,7 @@ node_modules/
 
 static/icons/*
 static/images/raw/*
-static/images/xs/*
+
 static/images/sm/*
 static/images/md/*
 static/images/lg/*

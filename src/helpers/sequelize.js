@@ -14,8 +14,8 @@ exports.createDatabase = function (models = []) {
     process.env.DB_DATABASE, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
       host: process.env.DB_HOST,
       dialect: process.env.DB_CONNECTION,
-      logging: console.log,
-      // logging: () => {},
+      // logging: console.log,
+      logging: () => {},
       operatorsAliases: false,
       pool: {
         min: 2,
@@ -64,6 +64,6 @@ exports.pagination = (page = 1, limit = 10) => ({
   limit: limit
 });
 
-exports.orderBy = (field = 'updatedAt', order = 'DESC') => ({
+exports.orderBy = (field = 'createdAt', order = 'DESC') => ({
   order: [ [ field, order ] ]
 });
