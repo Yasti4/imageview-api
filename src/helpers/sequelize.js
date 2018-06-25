@@ -14,7 +14,8 @@ exports.createDatabase = function (models = []) {
     process.env.DB_DATABASE, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
       host: process.env.DB_HOST,
       dialect: process.env.DB_CONNECTION,
-      logging: () => {},
+      logging: console.log,
+      // logging: () => {},
       operatorsAliases: false,
       pool: {
         min: 2,

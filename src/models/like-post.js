@@ -7,10 +7,10 @@ module.exports = function (sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    user_id: {
+    post_id: {
       type: DataTypes.INTEGER
     },
-    post_id: {
+    user_id: {
       type: DataTypes.INTEGER
     }
   }, {
