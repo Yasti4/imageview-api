@@ -2,15 +2,11 @@
 
 module.exports = {
   Visibility: {
-    albums: (parent, args, context, info) => {
-      return parent.getAlbums({
-        attributes: context.db.Album.onlyAttributes(info)
-      });
+    albums: (parent, args, context) => {
+      return context.db('albums').all('visibility', parent.name);
     },
-    posts: (parent, args, context, info) => {
-      return parent.getPosts({
-        attributes: context.db.Post.onlyAttributes(info)
-      });
+    posts: (parent, args, context) => {
+      return context.db('posts').all('visibility', parent.name);
     }
   }
 };

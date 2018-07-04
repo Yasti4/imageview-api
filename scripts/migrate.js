@@ -1,5 +1,3 @@
-require('dotenv').load();
-
 const migrate = require('tabel/lib/migrate');
 
 migrate({

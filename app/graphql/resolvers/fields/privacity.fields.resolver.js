@@ -2,10 +2,8 @@
 
 module.exports = {
   Privacity: {
-    user: (parent, args, context, info) => {
-      return parent.getUser({
-        attributes: context.db.User.onlyAttributes(info)
-      });
+    user: (parent, args, context) => {
+      return context.db('users').first('id', parent.user_id);
     }
   }
 };

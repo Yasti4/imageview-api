@@ -12,18 +12,25 @@ module.exports = {
   ...require('./user.fields.resolver'),
   ...require('./visibility.fields.resolver'),
   SearchResult: {
-    __resolveType (obj, context, info) {
+    __resolveType(obj) {
       return obj.username ? 'User' : 'Tag';
     }
   },
   Timestamps: {
-    __resolveType (obj, context, info) {
-      if (obj.username) return 'User';
-      else if (obj.enableComments) return 'Post';
-      else if (obj.filename) return 'File';
-      else if (obj.content) return 'Comment';
-      else if (obj.description) return 'Album';
-      else return null;
+    __resolveType(obj) {
+      if (obj.username) {
+        return 'User';
+      } else if (obj.enableComments) {
+        return 'Post';
+      } else if (obj.filename) {
+        return 'File';
+      } else if (obj.content) {
+        return 'Comment';
+      } else if (obj.description) {
+        return 'Album';
+      } else {
+        return null;
+      }
     }
   }
 };

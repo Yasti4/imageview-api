@@ -2,56 +2,43 @@
 
 module.exports = {
   User: {
-    image: async (parent, args, context, info) => {
-      const file = await parent.getFile();
-      return context.db.Image.find({
-        where: { file_id: file.id }
-      });
+    image: async (parent, args, context) => {
+      return context.db('images').first('file_id', parent.file_id);
     },
-    following: (parent, args, context, info) => {
-      return parent.getFollowing({
-        attributes: context.db.User.onlyAttributes(info)
-      });
+    following: async (parent, args, context) => {
+      const ids = await context.db('subscriptions_users').where('user_follower', parent.id)
+        .select('user_followed').map(item => item.user_followed).all();
+      return context.db('users').whereIn('id', ids).all();
     },
-    followers: (parent, args, context, info) => {
-      return parent.getFollowers({
-        attributes: context.db.User.onlyAttributes(info)
-      });
+    followers: async (parent, args, context) => {
+      const ids = await context.db('subscriptions_users').where('user_followed', parent.id)
+        .select('user_follower').map(item => item.user_follower).all();
+      return context.db('users').whereIn('id', ids).all();
     },
-    posts: (parent, args, context, info) => {
-      return parent.getPosts({
-        attributes: context.db.Post.onlyAttributes(info)
-      });
+    posts: (parent, args, context) => {
+      return context.db('posts').all('user_id', parent.id);
     },
-    postsLikes: (parent, args, context, info) => {
-      return parent.getPostsLikes({
-        attributes: context.db.Post.onlyAttributes(info)
-      });
+    postsLikes: async (parent, args, context) => {
+      const count = await context.db('likes_posts').where('user_id', parent.id).select('id').all();
+      return count.length;
     },
-    albums: (parent, args, context, info) => {
-      return parent.getAlbums({
-        attributes: context.db.Album.onlyAttributes(info)
-      });
+    albums: (parent, args, context) => {
+      return context.db('albums').all('user_id', parent.id);
     },
-    albumsLikes: (parent, args, context, info) => {
-      return parent.getAlbumsLikes({
-        attributes: context.db.Album.onlyAttributes(info)
-      });
+    albumsLikes: async (parent, args, context) => {
+      const count = await context.db('likes_albums').where('user_id', parent.id).select('id').all();
+      return count.length;
     },
-    albumsSubscriptions: (parent, args, context, info) => {
-      return parent.getAlbumsSubscriptions({
-        attributes: context.db.Album.onlyAttributes(info)
-      });
+    albumsSubscriptions: async (parent, args, context) => {
+      const count = await context.db('subscriptions_albums').where('user_id', parent.id).select('id').all();
+      return count.length;
     },
-    comments: (parent, args, context, info) => {
-      return parent.getComments({
-        attributes: context.db.Comment.onlyAttributes(info)
-      });
+    comments: (parent, args, context) => {
+      return context.db('comments').all('user_id', parent.id);
     },
-    commentsLikes: (parent, args, context, info) => {
-      return parent.getCommentsLikes({
-        attributes: context.db.Comment.onlyAttributes(info)
-      });
+    commentsLikes: async (parent, args, context) => {
+      const count = await context.db('likes_comments').where('user_id', parent.id).select('id').all();
+      return count.length;
     }
   }
 };

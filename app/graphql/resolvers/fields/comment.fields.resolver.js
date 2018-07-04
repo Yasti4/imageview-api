@@ -2,18 +2,15 @@
 
 module.exports = {
   Comment: {
-    user: (parent, args, context, info) => {
-      return parent.getUser({
-        attributes: context.db.User.onlyAttributes(info)
-      });
+    user: (parent, args, context) => {
+      return context.db('users').first('id', parent.user_id);
     },
-    post: (parent, args, context, info) => {
-      return parent.getPost({
-        attributes: context.db.Post.onlyAttributes(info)
-      });
+    post: async (parent, args, context) => {
+      return context.db('posts').first('id', parent.post_id);
     },
-    likes: (parent, args, context, info) => {
-      return parent.countLikes();
+    likes: async (parent, args, context) => {
+      const count = await context.db('likes_comments').select('id').all('comment_id', parent.id);
+      return count.length;
     }
   }
 };
