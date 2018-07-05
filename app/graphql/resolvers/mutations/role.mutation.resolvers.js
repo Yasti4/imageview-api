@@ -1,15 +1,13 @@
 'use strict';
 
 module.exports = {
-  createRole: (parent, args, context, info) => {
-    return context.db.Role.create(args);
+  createRole: (parent, args, context) => {
+    return !context.isAdmin ? false : context.db('roles').insert(args);
   },
-  updateRole: async (parent, args, context, info) => {
-    const affectedRows = await context.db.Role.update({ name: args.newName }, { where: { name: args.oldName } });
-    return !!affectedRows[0];
+  updateRole: async (parent, args, context) => {
+    return !context.isAdmin ? false : context.db('roles').update(args.oldName, args.newName);
   },
-  deleteRole: async (parent, args, context, info) => {
-    const affectedRows = await context.db.Role.destroy({ where: { name: args.name } });
-    return !!affectedRows;
+  deleteRole: async (parent, args, context) => {
+    return !context.isAdmin ? false : context.db('roles').delete(args.name);
   }
 };

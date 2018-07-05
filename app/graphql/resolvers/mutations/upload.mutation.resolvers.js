@@ -1,12 +1,12 @@
 'use strict';
 
 const fs = require('fs');
-const { saveImage, resizeImages } = require('./../../../helpers');
+const {saveImage, resizeImages} = require('app/helpers');
 
 module.exports = {
-  uploadImage: async (parent, args, context, info) => {
+  uploadImage: async (parent, args, context) => {
     const path = `${process.env.IMAGES_FOLDER}/raw`;
-    const fileData = await saveImage(args.file, { uploadDir: path });
+    const fileData = await saveImage(args.file, {uploadDir: path});
     const filename = `${fileData.filename.split('.')[0]}.jpg`;
 
     const removeFile = () => fs.unlinkSync(`${path}/${filename}`);
@@ -18,10 +18,10 @@ module.exports = {
         return null;
       }
 
-      const file = await context.db.File.create({ filename });
+      const file = await context.db('files').insert({filename});
 
-      for (let i = 0; i < imagesPayload.length; i++) {
-        await context.db.Image.create({ ...imagesPayload[i], file_id: file.id });
+      for (let i = 0; i < imagesPayload.length; i = i + 1) {
+        await context.db('images').insert({...imagesPayload[i], file_id: file.id});
       }
 
       return file;
