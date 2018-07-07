@@ -4,24 +4,16 @@ const {shuffle} = require('app/util');
 
 module.exports = {
   tag: (parent, args, context) => {
-    return context.db('tags').first('name', args.name);
+    return context.actions.tags.findByName(args.name);
   },
   tags: (parent, args, context) => {
-    let query = context.db('tags').limit(args.limit || 10);
-    if (args.postId) {
-      query = query.posts().join().where('posts.id', args.postId);
-    }
-    return query.all();
+    return args.postId
+      ? context.actions.tags.findAllByPostId(args.postId, args.limit)
+      : context.actions.tags.findAll(args.limit);
   },
   search: async (parent, args, context) => {
-    const users = await context.db('users')
-      .whereRaw('username like ?', [`%${args.search}%`])
-      .forPage(args.page, args.limit)
-      .all();
-    const tags = await context.db('tags')
-      .whereRaw('name like ?', [`%${args.search}%`])
-      .forPage(args.page, args.limit)
-      .all();
+    const users = await context.actions.users.searchByUserName(args.search, args.page, args.limit);
+    const tags = await context.actions.tags.searchByName(args.search, args.page, args.limit);
     return shuffle([...users, ...tags]);
   }
 };

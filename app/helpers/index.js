@@ -18,5 +18,10 @@ exports.randomItem = (array = []) => array[Math.floor(Math.random() * array.leng
 exports.unixTimestamp = (date = new Date()) => Math.floor(date.getTime() / 1000);
 
 exportAll([
-  require('./base64'), require('./db'), require('./common'), require('./mail'), require('./file')
+  require('./base64'),
+  require('./db'),
+  require('./common'),
+  require('./mail'),
+  require('./file'),
+  require('./graphql')
 ]);

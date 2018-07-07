@@ -1,21 +1,18 @@
 'use strict';
 
 module.exports = {
-  createAlbum: (parent, args, context) => {
-    return context.db('albums').insert({...args.input, user_id: context.userAuth.id});
+  createAlbum: async (parent, args, context) => {
+    const id = await context.actions.albums.create({...args.input, user_id: context.userAuth.id});
+    return context.actions.albums.findById(id);
   },
-  updateAlbum: async (parent, args, context) => {
-    let mutate = context.db('albums').where('id', args.id);
-    if (!context.isAdmin) {
-      mutate = mutate.where('user_id', context.userAuth.id);
-    }
-    return mutate.update(args.input);
+  updateAlbum: (parent, args, context) => {
+    return context.isAdmin
+      ? context.actions.albums.updateById(args.id, args.input, args.withTrashed)
+      : context.actions.albums.updateByIdAndUserId(args.id, context.userAuth.id, args.input, args.withTrashed);
   },
   deleteAlbum: async (parent, args, context) => {
-    let mutate = context.db('albums').where('id', args.id);
-    if (!context.isAdmin) {
-      mutate = mutate.where('user_id', context.userAuth.id);
-    }
-    return mutate.delete();
+    return args.softDelete
+      ? context.actions.albums.deleteById(args.id, args.softDelete)
+      : context.actions.albums.deleteByIdAndUserId(args.id, context.userAuth.id, args.softDelete);
   }
 };

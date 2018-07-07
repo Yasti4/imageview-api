@@ -7,7 +7,7 @@ module.exports = {
       return types[parent.width] || types[parent.height] || 'unknown';
     },
     file: (parent, args, context) => {
-      return context.db('files').first('id', parent.file_id);
+      return context.actions.uploads.findFileById(parent.file_id);
     }
   }
 };

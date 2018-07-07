@@ -4,7 +4,7 @@ const {sendMail} = require('app/helpers');
 
 module.exports = {
   forgottenPassword: async (parent, args, context) => {
-    const user = await context.db('users').first('email', args.email);
+    const user = await context.actions.users.findByEmail(args.email);
     return user ? sendMail({
       to: user.email,
       subject: 'Forgotten password!',

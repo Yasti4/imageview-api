@@ -16,7 +16,7 @@ module.exports = `
   input PostInput {
     description: String
     album_id: Int
-    image_id: Int!
+    file_id: Int!
     visibility: String = "public"
     enable_comments: Boolean = true
     tags: [String!]! = []

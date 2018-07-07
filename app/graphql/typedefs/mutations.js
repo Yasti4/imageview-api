@@ -3,35 +3,29 @@
 module.exports = `type Mutation {
 
   createAlbum(input: AlbumInput!): Album
-  updateAlbum(id: Int!, input: AlbumInput!): Boolean!
-  deleteAlbum(id: Int!): Boolean!
+  updateAlbum(id: Int!, input: AlbumInput!, withTrashed: Boolean = false): Boolean!
+  deleteAlbum(id: Int!, softDelete: Boolean = true): Boolean!
 
   createPost(input: PostInput!): Post
-  updatePost(id: Int!, input: PostInput!): Boolean!
-  deletePost(id: Int!): Boolean!
+  updatePost(id: Int!, input: PostInput!, withTrashed: Boolean = false): Boolean!
+  deletePost(id: Int!, softDelete: Boolean = true): Boolean!
 
   createComment(input: CommentInput!): Comment
-  updateComment(id: Int!, comment: String!): Boolean!
+  updateComment(id: Int!, content: String!, withTrashed: Boolean = false): Boolean!
+  deleteComment(id: Int!, softDelete: Boolean = true): Boolean!
 
-  createPrivacity(input: PrivacityInput!): Privacity
-  updatePrivacity(input: PrivacityInput!): Boolean!
-
-  createRole(name: String!): Role
-  updateRole(oldName: String!, newName: String!): Boolean!
-  deleteRole(name: String!): Boolean!
-
-  uploadImage(file: Upload!): File
+  uploadImage(file: Upload!, withTrashed: Boolean = false): File
 
   signIn(email: String!, password: String!): JWT
   createUser(input: UserInput!): User
-  updateUser(input: UserInput!): Boolean!
-  changePassword(old: String!, new: String!): Boolean!
-  updateUserPrivacity(input: UserPrivacityInput!): Boolean!
+  updateUser(input: UserInput!, withTrashed: Boolean = false): Boolean!
+  changePassword(old: String!, new: String!, withTrashed: Boolean = false): Boolean!
+  updateUserPrivacity(input: UserPrivacityInput!, withTrashed: Boolean = false): Boolean!
   
   follow(input: FollowInput!): Boolean!
   like(input: LikeInput!): Boolean!
 
   createVisibility(name: String!): Visibility
-  deleteVisibility(oldName: String!, newName: String!): Visibility
+  deleteVisibility(oldName: String!, newName: String!, softDelete: Boolean = true): Visibility
   
 }`;

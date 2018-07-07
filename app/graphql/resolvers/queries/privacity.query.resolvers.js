@@ -2,6 +2,9 @@
 
 module.exports = {
   privacity: (parent, args, context) => {
-    return context.db('privacities').first('user_id', args.userId);
+    return context.actions.users.privacity(args.userId);
+  },
+  privacities: (parent, args, context) => {
+    return context.actions.privacities.findAll();
   }
 };

@@ -4,25 +4,21 @@ const jwt = require('jwt-simple');
 
 module.exports = {
   user: (parent, args, context) => {
-    let query = context.db('users');
+    const repo = context.actions.users;
     if (args.id) {
-      return query.first('id', args.id);
+      return repo.findById(args.id, args.withTrashed);
     } else if (args.username) {
-      return query.first('username', args.username);
+      return repo.findByUsername(args.username, args.withTrashed);
     } else if (args.email) {
-      return query.first('email', args.email);
+      return repo.findByEmail(args.email, args.withTrashed);
     } else {
       return null;
     }
   },
   users: (parent, args, context) => {
-    return context.db('users').limit(args.limit || 10).all();
+    return context.actions.users.findAll(args.limit, args.withTrashed);
   },
   me: (parent, args, context) => {
-    if (context.userAuth) {
-      return context.userAuth;
-    }
-    const payload = jwt.decode(args.token, process.env.APP_KEY);
-    return payload ? payload.sub : null;
+    return context.userAuth || context.actions.users.me(args.token);
   }
 };

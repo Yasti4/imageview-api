@@ -2,9 +2,9 @@
 
 module.exports = {
   role: (parent, args, context) => {
-    return context.db('roles').first('name', args.name);
+    return context.actions.roles.find(args.name);
   },
   roles: (parent, args, context) => {
-    return context.db('roles').all();
+    return context.actions.roles.findAll();
   }
 };

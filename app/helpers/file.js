@@ -20,14 +20,16 @@ const saveFile = async (file, options = {}) => {
   const path = `${options.uploadDir}/${computedName}`;
   await new Promise((resolve, reject) =>
     stream.on('error', error => {
-      if (stream.truncated) fs.unlinkSync(path);
+      if (stream.truncated) {
+        fs.unlinkSync(path);
+      }
       reject(error);
     }).pipe(fs.createWriteStream(path)).on('error', error => reject(error)).on('finish', () => resolve({
       id, path, computedName
     }))
   );
   // Return file info
-  return { id, filename: computedName, mimetype, encoding, path };
+  return {id, filename: computedName, mimetype, encoding, path};
 };
 
 exports.saveImage = (file, options = {}) => {
@@ -50,18 +52,18 @@ exports.resizeImages = async (path, filename) => {
   const filepath = `${path}/${filename}`;
   const dimensions = filepath => sharp(filepath).metadata();
   const dim = await dimensions(filepath);
-  const sizes = { xs: 160, sm: 320, md: 640, lg: 1024 };
+  const sizes = {xs: 160, sm: 320, md: 640, lg: 1024};
   const fileOut = size => `${process.env.IMAGES_FOLDER}/${size}/${filename}`;
 
   const isSmall = (w, h) => (w >= sizes.xs && w < sizes.md) || (h >= sizes.xs && h < sizes.md);
   const isMedium = (w, h) => (w >= sizes.md && w < sizes.lg) || (h >= sizes.md && h < sizes.lg);
   const isLarge = (w, h) => (w >= sizes.lg || h >= sizes.lg);
-  
+
   const generate = async size => {
     const newPath = fileOut(size);
-    await sharp(filepath).resize(sizes[size]).jpeg({ progressive: true, quality: 75 }).toFile(newPath);
+    await sharp(filepath).resize(sizes[size]).jpeg({progressive: true, quality: 75}).toFile(newPath);
     const metadata = await dimensions(newPath); 
-    return { width: metadata.width, height: metadata.height };
+    return {width: metadata.width, height: metadata.height};
   };
   const generated = [];
 

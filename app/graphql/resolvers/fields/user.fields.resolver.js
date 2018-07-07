@@ -1,7 +1,10 @@
 'use strict';
 
+const {timestampsFieldsResolvers} = require('app/helpers');
+
 module.exports = {
   User: {
+    ...timestampsFieldsResolvers(true),
     image: async (parent, args, context) => {
       return context.db('images').first('file_id', parent.file_id);
     },

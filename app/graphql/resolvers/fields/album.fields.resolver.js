@@ -1,18 +1,18 @@
 'use strict';
 
+const {timestampsFieldsResolvers} = require('app/helpers');
+
 module.exports = {
   Album: {
+    ...timestampsFieldsResolvers(true),
     posts: (parent, args, context) => {
-      return context.db('posts').all('album_id', parent.id);
+      return context.actions.posts.findAllByAlbumId(parent.id);
     },
     subscribers: async (parent, args, context) => {
-      const ids = await context.db('subscriptions_albums').where('id', parent.id)
-        .select('user_id').map(item => item.user_id).all();
-      return context.db('users').whereIn('id', ids).all();
+      return context.actions.albums.subscribers(parent.id);
     },
     likes: async (parent, args, context) => {
-      const count = await context.db('likes_albums').select('id').all('album_id', parent.id);
-      return count.length;
+      return context.actions.albums.likes(parent.id);
     }
   }
 };

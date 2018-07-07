@@ -4,7 +4,7 @@ export default function loadTables(orm) {
 
     props: {
       key: 'id',
-      autoId: true,
+      autoId: false,
       timestamps: false
     }
   });

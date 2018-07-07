@@ -26,9 +26,12 @@ function unixTimestamp(date = new Date()) {
   return Math.floor(date.getTime() / 1000);
 }
 
+const isDevelopment = process.env.NODE_ENV !== 'production';
+
 module.exports = {
   handleAsyncExceptions,
   randomItem,
   unixTimestamp,
-  shuffle
+  shuffle,
+  isDevelopment
 };
