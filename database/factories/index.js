@@ -1,4 +1,4 @@
-function factory(table, total = 1, fn = null) {
+module.exports = function factory(table, total = 1, fn = null) {
   switch (table) {
     case 'tags':
       return require('./tags-factory')(total, fn);
@@ -31,6 +31,4 @@ function factory(table, total = 1, fn = null) {
     default:
       throw Error('Table factory not found!');
   }
-}
-
-module.exports = factory;
+};
