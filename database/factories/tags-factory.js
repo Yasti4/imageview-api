@@ -8,7 +8,7 @@ function factory(generate = 1, fn = null) {
     if (fn) {
       name = fn(items).name;
     }
-    name = name || faker.name.findName();
+    name = name || faker.lorem.word();
     if (!nameExists(name)) {
       items.push({name});
       i = i + 1;

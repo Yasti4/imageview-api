@@ -8,6 +8,7 @@ module.exports = function run(args) {
       orm.knex.seed.make(args[2]).then(() => orm.knex.destroy());
       break;
     case 'run':
+      console.log('Seeding...');
       orm.knex.seed.run().then(() => orm.knex.destroy());
       break;
     default:
