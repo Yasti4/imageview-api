@@ -1,8 +1,7 @@
 const migrate = require('tabel/lib/migrate');
 const path = require('path');
 
-module.exports = run;
-function run(args) {
+module.exports = function run(args) {
   // http://tabel.fractaltech.in/migrations.html#migrate-js
   switch (args[1]) {
     case 'make':
@@ -23,7 +22,7 @@ function run(args) {
     default:
       runMigrate();
   }
-}
+};
 
 function runMigrate(...args) {
   migrate(config, {

@@ -1,6 +1,39 @@
+const Tabel = require('tabel');
 
-module.exports = run;
+module.exports = function run(args) {
+  // https://knexjs.org/#Seeds-API
+  const orm = new Tabel(config);
+  switch(args[1]) {
+    case 'make':
+      orm.knex.seed.make(args[2]).then(() => orm.knex.destroy());
+      break;
+    case 'run':
+      orm.knex.seed.run().then(() => orm.knex.destroy());
+      break;
+    default:
+      console.log('Avaliable Commands:\nmake\nrun');
+  }
+};
 
-function run(args) {
-  console.log(args);
-}
+const config = {
+  db: {
+    client: process.env.DB_CONNECTION,
+    connection: {
+      database: process.env.DB_DATABASE,
+      host: process.env.DB_HOST,
+      user: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      tableName: process.env.DB_MIGRATIONS_TABLENAME,
+      directory: 'database/migrations/'
+    },
+    seeds: {
+      directory: 'database/seeds'
+    }
+  }
+};
