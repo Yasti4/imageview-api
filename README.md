@@ -12,17 +12,17 @@ npm install
 
 npm run db:migrate latest
 
-npm run db:seed
-
-npm run build # Only prod environment
+npm run db:seed run
 ```
 
 ## Usage
 
 ``` sh
-npm test # Only test environment
+npm test
 
-npm start # Only dev and prod environment
+npm start # without Docker
+
+npm run docker # with Docker
 ```
 
 ## License
