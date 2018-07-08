@@ -1,7 +1,5 @@
 'use strict';
 
-const jwt = require('jwt-simple');
-
 module.exports = {
   user: (parent, args, context) => {
     const repo = context.actions.users;

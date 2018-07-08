@@ -20,4 +20,4 @@ Thumbs.db
 /static/images/md/*
 /static/images/lg/*
 
-/.env
+.env

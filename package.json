@@ -11,7 +11,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_PATH=. nodemon --exec babel-node ./app/server.js",
+    "start": "NODE_PATH=. nodemon --exec babel-node ./app/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "echo \"Error: no build specified\" && exit 1",
     "script": "NODE_PATH=. babel-node ./scripts/index.js",

@@ -2,7 +2,6 @@ const app = module.exports = require('express')();
 const {graphiqlExpress, graphqlExpress} = require('apollo-server-express');
 const {apolloUploadExpress} = require('apollo-upload-server');
 const {makeExecutableSchema}= require('graphql-tools');
-const {table} = require('app/orm');
 const actions = require('app/actions');
 const {isDevelopment} = require('app/util');
 const authMiddleware = require('app/middlewares/auth');
@@ -33,7 +32,6 @@ app.use('/api', authMiddleware, apolloUploadExpress(), graphqlExpress(req => {
   return {
     schema,
     context: {
-      db: table,
       actions,
       isAdmin: req.isAuth ? req.userAuth.role === 'admin' : false,
       isAuth: req.isAuth,

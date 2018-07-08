@@ -10,7 +10,7 @@ cp .env.example .env
 
 npm install
 
-npm run db:migrate
+npm run db:migrate latest
 
 npm run db:seed
 
@@ -22,9 +22,7 @@ npm run build # Only prod environment
 ``` sh
 npm test # Only test environment
 
-npm run dev # Only dev environment
-
-npm start # Only prod environment
+npm start # Only dev and prod environment
 ```
 
 ## License
