@@ -2,7 +2,7 @@ const faker = require('faker/locale/es');
 
 function factory(generate = 1, fn = null) {
   const items = [];
-  const nameExists = name => items.findIndex(item => item.name === name) >= -1;
+  const nameExists = name => !!items.find(item => item.name === name);
   for (let i = 0; i < generate;) {
     let name;
     if (fn) {

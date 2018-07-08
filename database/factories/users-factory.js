@@ -6,7 +6,7 @@ function factory(generate = 1, fn = null) {
   const items = [];
   const now = new Date();
   const password = bcrypt.hashSync('secret', +process.env.APP_SALT || 10);
-  const fieldValueExists = (field, value) => items.findIndex(item => item[field] === value) >= -1;
+  const fieldValueExists = (field, value) => !!items.find(item => item[field] === value);
   for (let i = 0; i < generate;) {
     const item = fn ? fn(items) : {};
     item.username = item.username || faker.internet.userName();

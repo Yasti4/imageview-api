@@ -3,7 +3,7 @@ const shortid = require('shortid');
 function factory(generate = 1, fn = null) {
   const items = [];
   const now = new Date();
-  const filenameExists = filename => items.findIndex(item => item.filename === filename) >= -1;
+  const filenameExists = filename => !!items.find(item => item.filename === filename);
   for (let i = 0; i < generate;) {
     let filename;
     let timestamps;
