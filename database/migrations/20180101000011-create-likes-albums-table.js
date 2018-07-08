@@ -3,6 +3,7 @@ function up(knex) {
     t.increments('id').primary();
     t.integer('album_id').unsigned().notNullable().references('id').inTable('albums');
     t.integer('user_id').unsigned().notNullable().references('id').inTable('users');
+    t.unique(['album_id', 'user_id']);
   });
 }
 

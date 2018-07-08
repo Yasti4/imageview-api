@@ -3,6 +3,7 @@ function up(knex) {
     t.increments('id').primary();
     t.integer('user_followed').unsigned().notNullable().references('id').inTable('users');
     t.integer('user_follower').unsigned().notNullable().references('id').inTable('users');
+    t.unique(['user_followed', 'user_follower']);
   });
 }
 
