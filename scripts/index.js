@@ -26,14 +26,11 @@ function run() {
   if (searchArg('db:migrate')) {
     log(chalk.bgGreen(' SCRIPT '), 'scripts/migrate.js\n');
     require('./migrate')(process.argv);
-    //process.exit(0);
   } else if (searchArg('db:seed')) {
     log(chalk.bgGreen(' SCRIPT '), 'scripts/seed.js\n');
     require('./seed')(process.argv);
-    //process.exit(0);
   } else {
     log(chalk.yellow('⚠ warn'), 'Nothing to run');
-  //process.exit(0);
+    process.exit(0);
   }
-  
 }

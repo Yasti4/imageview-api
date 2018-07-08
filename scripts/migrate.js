@@ -3,10 +3,31 @@ const path = require('path');
 
 module.exports = run;
 function run(args) {
-  console.log('ddg');
   // http://tabel.fractaltech.in/migrations.html#migrate-js
+  switch (args[1]) {
+    case 'make':
+      runMigrate(args[1], args[2]);
+      break;
+    case 'latest':
+      runMigrate(args[1]);
+      break;
+    case 'rollback':
+      runMigrate(args[1]);
+      break;
+    case 'reset':
+      runMigrate(args[1]);
+      break;
+    case 'refresh':
+      runMigrate(args[1]);
+      break;
+    default:
+      runMigrate();
+  }
+}
+
+function runMigrate(...args) {
   migrate(config, {
-    args: ['latest'],
+    args,
     devDir: path.join(`${__dirname}/../database/migrations`),
     distDir: path.join(`${__dirname}/../database/migrations`)
   });
