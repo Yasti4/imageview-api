@@ -16,6 +16,7 @@
     "script": "NODE_PATH=. babel-node ./scripts/index.js",
     "db:migrate": "npm run script db:migrate",
     "db:seed": "npm run script db:seed",
+    "db:reset": "npm run script db:migrate reset && npm run script db:seed run",
     "docker": "npm run docker:open -d",
     "docker:open": "npm run docker:close && docker-compose -p imageview up --build",
     "docker:close": "docker-compose down",
