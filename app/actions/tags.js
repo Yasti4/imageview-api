@@ -6,7 +6,8 @@ module.exports = {
   findAll,
   findAllByPostId,
   deleteByName,
-  searchByName
+  searchByName,
+  posts
 };
 
 const defaultLimit = 10;
@@ -36,4 +37,10 @@ function deleteByName(name, softDelete = true) {
 
 function searchByName(name, page = 1, limit = defaultLimit) {
   return table('tags').whereRaw('name like ?', [`%${name}%`]).forPage(page, limit).all();
+}
+
+function posts(id) {
+  return table('posts_tags').select('post_id').all('tag_id', id).map(item => item.post_id).then(ids =>
+    table('posts').whereIn('id', ids).all()
+  );
 }

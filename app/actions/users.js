@@ -19,7 +19,14 @@ module.exports = {
   privacity,
   updatePrivacity,
   follow,
-  searchByUsername
+  searchByUsername,
+  likesComments,
+  likesPosts,
+  likesAlbums,
+  subscriptionsAlbums,
+  image,
+  following,
+  followers
 };
 
 const defaultLimit = 10;
@@ -145,4 +152,34 @@ function follow(userFollower, userFollowed) {
 
 function searchByUsername(username, page = 1, limit = defaultLimit) {
   return table('users').whereRaw('username like ?', [`%${username}%`]).forPage(page, limit).all();
+}
+
+function likesComments(id) {
+  return table('likes_comments').select('id').all('user_id', id).then(count => count.length).catch(() => 0);
+}
+
+function likesPosts(id) {
+  return table('likes_posts').select('id').all('user_id', id).then(count => count.length).catch(() => 0);
+}
+
+function likesAlbums(id) {
+  return table('likes_albums').select('id').all('user_id', id).then(count => count.length).catch(() => 0);
+}
+
+function subscriptionsAlbums(id) {
+  return table('subscriptions_albums').select('id').all('user_id', id).then(count => count.length).catch(() => 0);
+}
+
+function image(fileId) {
+  return table('images').first('file_id', fileId);
+}
+
+function following(id) {
+  return table('subscriptions_users').select('user_followed').all('user_follower', id)
+    .map(item => item.user_followed).then(ids => table('users').whereIn('id', ids).all());
+}
+
+function followers(id) {
+  return table('subscriptions_users').select('user_follower').all('user_followed', id)
+    .map(item => item.user_follower).then(ids => table('users').whereIn('id', ids).all());
 }

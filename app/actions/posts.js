@@ -9,14 +9,17 @@ module.exports = {
   findAllByUserId,
   findAllByAlbumId,
   findAllByUserIdAndAlbumId,
+  findAllByVisibility,
   create,
   updateById,
   updateByIdAndUserId,
   deleteById,
   deleteByIdAndUserId,
   like,
+  tags,
   addTag,
   removeTags,
+  likes,
   feed
 };
 
@@ -70,6 +73,12 @@ function findAllByUserIdAndAlbumId(userId, albumId, limit = defaultLimit, withTr
     : table('posts').whereNull('deleted_at').where('user_id', userId).where('album_id', albumId).limit(limit).all();
 }
 
+function findAllByVisibility(visibility, limit = defaultLimit, withTrashed = false) {
+  return withTrashed
+    ? table('posts').limit(limit).all('visibility', visibility)
+    : table('posts').whereNull('deleted_at').limit(limit).all('visibility', visibility);
+}
+
 function create(input) {
   return table('posts').insert(input);
 }
@@ -109,12 +118,22 @@ function like(id, userId) {
   ).then(rowsAffected => !!rowsAffected);
 }
 
+function tags(id) {
+  return table('posts_tags').select('tag_id').all('post_id', id).map(item => item.tag_id).then(ids =>
+    table('tags').whereIn('id', ids).all()
+  );
+}
+
 function addTag(postId, tagId) {
   return table('posts_tags').insert({post_id: postId, tag_id: tagId});
 }
 
 function removeTags(postId) {
   return table('posts_tags').delete('post_id', postId).then(rowsAffected => !!rowsAffected);
+}
+
+function likes(id) {
+  return table('likes_posts').select('id').all('post_id', id).then(count => count.length).catch(() => 0);
 }
 
 function feed(page = 1, limit = defaultLimit) {

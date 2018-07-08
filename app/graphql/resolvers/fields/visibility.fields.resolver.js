@@ -3,10 +3,10 @@
 module.exports = {
   Visibility: {
     albums: (parent, args, context) => {
-      return context.db('albums').all('visibility', parent.name);
+      return context.actions.albums.findAllByVisibility(parent.name);
     },
     posts: (parent, args, context) => {
-      return context.db('posts').all('visibility', parent.name);
+      return context.actions.posts.findAllByVisibility(parent.name);
     }
   }
 };

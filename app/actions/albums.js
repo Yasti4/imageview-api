@@ -4,6 +4,7 @@ module.exports = {
   findById,
   findAll,
   findAllByUserId,
+  findAllByVisibility,
   create,
   updateById,
   updateByIdAndUserId,
@@ -15,22 +16,30 @@ module.exports = {
   subscribers
 };
 
+const defaultLimit = 10;
+
 function findById(id, withTrashed = false) {
   return withTrashed
     ? table('albums').first('id', id)
     : table('albums').whereNull('deleted_at').first('id', id);
 }
 
-function findAll(limit = 10, withTrashed = false) {
+function findAll(limit = defaultLimit, withTrashed = false) {
   return withTrashed
     ? table('albums').limit(limit).all()
     : table('albums').whereNull('deleted_at').limit(limit).all();
 }
 
-function findAllByUserId(userId, limit = 10, withTrashed = false) {
+function findAllByUserId(userId, limit = defaultLimit, withTrashed = false) {
   return withTrashed
     ? table('albums').limit(limit).all('user_id', userId)
     : table('albums').whereNull('deleted_at').limit(limit).all('user_id', userId);
+}
+
+function findAllByVisibility(visibility, limit = defaultLimit, withTrashed = false) {
+  return withTrashed
+    ? table('albums').limit(limit).all('visibility', visibility)
+    : table('albums').whereNull('deleted_at').limit(limit).all('visibility', visibility);
 }
 
 function create(input) {
@@ -84,7 +93,7 @@ function likes(id) {
 }
 
 function subscribers(id) {
-  return table('subscriptions_albums').select('user_id').all(id, 'id').map(item => item.user_id).then(ids =>
+  return table('subscriptions_albums').select('user_id').all('id', id).map(item => item.user_id).then(ids =>
     table('users').whereIn('id', ids).all()
   );
 }
