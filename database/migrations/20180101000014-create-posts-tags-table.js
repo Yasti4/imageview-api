@@ -1,8 +1,12 @@
 function up(knex) {
   return knex.schema.createTable('posts_tags', (t) => {
     t.increments('id').primary();
-    t.integer('post_id').unsigned().notNullable().references('id').inTable('posts');
-    t.integer('tag_id').unsigned().notNullable().references('id').inTable('tags');
+    t.integer('post_id').unsigned().notNullable()
+      .references('id').inTable('posts')
+      .onUpdate('CASCADE').onDelete('CASCADE');
+    t.integer('tag_id').unsigned().notNullable()
+      .references('id').inTable('tags')
+      .onUpdate('CASCADE').onDelete('CASCADE');
     t.unique(['post_id', 'tag_id']);
   });
 }

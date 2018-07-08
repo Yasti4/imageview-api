@@ -6,8 +6,12 @@ function up(knex) {
     t.string('password').notNullable();
     t.string('name').notNullable();
     t.string('lastname').notNullable();
-    t.string('role').notNullable().references('name').inTable('roles');
-    t.integer('file_id').unsigned().notNullable().references('id').inTable('files');
+    t.string('role').notNullable()
+      .references('name').inTable('roles')
+      .onUpdate('CASCADE').onDelete('CASCADE');
+    t.integer('file_id').unsigned().notNullable()
+      .references('id').inTable('files')
+      .onUpdate('CASCADE').onDelete('CASCADE');
     t.timestamp('created_at').nullable();
     t.timestamp('updated_at').nullable();
     t.timestamp('deleted_at').nullable();
