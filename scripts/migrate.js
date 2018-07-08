@@ -1,6 +1,13 @@
 const migrate = require('tabel/lib/migrate');
 
-migrate({
+module.exports = run;
+
+function run(args) {
+  // http://tabel.fractaltech.in/migrations.html#migrate-js
+  migrate(config, 'latest');
+}
+
+const config = {
   db: {
     client: process.env.DB_CONNECTION,
     connection: {
@@ -21,4 +28,4 @@ migrate({
       directory: 'database/seeds'
     }
   }
-});
+};

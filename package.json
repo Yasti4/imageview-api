@@ -14,9 +14,9 @@
     "dev": "NODE_PATH=. nodemon --exec babel-node ./app/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "echo \"Error: no build specified\" && exit 1",
-    "script": "NODE_PATH=. babel-node ./app/scripts/index.js",
-    "db:migrate": "npm run script migrate",
-    "db:seed": "npm run script seed"
+    "script": "NODE_PATH=. babel-node ./scripts/index.js",
+    "db:migrate": "npm run script db:migrate",
+    "db:seed": "npm run script db:seed"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -36,6 +36,7 @@
     "apollo-upload-server": "^5.0.0",
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.3",
+    "chalk": "^2.4.1",
     "compression": "^1.7.2",
     "cors": "^2.7.4",
     "crypto": "1.0.1",
