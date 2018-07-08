@@ -1,10 +1,15 @@
 const migrate = require('tabel/lib/migrate');
+const path = require('path');
 
 module.exports = run;
-
 function run(args) {
+  console.log('ddg');
   // http://tabel.fractaltech.in/migrations.html#migrate-js
-  migrate(config, 'latest');
+  migrate(config, {
+    args: ['latest'],
+    devDir: path.join(`${__dirname}/../database/migrations`),
+    distDir: path.join(`${__dirname}/../database/migrations`)
+  });
 }
 
 const config = {
@@ -22,7 +27,7 @@ const config = {
     },
     migrations: {
       tableName: process.env.DB_MIGRATIONS_TABLENAME,
-      directory: 'database/migrations'
+      directory: 'database/migrations/'
     },
     seeds: {
       directory: 'database/seeds'

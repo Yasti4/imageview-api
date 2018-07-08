@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A platform for sharing images.",
   "engines": {
-    "node": ">=8.11.3",
+    "node": ">=8.0.0",
     "npm": ">=5.0.0"
   },
   "author": "Denís Navarro, Adrià Muñoz",
@@ -16,6 +16,7 @@
     "build": "echo \"Error: no build specified\" && exit 1",
     "script": "NODE_PATH=. babel-node ./scripts/index.js",
     "db:migrate": "npm run script db:migrate",
+    "migrate": "NODE_PATH=. node scripts db:migrate",
     "db:seed": "npm run script db:seed"
   },
   "devDependencies": {
