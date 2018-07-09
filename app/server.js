@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const errorhandler = require('errorhandler');
 const cors = require('cors');
 const compression = require('compression');
-const {handleAsyncExceptions} = require('app/util');
+const {handleAsyncExceptions} = require('./util');
 const graphqlServer = require('./graphql/server');
 
 function run() {

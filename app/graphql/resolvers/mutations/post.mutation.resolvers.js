@@ -1,6 +1,6 @@
 'use strict';
 
-const {trx} = require('app/orm');
+const {trx} = require('./../../../orm');
 
 module.exports = {
   createPost: (parent, args, context) => {

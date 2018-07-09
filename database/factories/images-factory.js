@@ -1,4 +1,4 @@
-const {randomItem} = require('app/util');
+const {randomItem} = require('./../../app/util');
 
 function factory(generate = 1, fn = null) {
   const items = [];

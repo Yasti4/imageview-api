@@ -1,6 +1,6 @@
-const {table} = require('app/orm');
+const {table} = require('./../orm');
 const fs = require('fs');
-const {saveImage, resizeImages} = require('app/helpers');
+const {saveImage, resizeImages} = require('./../helpers');
 
 module.exports = {
   findFileById,

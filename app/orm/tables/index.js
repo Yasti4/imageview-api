@@ -1,18 +1,18 @@
-export default function loadTables(orm) {
-  require('./roles')(orm); // TODO: Relations
-  require('./tags')(orm); // TODO: Relations
-  require('./visibilities')(orm); // TODO: Relations
-  require('./files')(orm); // TODO: Relations
-  require('./images')(orm); // TODO: Relations
-  require('./users')(orm); // TODO: Relations
-  require('./albums')(orm); // TODO: Relations
-  require('./posts')(orm); // TODO: Relations
-  require('./comments')(orm); // TODO: Relations
-  require('./privacities')(orm); // TODO: Relations
-  require('./likes-albums')(orm); // TODO: Relations
-  require('./likes-posts')(orm); // TODO: Relations
-  require('./likes-comments')(orm); // TODO: Relations
-  require('./posts-tags')(orm); // TODO: Relations
-  require('./subscriptions-users')(orm); // TODO: Relations
-  require('./subscriptions-albums')(orm); // TODO: Relations
+module.exports = function loadTables(orm) {
+  require('./roles')(orm);
+  require('./tags')(orm);
+  require('./visibilities')(orm);
+  require('./files')(orm);
+  require('./images')(orm);
+  require('./users')(orm);
+  require('./albums')(orm);
+  require('./posts')(orm);
+  require('./comments')(orm);
+  require('./privacities')(orm);
+  require('./likes-albums')(orm);
+  require('./likes-posts')(orm);
+  require('./likes-comments')(orm);
+  require('./posts-tags')(orm);
+  require('./subscriptions-users')(orm);
+  require('./subscriptions-albums')(orm);
 }

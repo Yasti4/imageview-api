@@ -1,7 +1,7 @@
-const {table} = require('app/orm');
+const {table} = require('./../orm');
 const jwt = require('jwt-simple');
 const bcrypt = require('bcrypt');
-const {unixTimestamp, atob} = require('app/helpers');
+const {unixTimestamp, atob} = require('./../helpers');
 
 module.exports = {
   me,

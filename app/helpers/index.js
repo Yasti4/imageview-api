@@ -20,7 +20,6 @@ exports.unixTimestamp = (date = new Date()) => Math.floor(date.getTime() / 1000)
 exportAll([
   require('./base64'),
   require('./db'),
-  require('./common'),
   require('./mail'),
   require('./file'),
   require('./graphql')

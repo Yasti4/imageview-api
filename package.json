@@ -11,9 +11,10 @@
   "private": true,
   "main": "app/server.js",
   "scripts": {
-    "start": "NODE_PATH=. nodemon --exec babel-node ./app/server.js",
-    "test": "babel-node ./test/index.js",
-    "script": "NODE_PATH=. babel-node ./scripts/index.js",
+    "start": "NODE_PATH=. nodemon ./app/server.js",
+    "test": "ava test/**/*.test.js --verbose",
+    "test:watch": "ava test/**/*.test.js --verbose --watch",
+    "script": "node ./scripts/index.js",
     "db:migrate": "npm run script db:migrate",
     "db:seed": "npm run script db:seed",
     "db:reset": "npm run script db:migrate reset && npm run script db:migrate latest && npm run script db:seed run",
@@ -24,18 +25,12 @@
     "docker:exec": "npm run docker:terminal -c"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.5",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
+    "ava": "^0.25.0",
     "chalk": "^2.4.1",
-    "eslint": "^5.0.1",
-    "eslint-plugin-babel": "^5.1.0",
+    "eslint": "^5.1.0",
     "faker": "^4.1.0",
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.17.5",
+    "sinon": "^6.1.3"
   },
   "dependencies": {
     "apollo-server-express": "^1.3.6",
@@ -43,7 +38,7 @@
     "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
     "compression": "^1.7.2",
-    "cors": "^2.7.4",
+    "cors": "^2.8.4",
     "dotenv": "^6.0.0",
     "errorhandler": "^1.5.0",
     "express": "^4.16.3",
@@ -54,7 +49,7 @@
     "mysql": "^2.15.0",
     "nodemailer": "^4.6.7",
     "sharp": "^0.20.5",
-    "shortid": "^2.2.10",
+    "shortid": "^2.2.11",
     "tabel": "^2.6.8"
   }
 }

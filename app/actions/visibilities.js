@@ -1,4 +1,4 @@
-const {table} = require('app/orm');
+const {table} = require('./../orm');
 
 module.exports = {
   find,

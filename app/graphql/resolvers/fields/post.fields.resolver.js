@@ -1,6 +1,6 @@
 'use strict';
 
-const {timestampsFieldsResolvers} = require('app/helpers');
+const {timestampsFieldsResolvers} = require('./../../../helpers');
 
 module.exports = {
   Post: {

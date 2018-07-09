@@ -1,4 +1,4 @@
-const {unixTimestamp} = require('app/util');
+const {unixTimestamp} = require('./../util');
 const jwt = require('jwt-simple');
 
 module.exports = (req, res, next) => {

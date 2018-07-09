@@ -1,5 +1,5 @@
 const {shuffle} = require('app/util');
-const factory = require('database/factories');
+const factory = require('./../factories');
 
 async function seed(knex) {
   let usersIds = shuffle((await knex.select('id').from('users')).map(user => user.id));

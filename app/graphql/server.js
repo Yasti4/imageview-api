@@ -2,9 +2,9 @@ const app = module.exports = require('express')();
 const {graphiqlExpress, graphqlExpress} = require('apollo-server-express');
 const {apolloUploadExpress} = require('apollo-upload-server');
 const {makeExecutableSchema}= require('graphql-tools');
-const actions = require('app/actions');
-const {isDevelopment} = require('app/util');
-const authMiddleware = require('app/middlewares/auth');
+const actions = require('./../actions');
+const {isDevelopment} = require('./../util');
+const authMiddleware = require('./../middlewares/auth');
 
 const schema = makeExecutableSchema({
   typeDefs: `

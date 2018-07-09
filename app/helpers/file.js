@@ -6,7 +6,7 @@ const sharp = require('sharp');
 
 const saveFile = async (file, options = {}) => {
   // Download file
-  const { stream, filename, mimetype, encoding } = await file;
+  const {stream, filename, mimetype, encoding} = await file;
   // Validate file
   if (!options.uploadDir) {
     throw new Error('Upload directory not found');

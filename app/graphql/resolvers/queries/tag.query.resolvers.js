@@ -1,6 +1,6 @@
 'use strict';
 
-const {shuffle} = require('app/util');
+const {shuffle} = require('./../../../util');
 
 module.exports = {
   tag: (parent, args, context) => {

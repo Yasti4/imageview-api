@@ -1,4 +1,4 @@
-export default function loadTables(orm) {
+module.exports = function loadTables(orm) {
   orm.defineTable({
     name: 'posts',
 
