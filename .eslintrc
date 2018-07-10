@@ -26,12 +26,9 @@
     "superInFunctions": true,
     "templateStrings": true,
     "unicodeCodePointEscapes": true,
-    "globalReturn": true,
-    "jsx": true
+    "globalReturn": true
   },
-
   "rules": {
-
     "comma-dangle": 2,
     "no-cond-assign": 2,
     "no-console": 0,

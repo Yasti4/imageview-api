@@ -1,7 +1,7 @@
-const test = require('ava');
-const sinon = require('sinon');
+import test from 'ava';
+import sinon from 'sinon';
 
-const privacityActions = require('./../../../app/actions/privacities');
+import privacityActions from './../../../app/actions/privacities';
 
 test.before(() => {
   sinon.stub(privacityActions, 'find').resolvesArg(0);
