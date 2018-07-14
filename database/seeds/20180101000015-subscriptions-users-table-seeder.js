@@ -1,4 +1,4 @@
-const {shuffle} = require('app/util');
+const {shuffle} = require('./../../app/util');
 const factory = require('./../factories');
 
 async function seed(knex) {

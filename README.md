@@ -22,7 +22,7 @@ npm test
 
 npm start # without Docker
 
-npm run docker # with Docker
+npm run docker:up # with Docker
 ```
 
 ## API reference

@@ -6,6 +6,7 @@ function factory(generate = 1, fn = null) {
   for (let i = 0; i < generate; i = i + 1) {
     const item = fn ? fn(items) : {};
     item.title = item.title || faker.name.findName();
+    item.description = item.description || faker.lorem.sentence();
     item.visibility = item.visibility || 'public';
     item.user_id = item.user_id || 1;
     item.created_at = item.created_at || now;

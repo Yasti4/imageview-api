@@ -29,7 +29,7 @@ function run() {
   // mount the routes
   app.use(graphqlServer);
   // mount server
-  app.listen(+process.env.APP_PORT, process.env.APP_URL, () => {
+  app.listen(+process.env.APP_PORT, () => {
     console.log('\n\x1b[34m∞ Web Running at\x1b[0m', baseUrl);
     console.log('\x1b[36m∞ Intranet Running at\x1b[0m', `${baseUrl}/intranet`);
     console.log('\n\x1b[31m∞ API Running at\x1b[0m', `${baseUrl}/api`);
