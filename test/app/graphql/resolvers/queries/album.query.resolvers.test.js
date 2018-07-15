@@ -37,14 +37,10 @@ test.afterEach(() => sandbox.restore());
 
 test('album(id, withTrashed = false)', async t => {
   // Arrange
-  const albums = [
-    {id: 1, title: 'An album', deleted_at: null},
-    {id: 2, title: 'An album trashed', deleted_at: new Date()}
-  ];
   sandbox.replace(albumActions, 'findById', findByIdFn);
   // Act
-  const {data, errors} = await graphql(`query _($id: Int!) {
-    album(id: $id) {
+  const {data, errors} = await graphql(`query _($id: Int!, $withTrashed: Boolean) {
+    album(id: $id, withTrashed: $withTrashed) {
       title
     }
   }`, {id: 1, withTrashed: false}, context);
@@ -57,8 +53,8 @@ test('album(id, withTrashed = true)', async t => {
   // Arrange
   sandbox.replace(albumActions, 'findById', findByIdFn);
   // Act
-  const {data, errors} = await graphql(`query _($id: Int!) {
-    album(id: $id) {
+  const {data, errors} = await graphql(`query _($id: Int!, $withTrashed: Boolean) {
+    album(id: $id, withTrashed: $withTrashed) {
       title
     }
   }`, {id: 1, withTrashed: true}, context);
