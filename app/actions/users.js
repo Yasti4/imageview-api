@@ -37,7 +37,7 @@ function me(token) {
 }
 
 async function token(email, password) {
-  const user = await table('users').first('email', email);
+  const user = await findByEmail(email);
   if (!user || !await bcrypt.compare(atob(password), user.password)) {
     return null;
   }
