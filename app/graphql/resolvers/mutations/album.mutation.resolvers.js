@@ -2,7 +2,8 @@
 
 module.exports = {
   createAlbum: async (parent, args, context) => {
-    const id = await context.actions.albums.create({...args.input, user_id: context.userAuth.id});
+    const input = Object.assign({}, args.input, {user_id: context.userAuth.id});
+    const id = await context.actions.albums.create(input);
     return context.actions.albums.findById(id);
   },
   updateAlbum: (parent, args, context) => {
