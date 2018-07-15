@@ -136,7 +136,7 @@ function likes(id) {
   return table('likes_posts').select('id').all('post_id', id).then(count => count.length).catch(() => 0);
 }
 
+// eslint-disable-next-line
 function feed(page = 1, limit = defaultLimit) {
-  // TODO
   return null;
 }
