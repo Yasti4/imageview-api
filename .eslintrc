@@ -4,6 +4,10 @@
     "node": true,
     "es6": true
   },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 8
+  },
   "plugins": [],
   "ecmaFeatures": {
     "arrowFunctions": true,
