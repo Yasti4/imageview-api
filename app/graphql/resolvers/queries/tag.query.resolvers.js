@@ -12,7 +12,7 @@ module.exports = {
       : context.actions.tags.findAll(args.limit);
   },
   search: async (parent, args, context) => {
-    const users = await context.actions.users.searchByUserName(args.search, args.page, args.limit);
+    const users = await context.actions.users.searchByUsername(args.search, args.page, args.limit);
     const tags = await context.actions.tags.searchByName(args.search, args.page, args.limit);
     return shuffle([...users, ...tags]);
   }

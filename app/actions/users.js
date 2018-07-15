@@ -95,7 +95,7 @@ function hashPassword(password) {
 }
 
 function create(input) {
-  return hashPassword(atob(input.password)).then(password => table('users').insert({...input, password}));
+  return hashPassword(atob(input.password)).then(password => table('users').insert(Object.assign({}, input, {password})));
 }
 
 async function updateByUsername(username, input, withTrashed = false) {
