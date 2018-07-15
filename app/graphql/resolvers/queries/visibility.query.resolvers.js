@@ -2,9 +2,9 @@
 
 module.exports = {
   visibility: (parent, args, context) => {
-    return context.actions.visibilites.find(args.name);
+    return context.actions.visibilities.find(args.name);
   },
   visibilities: (parent, args, context) => {
-    return context.actions.visibilites.findAll();
+    return context.actions.visibilities.findAll();
   }
 };
