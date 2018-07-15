@@ -5,7 +5,7 @@ import graphql from './../../server';
 import roleActions from './../../../../../app/actions/roles';
 
 let sandbox, context;
-test.beforeEach(() => {
+test.before(() => {
   sandbox = sinon.createSandbox();
   context = {
     actions: {
@@ -13,7 +13,7 @@ test.beforeEach(() => {
     }
   }
 });
-test.afterEach(() => sandbox.restore());
+test.after(() => sandbox.restore());
 
 test('role(name)', async t => {
   // Arrange
