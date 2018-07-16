@@ -1,34 +1,33 @@
-const migrate = require('tabel/lib/migrate');
+const Tabel = require('tabel');
+const migrator = require('tabel/lib/migrator');
 const path = require('path');
 
 module.exports = function run(args) {
   // http://tabel.fractaltech.in/migrations.html#migrate-js
   switch (args[1]) {
     case 'make':
-      runMigrate(args[1], args[2]);
-      break;
+      return runMigrate(args[1], args[2]);
     case 'latest':
-      runMigrate(args[1]);
-      break;
+      return runMigrate(args[1]);
     case 'rollback':
-      runMigrate(args[1]);
-      break;
+      return runMigrate(args[1]);
     case 'reset':
-      runMigrate(args[1]);
-      break;
+      return runMigrate(args[1]);
     case 'refresh':
-      runMigrate(args[1]);
-      break;
+      return runMigrate(args[1]);
     default:
-      runMigrate();
+      return runMigrate();
   }
 };
 
 function runMigrate(...args) {
-  migrate(config, {
+  const orm = new Tabel(config);
+  return migrator(orm).mount({
     args,
     devDir: path.join(`${__dirname}/../database/migrations`),
     distDir: path.join(`${__dirname}/../database/migrations`)
+  }).then(function () {
+    return orm.close();
   });
 }
 

@@ -23,6 +23,6 @@ function sendMail(options = {}) {
       subject: '',
       text: '',
       html: ''
-    }, options), (err, info) => err ? reject(err) : resolve(info))
+    }, options), (err) => err ? reject(false) : resolve(true))
   );
 }

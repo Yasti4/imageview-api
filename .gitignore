@@ -2,6 +2,9 @@
 Thumbs.db
 .npm
 
+/coverage
+.nyc_output
+
 /logs
 *.log
 /npm-debug.log*

@@ -29,6 +29,9 @@ function run() {
   } else if (searchArg('db:seed')) {
     log(chalk.bgGreen(' SCRIPT '), 'scripts/seed.js\n');
     require('./seed')(process.argv);
+  } else if (searchArg('db:test')) {
+    log(chalk.bgGreen(' SCRIPT '), 'scripts/db-test.js\n');
+    require('./db-test')();
   } else {
     log(chalk.yellow('⚠ warn'), 'Nothing to run');
     process.exit(0);

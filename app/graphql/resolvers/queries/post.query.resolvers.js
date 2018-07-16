@@ -10,7 +10,7 @@ module.exports = {
       return repo.findAllByUserIdAndAlbumId(args.userId, args.albumId, args.limit, args.withTrashed);
     } else if (args.userId) {
       return repo.findAllByUserId(args.userId, args.limit, args.withTrashed);
-    } else if (args.postId) {
+    } else if (args.albumId) {
       return repo.findAllByAlbumId(args.albumId, args.limit, args.withTrashed);
     } else {
       return repo.findAll(args.limit, args.withTrashed);

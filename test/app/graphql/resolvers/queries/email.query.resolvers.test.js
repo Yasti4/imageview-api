@@ -19,16 +19,22 @@ test.after(() => sandbox.restore());
 test('forgottenPassword(email)', async t => {
   // Arrange
   const users = [
-    {email: 'test@imageview.com', deleted_at: null},
-    {email: 'info@imageview.com', deleted_at: new Date()},
+    {email: 'test@imageview.com', deleted_at: null}
   ];
   sandbox.replace(userActions, 'findByEmail', email => users.find(user => user.email === email));
   sandbox.replace(mailHelpers, 'sendMail', () => Promise.resolve(true));
   // Act
-  const {data, errors} = await graphql(`query _($email: String!) {
+  let res = await graphql(`query _($email: String!) {
     forgottenPassword(email: $email)
   }`, { email: 'test@imageview.com' }, context);
   // Assert
-  t.falsy(errors);
-  t.truthy(data.forgottenPassword);
+  t.falsy(res.errors);
+  t.truthy(res.data.forgottenPassword);
+  // Act
+  res = await graphql(`query _($email: String!) {
+    forgottenPassword(email: $email)
+  }`, { email: 'info@imageview.com' }, context);
+  // Assert
+  t.falsy(res.errors);
+  t.falsy(res.data.forgottenPassword);
 });

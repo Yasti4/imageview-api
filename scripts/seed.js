@@ -5,12 +5,16 @@ module.exports = function run(args) {
   const orm = new Tabel(config);
   switch(args[1]) {
     case 'make':
-      orm.knex.seed.make(args[2]).then(() => orm.knex.destroy());
-      break;
+      return orm.knex.seed.make(args[2]).then(() => {
+        orm.knex.destroy();
+        console.log('Seed created!');
+      });
     case 'run':
       console.log('Seeding...');
-      orm.knex.seed.run().then(() => orm.knex.destroy());
-      break;
+      return orm.knex.seed.run().then(() => {
+        orm.knex.destroy();
+        console.log('Seeded!');
+      });
     default:
       console.log('Avaliable Commands:\nmake\nrun');
   }

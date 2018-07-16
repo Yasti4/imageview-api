@@ -18,7 +18,7 @@ npm run db:seed run
 ## Usage
 
 ``` sh
-npm test
+npm test # require database
 
 npm start # without Docker
 
@@ -38,6 +38,7 @@ npm run docker:up # with Docker
 - Fake data generator: [faker](https://github.com/marak/Faker.js)
 - Linter: [eslint](https://eslint.org/docs/rules)
 - Test runner: [ava](https://github.com/avajs/ava)
+- Test coverage: [nyc](https://github.com/istanbuljs/nyc#nyc)
 - Tests spies, stubs and mocks: [sinon](http://sinonjs.org/releases/v6.1.3)
 
 ## License

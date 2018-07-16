@@ -65,14 +65,14 @@ test('tags(postId, limit)', async t => {
   // Arrange
   sandbox.replace(tagActions, 'findAllByPostId', findAllPostIdFn);
   // Act
-  const {data, errors} = await graphql(`query _ {
-    tags {
+  const {data, errors} = await graphql(`query _($postId: Int!, $limit: Int!) {
+    tags(postId: $postId, limit: $limit) {
       name
     }
-  }`, {}, context);
+  }`, {postId: 2, limit: 2}, context);
   // Assert
   t.falsy(errors);
-  t.deepEqual(data.tags, tags.map(t => ({name: t.name})));
+  t.deepEqual(data.tags, [{name: tags[2].name}]);
 });
 
 test('search(search, page, limit)', async t => {

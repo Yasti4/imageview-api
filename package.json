@@ -12,9 +12,11 @@
   "main": "app/server.js",
   "scripts": {
     "start": "NODE_PATH=. nodemon ./app/server.js",
-    "test": "ava test/**/*.test.js --verbose",
-    "test:watch": "ava test/**/*.test.js --verbose --watch",
+    "test": "npm run db:test && ava --verbose",
+    "test:watch": "npm run db:test && ava --verbose --watch",
+    "test:coverage": "npm run db:test && nyc ava --verbose",
     "script": "node ./scripts/index.js",
+    "db:test": "npm run script db:test",
     "db:migrate": "npm run script db:migrate",
     "db:seed": "npm run script db:seed",
     "db:reset": "npm run script db:migrate reset && npm run script db:migrate latest && npm run script db:seed run",
@@ -34,6 +36,7 @@
     "eslint": "^5.1.0",
     "faker": "^4.1.0",
     "nodemon": "^1.17.5",
+    "nyc": "^12.0.2",
     "sharp": "^0.20.5",
     "sinon": "^6.1.3"
   },
@@ -54,5 +57,38 @@
     "nodemailer": "^4.6.7",
     "shortid": "^2.2.11",
     "tabel": "^2.6.8"
+  },
+  "ava": {
+    "files": [
+      "!./test/app/server.js",
+      "!./test/app/graphql/server.js",
+      "./test/**/*.test.js"
+    ],
+    "cache": true,
+		"concurrency": 5,
+		"failFast": true,
+    "compileEnhancements": false
+  },
+  "nyc": {
+    "exclude": [
+      ".github/**/*",
+      "app/graphql/typedefs/**/*",
+      "app/graphql/mocks.js",
+      "app/graphql/schema.js",
+      "app/graphql/server.js",
+      "app/helpers/**/*.js",
+      "app/orm/**/*.js",
+      "app/util/**/*.js",
+      "docs/**/*",
+      "database/**/*",
+      "scripts/**/*",
+      "static/**/*",
+      "test/**/*"
+    ],
+    "reporter": [
+      "text",
+      "html"
+    ],
+    "cache": true
   }
 }

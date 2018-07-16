@@ -150,7 +150,7 @@ test('posts(albumId, limit, withTrashed = false)', async t => {
 
 test('posts(albumId, limit, withTrashed = true)', async t => {
   // Arrange
-  const expected = posts.slice(0, 2).map(post => ({description: post.description}));
+  const expected = posts.slice(2).map(post => ({description: post.description}));
   sandbox.replace(postActions, 'findAllByAlbumId', findAllByAlbumIdFn);
   // Act
   const {data, errors} = await graphql(`query _($albumId: Int, $limit: Int, $withTrashed: Boolean) {
