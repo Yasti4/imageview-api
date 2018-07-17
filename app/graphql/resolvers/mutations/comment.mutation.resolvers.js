@@ -7,7 +7,7 @@ module.exports = {
   },
   updateComment: async (parent, args, context) => {
     return context.isAdmin
-      ? context.actions.comments.updateById(args.id, {comment: args.comment}, args.withTrashed)
+      ? context.actions.comments.updateById(args.id, {comment: args.content}, args.withTrashed)
       : context.actions.comments.updateByIdAndUserId(args.id, context.userAuth.id, {comment: args.content}, args.withTrashed);
   },
   deleteComment: async (parent, args, context) => {
