@@ -10,22 +10,6 @@ const users = [
   {id: 3, email: 'yasti@imageview.com', username: 'yasti', deleted_at: null}
 ];
 
-const findByIdFn = (id, withTrashed = false) => users.find(user =>
-  user.id === id && (withTrashed ? true : user.deleted_at === null)
-);
-
-const findByUsernameFn = (username, withTrashed = false) => users.find(user =>
-  user.username === username && (withTrashed ? true : user.deleted_at === null)
-);
-
-const findByEmailFn = (email, withTrashed = false) => users.find(user =>
-  user.email === email && (withTrashed ? true : user.deleted_at === null)
-);
-
-const findAllFn = (limit, withTrashed = false) => (withTrashed
-  ? users : users.filter(user => user.deleted_at === null)
-).slice(0, limit);
-
 let sandbox, context;
 test.beforeEach(() => {
   sandbox = sinon.createSandbox();
@@ -37,7 +21,7 @@ test.beforeEach(() => {
 });
 test.afterEach(() => sandbox.restore());
 
-test('user', async t => {
+test.serial('user', async t => {
   // Act
   const {data, errors} = await graphql(`query _ {
     user {
@@ -49,124 +33,68 @@ test('user', async t => {
   t.falsy(data.user);
 });
 
-test('user(id, withTrashed = false)', async t => {
+test.serial('user(id, withTrashed)', async t => {
   // Arrange
-  sandbox.replace(userActions, 'findById', findByIdFn);
+  sandbox.spy(userActions, 'findById');
   // Act
-  const {data, errors} = await graphql(`query _($id: Int!) {
+  await graphql(`query _($id: Int!) {
     user(id: $id) {
       username
     }
   }`, {id: 2, withTrashed: false}, context);
   // Assert
-  t.falsy(errors);
-  t.is(data.user.username, users[1].username);
+  t.truthy(userActions.findById.calledOnce);
+  userActions.findById.restore();
 });
 
-test('user(id, withTrashed = true)', async t => {
+test.serial('user(username, withTrashed)', async t => {
   // Arrange
-  sandbox.replace(userActions, 'findById', findByIdFn);
+  sandbox.spy(userActions, 'findByUsername');
   // Act
-  const {data, errors} = await graphql(`query _($id: Int!) {
-    user(id: $id) {
-      username
-    }
-  }`, {id: 2, withTrashed: true}, context);
-  // Assert
-  t.falsy(errors);
-  t.is(data.user.username, users[1].username);
-});
-
-test('user(username, withTrashed = false)', async t => {
-  // Arrange
-  sandbox.replace(userActions, 'findByUsername', findByUsernameFn);
-  // Act
-  const {data, errors} = await graphql(`query _($username: String!) {
+  await graphql(`query _($username: String!) {
     user(username: $username) {
       username
     }
   }`, {username: 'ticdenis', withTrashed: false}, context);
   // Assert
-  t.falsy(errors);
-  t.is(data.user.username, users[1].username);
+  t.truthy(userActions.findByUsername.calledOnce);
+  userActions.findByUsername.restore();
 });
 
-test('user(username, withTrashed = true)', async t => {
+test.serial('user(email, withTrashed)', async t => {
   // Arrange
-  sandbox.replace(userActions, 'findByUsername', findByUsernameFn);
+  sandbox.spy(userActions, 'findByEmail');
   // Act
-  const {data, errors} = await graphql(`query _($username: String!) {
-    user(username: $username) {
-      username
-    }
-  }`, {username: 'yasti', withTrashed: true}, context);
-  // Assert
-  t.falsy(errors);
-  t.is(data.user.username, users[2].username);
-});
-
-test('user(email, withTrashed = false)', async t => {
-  // Arrange
-  sandbox.replace(userActions, 'findByEmail', findByEmailFn);
-  // Act
-  const {data, errors} = await graphql(`query _($email: String!) {
+  await graphql(`query _($email: String!) {
     user(email: $email) {
       username
     }
   }`, {email: 'ticdenis@imageview.com', withTrashed: false}, context);
   // Assert
-  t.falsy(errors);
-  t.is(data.user.username, users[1].username);
+  t.truthy(userActions.findByEmail.calledOnce);
+  userActions.findByEmail.restore();
 });
 
-test('user(email, withTrashed = true)', async t => {
+test.serial('users(limit, withTrashed)', async t => {
   // Arrange
-  sandbox.replace(userActions, 'findByEmail', findByEmailFn);
+  sandbox.spy(userActions, 'findAll');
   // Act
-  const {data, errors} = await graphql(`query _($email: String!) {
-    user(email: $email) {
-      username
-    }
-  }`, {email: 'yasti@imageview.com', withTrashed: true}, context);
-  // Assert
-  t.falsy(errors);
-  t.is(data.user.username, users[2].username);
-});
-
-test('users(limit, withTrashed = false)', async t => {
-  // Arrange
-  sandbox.replace(userActions, 'findAll', findAllFn);
-  // Act
-  const {data, errors} = await graphql(`query _ {
+  await graphql(`query _ {
     users {
       id
     }
   }`, {limit: 3, withTrashed: false}, context);
   // Assert
-  t.falsy(errors);
-  t.is(data.users.length, 2)
+  t.truthy(userActions.findAll.calledOnce);
+  userActions.findAll.restore();
 });
 
-test('users(limit, withTrashed = true)', async t => {
-  // Arrange
-  sandbox.replace(userActions, 'findAll', findAllFn);
-  // Act
-  const {data, errors} = await graphql(`query _ {
-    users {
-      id
-    }
-  }`, {limit: 3, withTrashed: true}, context);
-  // Assert
-  t.falsy(errors);
-  t.is(data.users.length, 2)
-});
-
-test('me', async t => {
+test.serial('me', async t => {
   // Arrange
   context = Object.assign({}, context, {
     isAuth: true,
     userAuth: {id: 1}
-  })
+  });
   // Act
   const {data, errors} = await graphql(`query _ {
     me {
@@ -178,16 +106,16 @@ test('me', async t => {
   t.is(data.me.id, 1);
 });
 
-test('me(token)', async t => {
+test.serial('me(token)', async t => {
   // Arrange
-  sandbox.replace(userActions, 'me', () => users[1]);
+  sandbox.spy(userActions, 'me');
   // Act
-  const {data, errors} = await graphql(`query _($token: String!) {
+  await graphql(`query _($token: String!) {
     me(token: $token) {
       id
     }
   }`, {token: '...'}, context);
   // Assert
-  t.falsy(errors);
-  t.is(data.me.id, users[1].id);
+  t.truthy(userActions.me.calledOnce);
+  userActions.me.restore();
 });

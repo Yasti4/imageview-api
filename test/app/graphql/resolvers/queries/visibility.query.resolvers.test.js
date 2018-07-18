@@ -4,12 +4,6 @@ import sinon from 'sinon';
 import graphql from './../../server';
 import visibilityActions from './../../../../../app/actions/visibilities';
 
-const visibilities = [
-  {name: 'public'},
-  {name: 'protected'},
-  {name: 'private'}
-];
-
 let sandbox, context;
 test.before(() => {
   sandbox = sinon.createSandbox();
@@ -21,30 +15,30 @@ test.before(() => {
 });
 test.after(() => sandbox.restore());
 
-test('visibility(name)', async t => {
+test.serial('visibility(name)', async t => {
   // Arrange
-  sandbox.replace(visibilityActions, 'find', (name) => visibilities.find(v => v.name === name));
+  sandbox.spy(visibilityActions, 'find');
   // Act
-  const {data, errors} = await graphql(`query _($name: String!) {
+  await graphql(`query _($name: String!) {
     visibility(name: $name) {
       name
     }
   }`, {name: 'public'}, context);
   // Assert
-  t.falsy(errors);
-  t.deepEqual(data.visibility.name, visibilities[0].name);
+  t.truthy(visibilityActions.find.calledOnce);
+  visibilityActions.find.restore();
 });
 
-test('visibilities', async t => {
+test.serial('visibilities', async t => {
   // Arrange
-  sandbox.replace(visibilityActions, 'findAll', () => visibilities);
+  sandbox.spy(visibilityActions, 'findAll');
   // Act
-  const {data, errors} = await graphql(`query _ {
+  await graphql(`query _ {
     visibilities {
       name
     }
   }`, {}, context);
   // Assert
-  t.falsy(errors);
-  t.deepEqual(data.visibilities, visibilities);
+  t.truthy(visibilityActions.findAll.calledOnce);
+  visibilityActions.findAll.restore();
 });

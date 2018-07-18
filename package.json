@@ -73,6 +73,7 @@
     "exclude": [
       ".github/**/*",
       "app/graphql/typedefs/**/*",
+      "app/graphql/resolvers/scalars.js",
       "app/graphql/mocks.js",
       "app/graphql/schema.js",
       "app/graphql/server.js",

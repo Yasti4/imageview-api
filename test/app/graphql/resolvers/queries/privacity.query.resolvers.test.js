@@ -5,12 +5,6 @@ import graphql from './../../server';
 import privacityActions from './../../../../../app/actions/privacities';
 import userActions from './../../../../../app/actions/users';
 
-const privacities = [
-  {id: 1, user_id: 1, search: 'public'},
-  {id: 2, user_id: 2, search: 'protected'},
-  {id: 3, user_id: 3, search: 'private'}
-];
-
 let sandbox, context;
 test.before(() => {
   sandbox = sinon.createSandbox();
@@ -23,30 +17,30 @@ test.before(() => {
 });
 test.after(() => sandbox.restore());
 
-test('privacity(userId)', async t => {
+test.serial('privacity(userId)', async t => {
   // Arrange
-  sandbox.replace(userActions, 'privacity', userId => privacities.find(p => p.user_id === userId));
+  sandbox.spy(userActions, 'privacity');
   // Act
-  const {data, errors} = await graphql(`query _($userId: Int!) {
+  await graphql(`query _($userId: Int!) {
     privacity(userId: $userId) {
       search
     }
   }`, {userId: 1}, context);
   // Assert
-  t.falsy(errors);
-  t.deepEqual(data.privacity.search, privacities[0].search);
+  t.truthy(userActions.privacity.calledOnce);
+  userActions.privacity.restore();
 });
 
-test('privacities', async t => {
+test.serial('privacities', async t => {
   // Arrange
-  sandbox.replace(privacityActions, 'findAll', () => privacities);
+  sandbox.spy(privacityActions, 'findAll');
   // Act
-  const {data, errors} = await graphql(`query _ {
+  await graphql(`query _ {
     privacities {
       search
     }
   }`, {}, context);
   // Assert
-  t.falsy(errors);
-  t.deepEqual(data.privacities, privacities.map(p => ({search: p.search})));
+  t.truthy(privacityActions.findAll.calledOnce);
+  privacityActions.findAll.restore();
 });

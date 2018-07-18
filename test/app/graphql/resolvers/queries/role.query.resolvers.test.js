@@ -15,32 +15,30 @@ test.before(() => {
 });
 test.after(() => sandbox.restore());
 
-test('role(name)', async t => {
+test.serial('role(name)', async t => {
   // Arrange
-  const expected = { name: 'user' };
-  sandbox.replace(roleActions, 'find', name => ({name}));
+  sandbox.spy(roleActions, 'find');
   // Act
-  const {data, errors} = await graphql(`query _($name: String!) {
+  await graphql(`query _($name: String!) {
     role(name: $name) {
       name
     }
-  }`, expected, context);
+  }`, {name: 'user'}, context);
   // Assert
-  t.falsy(errors);
-  t.deepEqual(data.role, expected);
+  t.truthy(roleActions.find.calledOnce);
+  roleActions.find.restore();
 });
 
-test('roles', async t => {
+test.serial('roles', async t => {
   // Arrange
-  const expected = [{name: 'user', name: 'admin'}];
-  sandbox.replace(roleActions, 'findAll', () => expected);
+  sandbox.spy(roleActions, 'findAll');
   // Act
-  const {data, errors} = await graphql(`query _ {
+  await graphql(`query _ {
     roles {
       name
     }
   }`, {}, context);
   // Assert
-  t.falsy(errors);
-  t.deepEqual(data.roles, expected);
+  t.truthy(roleActions.findAll.calledOnce);
+  roleActions.findAll.restore();
 });

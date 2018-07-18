@@ -5,21 +5,6 @@ import graphql from './../../server';
 import tagActions from './../../../../../app/actions/tags';
 import userActions from './../../../../../app/actions/users';
 
-const tags = [
-  {name: 'node', post_id: 1},
-  {name: 'js', post_id: 1},
-  {name: 'sql', post_id: 2}
-];
-
-const users = [
-  {username: 'hello node'},
-  {username: 'bye php'}
-];
-
-const findAllPostIdFn = (postId, limit) => tags.filter(t => t.post_id === postId).slice(0, limit);
-const searchByNameFn = (name, page, limit) => tags.filter(t => t.name.indexOf(name) > -1).slice(0, limit);
-const searchByUsernameFn = (username, page, limit) => users.filter(u => u.username.indexOf(username) > -1).slice(0, limit);
-
 let sandbox, context;
 test.before(() => {
   sandbox = sinon.createSandbox();
@@ -32,55 +17,54 @@ test.before(() => {
 });
 test.after(() => sandbox.restore());
 
-test('tag(name)', async t => {
+test.serial('tag(name)', async t => {
   // Arrange
-  const expected = { name: 'node' };
-  sandbox.replace(tagActions, 'findByName', name => ({name}));
+  sandbox.spy(tagActions, 'findByName');
   // Act
-  const {data, errors} = await graphql(`query _($name: String!) {
+  await graphql(`query _($name: String!) {
     tag(name: $name) {
       name
     }
-  }`, expected, context);
+  }`, { name: 'node' }, context);
   // Assert
-  t.falsy(errors);
-  t.deepEqual(data.tag, expected);
+  t.truthy(tagActions.findByName.calledOnce);
+  tagActions.findByName.restore();
 });
 
-test('tags(limit)', async t => {
+test.serial('tags(limit)', async t => {
   // Arrange
-  sandbox.replace(tagActions, 'findAll', (limit) => tags.slice(0, limit));
+  sandbox.spy(tagActions, 'findAll');
   // Act
-  const {data, errors} = await graphql(`query _ {
+  await graphql(`query _ {
     tags {
       name
     }
   }`, {}, context);
   // Assert
-  t.falsy(errors);
-  t.deepEqual(data.tags, tags.map(t => ({name: t.name})));
+  t.truthy(tagActions.findAll.calledOnce);
+  tagActions.findAll.restore();
 });
 
-test('tags(postId, limit)', async t => {
+test.serial('tags(postId, limit)', async t => {
   // Arrange
-  sandbox.replace(tagActions, 'findAllByPostId', findAllPostIdFn);
+  sandbox.spy(tagActions, 'findAllByPostId');
   // Act
-  const {data, errors} = await graphql(`query _($postId: Int!, $limit: Int!) {
+  await graphql(`query _($postId: Int!, $limit: Int!) {
     tags(postId: $postId, limit: $limit) {
       name
     }
   }`, {postId: 2, limit: 2}, context);
   // Assert
-  t.falsy(errors);
-  t.deepEqual(data.tags, [{name: tags[2].name}]);
+  t.truthy(tagActions.findAllByPostId.calledOnce);
+  tagActions.findAllByPostId.restore();
 });
 
-test('search(search, page, limit)', async t => {
+test.serial('search(search, page, limit)', async t => {
   // Arrange
-  sandbox.replace(userActions, 'searchByUsername', searchByUsernameFn);
-  sandbox.replace(tagActions, 'searchByName', searchByNameFn);
+  sandbox.spy(userActions, 'searchByUsername');
+  sandbox.spy(tagActions, 'searchByName');
   // Act
-  const {data, errors} = await graphql(`query _($search: String!, $page: Int, $limit: Int) {
+  await graphql(`query _($search: String!, $page: Int, $limit: Int) {
     search(search: $search, page: $page, limit: $limit) {
       ...on Tag {
         name
@@ -91,6 +75,8 @@ test('search(search, page, limit)', async t => {
     }
   }`, {search: 'node', page: 1, limit: 2}, context);
   // Assert
-  t.falsy(errors);
-  t.is(data.search.length, 2);
+  t.truthy(userActions.searchByUsername.calledOnce);
+  userActions.searchByUsername.restore();
+  t.truthy(tagActions.searchByName.calledOnce);
+  tagActions.searchByName.restore();
 });
