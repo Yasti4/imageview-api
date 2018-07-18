@@ -21,7 +21,7 @@ test.afterEach(() => sandbox.restore());
 
 test.serial('createComment(input)', async t => {
   // Arrange
-  sandbox.spy(commentActions, 'create');
+  sandbox.replace(commentActions, 'create', () => 1);
   sandbox.spy(commentActions, 'findById');
   // Act
   await graphql(`mutation _($input: CommentInput!) {
@@ -30,13 +30,11 @@ test.serial('createComment(input)', async t => {
     }
   }`, {input: {content: 'A comment', post_id: 1}}, context);
   // Assert
-  t.truthy(commentActions.create.calledOnce);
-  commentActions.create.restore();
   t.truthy(commentActions.findById.calledOnce);
   commentActions.findById.restore();
 });
 
-test.serial('updateComment(id, comment, withTrashed = false)', async t => {
+test.serial('updateComment(id, comment)', async t => {
   // Arrange
   sandbox.spy(commentActions, 'updateByIdAndUserId');
   // Act
@@ -62,7 +60,7 @@ test.serial('updateComment(id, comment, withTrashed = false)', async t => {
   commentActions.updateById.restore();
 });
 
-test.serial('updateAlbum(id, input, withTrashed = true)', async t => {
+test.serial('updateComment(id, input)', async t => {
   // Arrange
   sandbox.spy(commentActions, 'updateByIdAndUserId');
   // Act

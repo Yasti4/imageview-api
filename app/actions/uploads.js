@@ -37,7 +37,11 @@ function findAllImagesByFileId(fileId, limit = defaultLimit) {
   return table('images').limit(limit).all('file_id', fileId);
 }
 
-async function uploadImage(file) {
+async function uploadImage(file = null) {
+  if (!file) {
+    return null;
+  }
+
   const path = `${process.env.IMAGES_FOLDER}/raw`;
   const fileData = await saveImage(file, {uploadDir: path});
   const filename = `${fileData.filename.split('.')[0]}.jpg`;
@@ -59,7 +63,7 @@ async function uploadImage(file) {
     }
 
     for (let i = 0; i < imagesPayload.length; i = i + 1) {
-      await insertImage({...imagesPayload[i], file_id: file_id});
+      await insertImage(Object.assign({}, imagesPayload[i], {file_id}));
     }
 
     return findFileById(file_id);

@@ -35,7 +35,7 @@ test.serial('createAlbum(input)', async t => {
   albumActions.findById.restore();
 });
 
-test.serial('updateAlbum(id, input, withTrashed = false)', async t => {
+test.serial('updateAlbum(id, input, withTrashed)', async t => {
   // Arrange
   sandbox.spy(albumActions, 'updateByIdAndUserId');
   // Act
@@ -61,7 +61,7 @@ test.serial('updateAlbum(id, input, withTrashed = false)', async t => {
   albumActions.updateById.restore();
 });
 
-test.serial('updateAlbum(id, input, withTrashed = true)', async t => {
+test.serial('updateAlbum(id, input, withTrashed)', async t => {
   // Arrange
   sandbox.spy(albumActions, 'updateByIdAndUserId');
   // Act

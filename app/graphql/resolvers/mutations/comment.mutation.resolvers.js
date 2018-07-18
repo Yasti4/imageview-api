@@ -2,7 +2,7 @@
 
 module.exports = {
   createComment: async (parent, args, context) => {
-    const id = await context.actions.comments.create({...args.input, user_id: context.userAuth.id});
+    const id = await context.actions.comments.create(Object.assign({}, args.input, {user_id: context.userAuth.id}));
     return context.actions.comments.findById(id);
   },
   updateComment: async (parent, args, context) => {

@@ -1,6 +1,6 @@
 'use strict';
 
-const {sendMail} = require('./../../../helpers');
+const {sendMail} = require('./../../../helpers/mail');
 
 module.exports = {
   signIn: async (parent, args, context) => {

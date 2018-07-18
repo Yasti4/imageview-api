@@ -14,7 +14,7 @@ module.exports = `type Mutation {
   updateComment(id: Int!, content: String!, withTrashed: Boolean = false): Boolean!
   deleteComment(id: Int!, softDelete: Boolean = true): Boolean!
 
-  uploadImage(file: Upload!, withTrashed: Boolean = false): File
+  uploadImage(file: Upload = null): File
 
   signIn(email: String!, password: String!): JWT
   createUser(input: UserInput!): User
