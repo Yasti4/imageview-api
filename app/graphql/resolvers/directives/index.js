@@ -1,5 +1,5 @@
 'use strict';
 
-module.exports = {
-  ...require('./auth.directives.resolvers')
-};
+module.exports = Object.assign({},
+  require('./auth.directives.resolvers')
+);
