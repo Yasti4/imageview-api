@@ -9,7 +9,7 @@ import postActions from './../../../../../app/actions/posts';
 import albumActions from './../../../../../app/actions/albums';
 
 let sandbox, context;
-test.beforeEach(() => {
+test.before(() => {
   sandbox = sinon.createSandbox();
   context = {
     actions: {
@@ -25,7 +25,7 @@ test.beforeEach(() => {
   };
   sandbox.stub(postActions, 'findById').callsFake(id => ({id}));
 });
-test.afterEach(() => sandbox.restore());
+test.after(() => sandbox.restore());
 
 test.serial('enableComments', async t => {
   // Act

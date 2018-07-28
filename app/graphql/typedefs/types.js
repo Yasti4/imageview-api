@@ -102,12 +102,12 @@ module.exports = `
     following: [User!]!
     followers: [User!]!
     posts: [Post!]!
-    postsLikes: [Post!]!
+    postsLikes: Int!
     albums: [Album!]!
-    albumsSubscriptions: [Album!]!
-    albumsLikes: [Album!]!
+    albumsSubscriptions: Int!
+    albumsLikes: Int!
     comments: [Comment!]!
-    commentsLikes: [Comment!]!
+    commentsLikes: Int!
   }
 
   type Visibility {
