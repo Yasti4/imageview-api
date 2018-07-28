@@ -19,6 +19,11 @@ services:
             - mysql_volumen:/var/lib/mysql
         env_file:
             - .env
+        env:
+            - 'MYSQL_ROOT_PASSWORD:${DB_PASSWORD}'
+            - 'MYSQL_USER:${DB_USERNAME}'
+            - 'MYSQL_PASSWORD:${DB_PASSWORD}'
+            - 'MYSQL_DATABASE:${DB_DATABASE}'
         ports: 
             - '${DB_PORT}:${DB_PORT}'
         networks:
