@@ -27,7 +27,7 @@ module.exports = {
       return context.actions.uploads.findAllImagesByFileId(parent.file_id);
     },
     likes: async (parent, args, context) => {
-      return context.actions.posts.like(parent.id);
+      return context.actions.posts.likes(parent.id);
     }
   }
 };
