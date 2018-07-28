@@ -3,7 +3,7 @@ An API for an image sharing platform.
 
 ## Installation
 
-**Make sure are using Node 8+, NPM 5+ and MySQL 5.5+**
+**Make sure are using Node 6+, NPM 5+ and MySQL 5.5+**
 
 ``` sh
 cp .env.example .env
@@ -29,6 +29,7 @@ npm run docker:up # with Docker
 
 - Framework: [express](https://expressjs.com/en/4x/api.html)
 - MySQL driver: [mysql](https://github.com/mysqljs/mysql#mysql)
+- PostgreSQL driver: [pg](https://node-postgres.com)
 - ORM: [tabel](http://tabel.fractaltech.in/)
 - GraphQL server: [apollo-server-express](https://www.apollographql.com/docs/apollo-server)
 - JSON Web Token: [jwt-simple](https://github.com/hokaccha/node-jwt-simple)

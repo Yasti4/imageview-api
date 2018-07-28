@@ -8,6 +8,7 @@ module.exports = {
   findImageById,
   findAllImages,
   findAllImagesByFileId,
+  type,
   uploadImage
 };
 
@@ -35,6 +36,11 @@ function findAllImages(limit = defaultLimit) {
 
 function findAllImagesByFileId(fileId, limit = defaultLimit) {
   return table('images').limit(limit).all('file_id', fileId);
+}
+
+function type(width, height) {
+  const types = {160: 'xs', 320: 'sm', 640: 'md', 1024: 'lg'};
+  return types[width] || types[height] || 'unknown';
 }
 
 async function uploadImage(file = null) {
