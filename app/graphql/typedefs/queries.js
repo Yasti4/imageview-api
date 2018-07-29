@@ -15,11 +15,11 @@ module.exports = `type Query {
   posts(userId: Int, albumId: Int, limit: Int, withTrashed: Boolean = false): [Post!]!
   feed(page: Int = 1, limit: Int = 10): [Post!]!
 
-  privacity(userId: Int!): Privacity
-  privacities: [Privacity!]!
+  privacity(userId: Int!): Privacity @auth(as: "owner")
+  privacities: [Privacity!]! @auth(as: "admin")
 
   role(name: String!): Role
-  roles: [Role!]!
+  roles: [Role!]! @auth(as: "admin")
 
   tag(name: String!): Tag
   tags(postId: Int, limit: Int): [Tag!]!
@@ -27,7 +27,7 @@ module.exports = `type Query {
   search(search: String!, page: Int = 1, limit: Int = 10): [SearchResult!]!
 
   user(id: Int, username: String, email: String, withTrashed: Boolean = false): User
-  users(limit: Int, withTrashed: Boolean = false): [User!]!
+  users(limit: Int, withTrashed: Boolean = false): [User!]! @auth(as: "admin")
   me(token: String): User
 
   visibility(name: String!): Visibility

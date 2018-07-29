@@ -9,7 +9,7 @@ module.exports = `
     visibility: String!
     createdAt: Date
     updatedAt: Date
-    deletedAt: Date
+    deletedAt: Date @auth(as: "admin")
     posts: [Post!]!
     subscribers: [User!]!
     likes: Int!
@@ -20,7 +20,7 @@ module.exports = `
     content: String!
     createdAt: Date
     updatedAt: Date
-    deletedAt: Date
+    deletedAt: Date @auth(as: "admin")
     user: User!
     post: Post!
     likes: Int!
@@ -31,7 +31,7 @@ module.exports = `
     filename: String!
     createdAt: Date
     updatedAt: Date
-    deletedAt: Date
+    deletedAt: Date @auth(as: "admin")
     images: [Image!]!
     user: User
     post: Post
@@ -58,7 +58,7 @@ module.exports = `
     enableComments: Boolean
     createdAt: Date
     updatedAt: Date
-    deletedAt: Date
+    deletedAt: Date @auth(as: "admin")
     user: User!
     album: Album
     file: File!
@@ -97,7 +97,7 @@ module.exports = `
     role: String!
     createdAt: Date
     updatedAt: Date
-    deletedAt: Date
+    deletedAt: Date @auth(as: "admin")
     image: Image!
     following: [User!]!
     followers: [User!]!
@@ -112,8 +112,8 @@ module.exports = `
 
   type Visibility {
     name: String!
-    albums: [Album!]!
-    posts: [Post!]!
+    albums: [Album!]! @auth(as: "admin")
+    posts: [Post!]! @auth(as: "admin")
   }
 
 `;

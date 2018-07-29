@@ -3,7 +3,7 @@
 module.exports = `
   
   directive @auth(
-    role: String = "user"
+    role: String = "admin"
   ) on OBJECT | FIELD_DEFINITION
 
 `;

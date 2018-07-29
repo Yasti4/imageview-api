@@ -5,7 +5,7 @@ module.exports = function (showMockData) {
   showMockData = showMockData || false;
   return {
     typeDefs: `
-      # ${require('./typedefs/directives')}
+      ${require('./typedefs/directives')}
       ${require('./typedefs/interfaces')}
       ${require('./typedefs/scalars')}
       ${require('./typedefs/unions')}
@@ -23,12 +23,11 @@ module.exports = function (showMockData) {
     resolverValidationOptions: showMockData ? {
       requireResolversForResolveType: false
     } : {},
-    schemaDirectives: {
-      // ...require('./resolvers/directives')
-    },
+    schemaDirectives: require('./resolvers/directives'),
     context: ({req}) => ({
       actions,
       isAdmin: req.isAuth ? req.userAuth.role === 'admin' : false,
+      isUser: req.isAuth ? req.userAuth.role === 'user' : false,
       isAuth: req.isAuth,
       userAuth: req.userAuth
     }),
