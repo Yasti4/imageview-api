@@ -1,10 +1,9 @@
-const {makeExecutableSchema, addMockFunctionsToSchema} = require('graphql-tools');
 const mocks = require('./mocks');
+const actions = require('./../actions');
 
 module.exports = function (showMockData) {
   showMockData = showMockData || false;
-
-  const schema = makeExecutableSchema({
+  return {
     typeDefs: `
       # ${require('./typedefs/directives')}
       ${require('./typedefs/interfaces')}
@@ -26,16 +25,14 @@ module.exports = function (showMockData) {
     } : {},
     schemaDirectives: {
       // ...require('./resolvers/directives')
-    }
-  });
-
-  if (showMockData) {
-    addMockFunctionsToSchema({
-      schema,
-      mocks,
-      preserveResolvers: true
-    });
-  }
-
-  return schema;
+    },
+    context: ({req}) => ({
+      actions,
+      isAdmin: req.isAuth ? req.userAuth.role === 'admin' : false,
+      isAuth: req.isAuth,
+      userAuth: req.userAuth
+    }),
+    mocks: showMockData ? mocks : false,
+    playground: showMockData ? {} : {settings: {'editor.theme': 'light'}}
+  };
 };

@@ -1,6 +1,8 @@
 'use strict';
 
+const {isTesting} = require('./../../util');
+
 module.exports = `
   scalar Date
-  scalar Upload
+  ${isTesting ? 'scalar Upload' : ''}
 `;

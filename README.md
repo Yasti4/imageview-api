@@ -20,9 +20,11 @@ npm run db:seed run
 ``` sh
 npm test # require database
 
-npm start # without Docker
+npm start # prod env
 
-npm run docker:up # with Docker
+npm run dev # dev env without Docker
+
+npm run docker:up # dev env with Docker
 ```
 
 ## API reference
@@ -40,7 +42,7 @@ npm run docker:up # with Docker
 - Linter: [eslint](https://eslint.org/docs/rules)
 - Test runner: [ava](https://github.com/avajs/ava)
 - Test coverage: [nyc](https://github.com/istanbuljs/nyc#nyc)
-- Tests spies, stubs and mocks: [sinon](http://sinonjs.org/releases/v6.1.3)
+- Tests spies, stubs and mocks: [sinon](http://sinonjs.org/releases/v6.1.4)
 
 ## License
 

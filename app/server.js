@@ -5,14 +5,18 @@ const bodyParser = require('body-parser');
 const errorhandler = require('errorhandler');
 const cors = require('cors');
 const compression = require('compression');
-const {handleAsyncExceptions} = require('./util');
-const graphqlServer = require('./graphql/server');
+const {ApolloServer} = require('apollo-server-express');
+const {apolloUploadExpress} = require('apollo-upload-server');
+
+const authMiddleware = require('./middlewares/auth');
+const {handleAsyncExceptions, isTesting} = require('./util');
+const schema = require('./graphql/schema')(isTesting);
 
 function run() {
   const app = express();
   app.set('root', `${__dirname}/..`);
   // enable public folder
-  app.use('/static', express.static(`${__dirname}'/../static`));
+  app.use('/', express.static(`${__dirname}'/../static`));
   // parse application/x-www-form-urlencoded
   app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 50000}));
   // parse application/json
@@ -26,21 +30,33 @@ function run() {
   // set the base uri
   const baseUrl = `${process.env.APP_URL}:${process.env.APP_PORT}`;
   app.set('baseUrl', baseUrl);
-  // mount the routes
-  app.use(graphqlServer);
+  // set middlewares
+  app.use(authMiddleware);
+  app.use(apolloUploadExpress());
+  // mount web
+  app.get('/', (req, res) => {
+    res.status(200).send('<img src="/icons/logo/black/logo@3x.png"><br>Building Web…');
+  });
+  // mount docs
+  app.get('/docs', (req, res) => {
+    res.status(200).send('<img src="/icons/logo/black/logo@3x.png"><br>Building Docs…');
+  });
+  // mount api
+  const apolloServer = new ApolloServer(schema);
+  apolloServer.applyMiddleware({app, path: '/api'});
   // mount server
   app.listen(+process.env.APP_PORT, () => {
-    console.log('\n\x1b[34m∞ Web Running at\x1b[0m', baseUrl);
-    console.log('\x1b[36m∞ Intranet Running at\x1b[0m', `${baseUrl}/intranet`);
-    console.log('\n\x1b[31m∞ API Running at\x1b[0m', `${baseUrl}/api`);
-    console.log('\x1b[35m∞ GraphiQL Running at\x1b[0m', `${baseUrl}/graphiql`);
-    console.log('\n\x1b[32mBy yasti4 & ticdenis 💃\x1b[0m');
+    console.log('\n\x1b[34m∞ Web at\x1b[0m', `${baseUrl}/`);
+    console.log('\x1b[36m∞ Docs at\x1b[0m', `${baseUrl}/docs`);
+    console.log('\x1b[31m∞ API at\x1b[0m', `${baseUrl}${apolloServer.graphqlPath}`);
+    console.log('\n\x1b[32mImageView running 🚀\x1b[0m');
   });
+  return app;
 }
-
-module.exports = run;
 
 if (require.main === module) {
   handleAsyncExceptions();
   run();
 }
+
+module.exports = run;
